@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 import getSongs from "@/util/getSongs";
+import fetchRecent from "@/util/spotify/fetchRecent";
 
 import PageContent from "./components/PageContent";
 
@@ -8,9 +9,11 @@ export const revalidate = 0;
 
 export default async function Home() {
   const songs = await getSongs();
+  
+  const recentlyPlayed = await fetchRecent();
 
   return (
-    <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overlow-y-auto">
+    <div className="bg-neutral-900 rounded-lg h-full w-full overflow overlow-y-auto">
       <Header>
         <div className="mb-2">
           <h1 className="text-white text-3xl font-semibold">Welcome Back</h1>
@@ -27,7 +30,7 @@ export default async function Home() {
         <div>
           <h1 className="text-white text-2xl font-semibold">Newest Songs</h1>
         </div>
-        <PageContent songs={songs}/>
+        <PageContent songs={recentlyPlayed}/>
       </div>
     </div>
   );

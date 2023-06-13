@@ -32,6 +32,7 @@ const UploadModal = () => {
       title: '',
       song: null,
       image: null,
+      spotify_url: false,
     }
   });
 
