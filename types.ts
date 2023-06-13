@@ -4,10 +4,32 @@ export interface Song {
   id: string;
   user_id: string;
   author: string;
+  author_id: string;
+  album_id: string;
   title: string;
   song_path: string;
   image_path: string;
   spotify_url: boolean;
+}
+
+export interface Artist {
+  id: string,
+  name: string,
+  type: string,
+  image_path: string,
+  follower_count: number,
+  genres: string[],
+}
+
+export interface Album {
+  id: string,
+  name: string,
+  songs: Song[],
+  track_count: number,
+  image_path: string,
+  release_date: string,
+  artists: Artist[],
+  genres: string[],
 }
 
 export interface Product {
