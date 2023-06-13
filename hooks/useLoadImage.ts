@@ -9,12 +9,17 @@ const useLoadImage = (song: Song) => {
     return null;
   }
 
-  const { data: imageData } = supabaseClient
-    .storage
-    .from('images')
-    .getPublicUrl(song.image_path);
+  if (song.spotify_url) {
+    // The boolean value is true
+    return song.image_path;
+  } else {
+    // The boolean value is false
+    const { data: imageData } = supabaseClient.storage
+      .from("images")
+      .getPublicUrl(song.image_path);
 
-  return imageData.publicUrl;
+    return imageData.publicUrl;
+  }
 };
 
 export default useLoadImage;

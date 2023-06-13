@@ -6,15 +6,20 @@ const useLoadSongUrl = (song: Song) => {
   const supabaseClient = useSupabaseClient();
 
   if (!song) {
-    return '';
+    return null;
   }
 
-  const { data: songData } = supabaseClient
-  .storage
-  .from('songs')
-  .getPublicUrl(song.song_path);
+  if (song.spotify_url) {
+    // The boolean value is true
+    return song.song_path;
+  } else {
+    // The boolean value is false
+    const { data: songData } = supabaseClient.storage
+      .from("songs")
+      .getPublicUrl(song.song_path);
 
-  return songData.publicUrl;
+    return songData.publicUrl;
+  }
 };
 
 export default useLoadSongUrl;
