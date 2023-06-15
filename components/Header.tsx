@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-
+import Link from "next/link";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
@@ -44,13 +44,13 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         `
     h-fit
     bg-gradient-to-b
-    from-emerald-800
-    p-6
+    from-amber-900
+    
     `,
         className
       )}
     >
-      <div className="w-full mb-4 flex items-center justify-between">
+      <div className="p-6 w-full mb-2 flex items-center justify-between sticky top-0 z-10 backdrop-blur">
         <div className="hidden md:flex gap-x-2 items-center">
           <button className="rounded-full bg-black flex items-center justify-center hover:opacity-75 transition">
             <RxCaretLeft
@@ -68,12 +68,16 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           </button>
         </div>
         <div className="flex md:hidden gap-x-2 items-center">
-          <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity:-75 transition">
-            <HiHome size={20} className="text-black" />
-          </button>
+          <Link href="/">
+            <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity:-75 transition">
+              <HiHome size={20} className="text-black" />
+            </button>
+          </Link>
+          <Link href="/search">
           <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity:-75 transition">
             <BiSearch size={20} className="text-black" />
           </button>
+          </Link>
         </div>
         <div className="flex justify-between items-center gap-x-4">
           {user ? (
@@ -110,7 +114,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           )}
         </div>
       </div>
-      {children}
+      {children ? <div className="p-6">{children}</div> : ""}
     </div>
   );
 };

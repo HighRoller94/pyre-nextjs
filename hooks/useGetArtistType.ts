@@ -1,14 +1,16 @@
+"use client"
+
 import { Song } from "@/types";
 
 const useGetArtist = (song: Song) => {
   if (!song) {
     return null;
   }
-  console.log(song);
+
   if (song.spotify_url) {
-    return `/spotifyArtists/${song.id}`;
+    return `/spotify/artist`;
   } else {
-    return `/artists/${song.id}`;
+    return `/artist`;
   }
 };
 

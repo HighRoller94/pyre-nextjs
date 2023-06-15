@@ -10,7 +10,6 @@ const fetchSpotifySongById = async (id: string) => {
     );
     const data = await res.json();
 
-    console.log(data)
     const songById: Song = {
       id: data.id,
       user_id: data.artists[0].id,
@@ -19,6 +18,7 @@ const fetchSpotifySongById = async (id: string) => {
       song_path: data.preview_url,
       image_path: data.album.images[0].url,
       spotify_url: true,
+      duration: data.duration_ms
     };
 
     // for (let i = 0; i < getRecentlyPlayed.items?.length; i++) {

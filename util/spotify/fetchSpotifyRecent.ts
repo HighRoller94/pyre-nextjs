@@ -1,7 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Song } from "@/types";
-import { get } from "http";
 
 const fetchRecentlyPlayed = async () => {
   let uniquePlays: object[];
@@ -12,15 +11,13 @@ const fetchRecentlyPlayed = async () => {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  let token = session?.provider_token;
 
+  let token = session?.provider_token;
   try {
     const res = await fetch(
       `https://api.spotify.com/v1/me/player/recently-played?access_token=${token}`
     );
     const getRecentlyPlayed = await res.json();
-
-    console.log(getRecentlyPlayed.track)
 
     const playedClass: Song[] = getRecentlyPlayed.items.map((song) => ({
       id: song.track.id,
@@ -32,9 +29,9 @@ const fetchRecentlyPlayed = async () => {
       spotify_url: true,
     }));
 
-    for (let i = 0; i < getRecentlyPlayed.items?.length; i++) {
-      console.log(getRecentlyPlayed.items[0].track)
-    }
+    // for (let i = 0; i < getRecentlyPlayed.items?.length; i++) {
+
+    // }
 
     return playedClass;
   } catch (err) {

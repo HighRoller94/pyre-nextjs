@@ -7,6 +7,7 @@ import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import getSongsByUserId from "@/util/getSongsByUserId";
+import fetchRecentlyPlayed from "@/util/spotify/fetchSpotifyRecent";
 const font = Figtree({ subsets: ["latin"] });
 
 export const metadata = {
@@ -21,6 +22,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const recentPlayed = await fetchRecentlyPlayed();
   const userSongs = await getSongsByUserId();
   return (
     <html lang="en">
@@ -29,7 +32,7 @@ export default async function RootLayout({
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider />
-            <Sidebar songs={userSongs}>{children}</Sidebar>
+            <Sidebar songs={recentPlayed ? recentPlayed : userSongs}>{children}</Sidebar>
             <Player />
           </UserProvider>
         </SupabaseProvider>

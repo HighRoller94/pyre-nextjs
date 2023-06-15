@@ -9,7 +9,7 @@ const Liked = async () => {
   return (
     <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overlow-y-auto">
       <Header>
-        <div className="mt-20">
+        <div className="md:mt-6">
           <div className="flex flex-col md:flex-row items-center gap-x-5">
             <div className="relative h-32 w-32 lg:h-44 lg:w-44">
               <Image

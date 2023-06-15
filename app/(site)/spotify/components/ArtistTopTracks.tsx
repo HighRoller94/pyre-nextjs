@@ -1,15 +1,15 @@
 "use client";
 
-import MediaItem from "@/components/MediaItem";
+import Track from "@/components/Track";
 import { Song } from "@/types";
 import LikeButton from "@/components/LikeButton";
 import useOnPlay from "@/hooks/useOnPlay";
 
-interface SearchContentProps {
+interface TopTracksProps {
   songs: Song[];
 }
 
-const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
+const TopTracks: React.FC<TopTracksProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs);
 
   if (songs.length === 0) {
@@ -19,18 +19,19 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
       </div>
     );
   }
+
   return (
-    <div className="flex flex-col gap-y-2 w-full px-6">
-      {songs.map((song) => (
+    <div
+      className="flex flex-col lg:grid lg:grid-cols-2 gap-y-2 gap-x-6 w-full px-6 mt-4">
+      {songs.map((song, i) => (
         <div className="flex items-center gap-x-4 w-full" key={song.id}>
-          <div className="flex-1">
-            <MediaItem onClick={() => onPlay(song)} data={song} />
+          <div className="w-full">
+            <Track onClick={() => onPlay(song)} data={song} index={i} />
           </div>
-          <LikeButton songId={song.id} />
         </div>
       ))}
     </div>
   );
 };
 
-export default SearchContent;
+export default TopTracks;
