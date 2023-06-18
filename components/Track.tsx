@@ -1,24 +1,45 @@
 "use client";
 
+import qs from "query-string";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+
+import { Artist } from "@/types";
 import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
-import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
+import { fetchLikeStatus } from "@/util/spotify/fetchLikeStatus";
 import LikeButton from "@/components/LikeButton";
 import PlayingAnim from "./PlayngAnim";
+import dayjs, { Dayjs } from "dayjs";
 import { FaPlay } from "react-icons/fa";
 
 interface TrackProps {
   data: Song;
   index: number;
   onClick?: (id: string) => void;
-}
+} 
 
 const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
+  const router = useRouter();
   const player = usePlayer();
   const imageUrl = useLoadImage(data);
-  const durationDate = new Date(data.duration);
-  const duration = `${durationDate.getMinutes()}:${durationDate.getSeconds()}`;
+  const duration = require("dayjs/plugin/duration");
+  const likedStatus = fetchLikeStatus(data.id)
+  
+  dayjs.extend(duration);
+
+  const minutes = dayjs.duration<Dayjs | null>(data.duration).minutes()
+  const seconds = dayjs.duration<Dayjs | null>(data.duration).seconds().toString().padStart(2, '0');
+
+  const generateUrlAndNavigate = (id: string, path: string) => {
+    const query = { id };
+    const url = qs.stringifyUrl({
+      url: `/spotify/${path}`,
+      query,
+    });
+    router.push(url);
+  };
 
   const handleClick = () => {
     if (onClick) {
@@ -51,7 +72,14 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
           )}
         </div>
         {imageUrl ? (
-          <div className="relative rounded-md min-h-[44px] min-w-[44px] overflow-hidden ml-2">
+          <div
+            onClick={
+              data.album_id
+                ? () => generateUrlAndNavigate(data.album_id, "album")
+                : null
+            }
+            className="relative rounded-md min-h-[44px] min-w-[44px] overflow-hidden ml-2"
+          >
             <Image
               fill
               src={imageUrl || `images/liked.png`}
@@ -62,14 +90,30 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
         ) : (
           ""
         )}
-        <div className="ml-4 gap-y-1 w-6/12 lg:w-4/12" >
-          <p className="text-white  truncate">{data.title}</p>
+        <div className="ml-4 gap-y-1 w-8/12 lg:w-12/12 flex items-center">
+          <p className="text-white w-100 truncate">{data.title}</p>
+          <div>
+            <div className="flex ml-2 mt-0.5 items-center">
+              {data.artists
+                ? data?.artists.map((artist, i) => (
+                    <span key={artist.id}
+                      onClick={() =>
+                        generateUrlAndNavigate(data.author_id, "artist")
+                      }
+                      className="text-neutral-400 text-sm hover:underline font-medium ml-4"
+                    >
+                      <>{artist.name}</>
+                    </span>
+                  ))
+                : ""}
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="hidden sm:flex items-center justify-between mr-2">
-        <p className="text-neutral-400 mr-4">{duration}</p>
-        <LikeButton songId={data.id} />
+        <LikeButton songId={data.id} spotifyUrl={data.spotify_url} />
+        <p className="text-neutral-400">{minutes}:{seconds}</p>
       </div>
     </div>
   );

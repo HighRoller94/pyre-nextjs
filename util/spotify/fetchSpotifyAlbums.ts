@@ -1,7 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-import { Artist } from "@/types";
 import { Album } from "@/types";
 import { Song } from "@/types";
 
@@ -16,13 +15,17 @@ export const fetchSpotifyArtistAlbums = async (id: string) => {
 
   let token = session?.provider_token;
 
+  if (!token) {
+    return
+  }
+  
   try {
     const res = await fetch(
       `https://api.spotify.com/v1/artists/${id}/albums?access_token=${token}`
     );
     const getArtistAlbums = await res.json();
 
-    const artistAlbums: Album[] = getArtistAlbums.items.map((album) => ({
+    const artistAlbums: Album[] = getArtistAlbums.items.map((album: any) => ({
       id: album.id,
       name: album.name,
       track_count: album.total_tracks,
@@ -69,16 +72,7 @@ export const fetchSpotifyAlbum = async (id: string) => {
           author: item.artists[0].name,
           spotify_url: true,
           duration: item.duration_ms,
-          artists: item.artists.map((artist: any) => {
-            const songArtist: Artist = {
-              id: artist.id,
-              name: artist.name,
-              type: artist.type,
-              spotify_url: true,
-              href: `/spotifyArtists/${artist.id}`,
-            };
-            return songArtist;
-          }),
+          artists: item.artists,
         };
         return song;
       }),

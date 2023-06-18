@@ -8,6 +8,8 @@ import PlayButton from "./PlayButton";
 import { Song } from "@/types";
 import useGetArtist from "@/hooks/useGetArtistType";
 
+import { FaSpotify } from "react-icons/fa";
+
 interface SongItemProps {
   data: Song;
   onClick: (id: string) => void;
@@ -19,7 +21,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
   const link = useGetArtist(data);
   const query = {
     id: data.user_id,
-  };
+  }; 
   const url = qs.stringifyUrl({
     url: `${link}`,
     query: query,
@@ -47,11 +49,18 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
         <p className="font-semibold truncate w-full">{data.title}</p>
         <p
           onClick={Link}
-          className="text-neutral-400 text-sm mb-4 w-full truncate cursor-pointer hover:text-white"
+          className="text-neutral-400 text-sm mb-4 w-10/12 truncate cursor-pointer hover:text-white"
         >
-          By {data.author}
+          {data.author}
         </p>
       </div>
+      {data.spotify_url ? (
+        <div className="absolute bottom-3 right-3">
+          <FaSpotify size={20} className="text-green-500" />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

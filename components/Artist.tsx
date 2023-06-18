@@ -13,7 +13,6 @@ interface ArtistItemProps {
 const ArtistItem: React.FC<ArtistItemProps> = ({ data }) => {
   const router = useRouter();
 
-  console.log(data)
   const query = { 
     id: data.id,
   };
@@ -29,7 +28,7 @@ const ArtistItem: React.FC<ArtistItemProps> = ({ data }) => {
 
   return (
     <div onClick={Link} className="relative group flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral/10 transition p-3 pb-1">
-      <div className="relative aspect-square w-full h-full rounded-md overflow-hidden">
+      <div className="relative aspect-square w-11/12 h-11/12 rounded-full overflow-hidden mt-2">
         <Image
           src={data.image_path || "/images/liked.png"}
           className="object-cover"

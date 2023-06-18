@@ -8,17 +8,21 @@ import { useUser } from "@/hooks/useUser";
 import MediaItem from "@/components/MediaItem";
 import LikeButton from "@/components/LikeButton";
 import useOnPlay from "@/hooks/useOnPlay";
+import Track from "@/components/Track";
 
 interface LikedContentProps {
-  songs: Song[];
+  pyreLikedSongs: Song[];
+  spotifyLikedSongs: Song[];
 };
 
 const LikedContent: React.FC<LikedContentProps> = ({
-  songs
+  pyreLikedSongs,
+  spotifyLikedSongs
 }) => {
+  const mergedSongs = [...pyreLikedSongs, ...spotifyLikedSongs];
   const router = useRouter();
   const { isLoading, user } = useUser();
-  const onPlay = useOnPlay(songs);
+  const onPlay = useOnPlay(mergedSongs);
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -26,7 +30,7 @@ const LikedContent: React.FC<LikedContentProps> = ({
     }
   }, [isLoading, user, router]);
 
-  if (songs.length === 0) {
+  if (mergedSongs.length === 0) {
     return (
       <div 
         className="
@@ -43,16 +47,15 @@ const LikedContent: React.FC<LikedContentProps> = ({
   }
   return ( 
     <div className="flex flex-col gap-y-2 w-full p-6">
-      {songs.map((song: any) => (
+      {mergedSongs.map((song: any, i) => (
         <div 
           key={song.id} 
           className="flex items-center gap-x-4 w-full"
           onClick={() => onPlay(song)}
         >
           <div className="flex-1">
-            <MediaItem data={song}/>
+            <Track onClick={() => onPlay(song)} data={song} index={i} />
           </div>
-          <LikeButton songId={song.id} />
         </div>
       ))}
     </div>

@@ -3,13 +3,21 @@
 import usePlayer from "@/hooks/usePlayer";
 import useLoadSongUrl from "@/hooks/useLoadSongUrl";
 import useGetSongById from "@/hooks/useGetSongById";
-
+import useGetSpotifyDeviceId from "@/hooks/useGetSpotifyDeviceId";
 import PlayerContent from "./PlayerContent";
+import useSpotify from "@/hooks/useSpotify";
 
-const Player = () => {
-  const player = usePlayer(); 
-  const { song } = useGetSongById(player.playing);
-  
+interface PlayerProps {
+  status: string;
+  devices: [];
+}
+
+const Player: React.FC<PlayerProps> = ({ status, devices }) => {
+  const player = usePlayer();
+  const deviceId = useGetSpotifyDeviceId(devices)
+  console.log(deviceId);
+  const { song } = useGetSongById(player.playing, status);
+
   const songUrl = useLoadSongUrl(song!);
 
   if (!song || !songUrl || !player.activeId) {
@@ -17,7 +25,7 @@ const Player = () => {
   }
 
   return (
-    <div 
+    <div
       className="
         fixed 
         bottom-0 
@@ -31,6 +39,6 @@ const Player = () => {
       <PlayerContent key={songUrl} song={song} songUrl={songUrl} />
     </div>
   );
-}
+};
 
 export default Player;

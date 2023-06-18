@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 
 import { Playlist } from "@/types";
 import { Song } from "@/types";
-import { Artist } from "@/types";
 
 export const fetchSpotifyPlaylist = async (id: string) => {
   const supabase = createServerComponentClient({
@@ -41,7 +40,8 @@ export const fetchSpotifyPlaylist = async (id: string) => {
           image_path: track.track.album.images[0].url,
           title: track.track.name,
           song_path: track.track.preview_url,
-          artists: track.track.artists[0].name,
+          artists: track.track.artists,
+          author_id: track.track.artists[0].id,
           spotify_url: true,
           duration: track.track.duration_ms,
           album_name: track.track.album.name,
@@ -51,14 +51,7 @@ export const fetchSpotifyPlaylist = async (id: string) => {
       spotify_url: true,
       spotify_uri: playlist.uri,
     };
-
-    playlist.tracks.items.map((track: any) => {
-      let artists = track.track.artists;
-      artists.map((artist: any) => {
-        console.log(artist.name)
-      })
-    });
-
+    
     return playlistById;
   } catch (err) {
     console.log(err);

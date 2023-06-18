@@ -3,11 +3,12 @@ import Stripe from "stripe";
 export interface Artist {
   id: string,
   name: string,
-  type: string,
+  type?: string,
   image_path?: string,
   follower_count?: number,
   genres?: string[],
   spotify_url: boolean,
+  spotify_uri?: string
   href?: string
 }
 
@@ -15,14 +16,16 @@ export interface Song {
   id: string;
   user_id: string;
   author: string;
-  author_id: string;
+  author_id?: string;
   album_id: string;
+  album_name?: string;
   title: string;
   song_path: string;
   image_path?: string;
   spotify_url: boolean;
+  spotify_uri?: string
   duration: number;
-  artists: Artist[]
+  artists?: Artist[]
 }
 
 export interface Album {
@@ -34,6 +37,22 @@ export interface Album {
   release_date: string,
   artists?: Artist[],
   genres?: string[],
+  spotify_url?: boolean,
+  spotify_uri?: string
+}
+
+export interface Playlist {
+  id: string,
+  name: string,
+  desc: string,
+  owner_name: string,
+  owner_id: string,
+  image_path?: string,
+  public: boolean,
+  track_count?: number,
+  tracks?: Song[],
+  spotify_url: boolean,
+  spotify_uri: string
 }
 
 export interface Product {

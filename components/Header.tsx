@@ -16,7 +16,7 @@ import { useUser } from "@/hooks/useUser";
 import { toast } from "react-hot-toast";
 
 interface HeaderProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 

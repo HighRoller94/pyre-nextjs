@@ -4,14 +4,13 @@ import getSongs from "@/util/getSongs";
 import fetchRecent from "@/util/spotify/fetchSpotifyRecent";
 
 import PageContent from "./components/PageContent";
-
+import test from "@/hooks/useSpotifyWebPlayback";
 export const revalidate = 30;
 
 export default async function Home() {
   const songs = await getSongs();
-
   const recentlyPlayed = await fetchRecent();
-
+  test();
   return (
     <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto pb-20 min-h-full">
       <Header>

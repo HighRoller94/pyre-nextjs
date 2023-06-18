@@ -5,15 +5,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  // const searchTerm = req.query.code as string;
-
-  // if (!searchTerm) {
-  //     return;
-  // }
-
   try {
-    const url = new URL(request.url)
-
     const supabase = createServerComponentClient({
       cookies: cookies,
     });

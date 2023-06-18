@@ -32,7 +32,7 @@ const ArtistAlbums: React.FC<ArtistAlbumsProps> = ({ albums }) => {
       mt-4"
     >
       {albums.slice(0, 16).map((album, i) => (
-        <AlbumItem data={album} />
+        <AlbumItem key={album.id} data={album} />
       ))}
     </div>
   );

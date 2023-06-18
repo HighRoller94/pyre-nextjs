@@ -2,10 +2,13 @@ import getLikedSongs from "@/util/getLikedSong";
 import Header from "@/components/Header";
 import Image from "next/image";
 import LikedContent from "./components/LikedContent";
+import { fetchUserLikedSongs } from "@/util/spotify/fetchUser";
 export const revalidate = 0;
 
 const Liked = async () => {
-  const songs = await getLikedSongs();
+  const pyreLikedSongs = await getLikedSongs();
+  const spotifyLikedSongs = await fetchUserLikedSongs();
+
   return (
     <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overlow-y-auto">
       <Header>
@@ -30,7 +33,7 @@ const Liked = async () => {
           </div>
         </div>
       </Header>
-      <LikedContent songs={songs} />
+      <LikedContent pyreLikedSongs={pyreLikedSongs} spotifyLikedSongs={spotifyLikedSongs ? spotifyLikedSongs : []} />
     </div>
   );
 };

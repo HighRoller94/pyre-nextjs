@@ -5,21 +5,19 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import { likeSpotifySong, unlikeSpotifySong } from "@/util/spotify/fetchLikeStatus";
 
 import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/useAuthModal";
 
 interface LikeButtonProps {
   songId: string;
-};
+  spotifyUrl: boolean;
+}
 
-const LikeButton: React.FC<LikeButtonProps> = ({
-  songId
-}) => {
+const LikeButton: React.FC<LikeButtonProps> = ({ songId, spotifyUrl }) => {
   const router = useRouter();
-  const {
-    supabaseClient
-  } = useSessionContext();
+  const { supabaseClient } = useSessionContext();
   const authModal = useAuthModal();
   const { user } = useUser();
 
@@ -29,21 +27,31 @@ const LikeButton: React.FC<LikeButtonProps> = ({
     if (!user?.id) {
       return;
     }
-  
+    const checkSpotifyLikeStatus = async () => {
+      const res = await fetch(`/api/spotifyLikeStatus/${songId}`);
+      const data = await res.json();
+      setIsLiked(data.getLikedStatus[0]);
+      return data;
+    };
+
     const fetchData = async () => {
       const { data, error } = await supabaseClient
-        .from('liked_songs')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('song_id', songId)
+        .from("liked_songs")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("song_id", songId)
         .single();
 
       if (!error && data) {
         setIsLiked(true);
       }
-    }
+    };
 
-    fetchData();
+    if (spotifyUrl) {
+      checkSpotifyLikeStatus();
+    } else {
+      fetchData();
+    }
   }, [songId, supabaseClient, user?.id]);
 
   const Icon = isLiked ? AiFillHeart : AiOutlineHeart;
@@ -54,48 +62,57 @@ const LikeButton: React.FC<LikeButtonProps> = ({
     }
 
     if (isLiked) {
-      const { error } = await supabaseClient
-        .from('liked_songs')
-        .delete()
-        .eq('user_id', user.id)
-        .eq('song_id', songId)
-
-      if (error) {
-        toast.error(error.message);
-      } else {
+      if (spotifyUrl) {
+        unlikeSpotifySong(songId);
         setIsLiked(false);
+      } else {
+        const { error } = await supabaseClient
+          .from("liked_songs")
+          .delete()
+          .eq("user_id", user.id)
+          .eq("song_id", songId);
+
+        if (error) {
+          toast.error(error.message);
+        } else {
+          setIsLiked(false);
+        }
       }
     } else {
-      const { error } = await supabaseClient
-        .from('liked_songs')
-        .insert({
+      if (spotifyUrl) {
+        likeSpotifySong(songId);
+        setIsLiked(true);
+      } else {
+        const { error } = await supabaseClient.from("liked_songs").insert({
           song_id: songId,
-          user_id: user.id
+          user_id: user.id,
         });
 
-      if (error) {
-        toast.error(error.message);
-      } else {
-        setIsLiked(true);
-        toast.success('Song liked');
+        if (error) {
+          toast.error(error.message);
+        } else {
+          setIsLiked(true);
+          toast.success("Song liked");
+        }
       }
     }
 
-    router.refresh();
-  }
+    // router.refresh();
+  };
 
   return (
-    <button 
+    <button
       className="
         cursor-pointer 
         hover:opacity-75 
         transition
+        mr-4
       "
       onClick={handleLike}
     >
-      <Icon color={isLiked ? '#22c55e' : 'white'} size={25} />
+      <Icon color={isLiked ? "#22c55e" : "white"} size={25} />
     </button>
   );
-}
+};
 
 export default LikeButton;

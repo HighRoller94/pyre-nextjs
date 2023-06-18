@@ -8,6 +8,8 @@ import Image from "next/image";
 import usePlayer from "@/hooks/usePlayer";
 import useGetArtist from "@/hooks/useGetArtistType";
 
+import { FaSpotify } from 'react-icons/fa'
+
 interface MediaItemProps {
   data: Song;
   onClick?: (id: string) => void;
@@ -49,6 +51,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
           alt="Media Item Image"
           className="object-cover"
         />
+        <FaSpotify />
       </div>
       <div className="flex flex-col gap-y-1 overflow:hidden w-100 flex-1">
         <p className="text-white truncate w-8/12">{data.title}</p>

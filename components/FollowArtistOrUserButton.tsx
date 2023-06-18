@@ -5,7 +5,8 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useSessionContext } from "@supabase/auth-helpers-react";
-import { fetchfollowStatus, followSpotifyUser, unfollowSpotifyUser } from "@/util/spotify/fetchFollowStatus";
+import { fetchfollowArtistStatus, followSpotifyArtist, unfollowSpotifyArtist } from "@/util/spotify/fetchFollowArtistStatus";
+import { fetchfollowUserStatus, followSpotifyUser, unfollowSpotifyUser } from "@/util/spotify/fetchFollowUserStatus";
 
 import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/useAuthModal";
@@ -29,7 +30,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({ artistId, spotifyUrl, type 
       return;
     }
     const checkSpotifyFollowStatus = async () => {
-      const res = await fetchfollowStatus(artistId)
+      const res = await fetchfollowArtistStatus(artistId)
       setIsLiked(res.getLikedStatus[0]);
       return res;
     };

@@ -3,7 +3,11 @@ const nextConfig = {
     images: {
         domains: [
             "yuuycvinigzcifepaqra.supabase.co",
-            "i.scdn.co"
+            "i.scdn.co",
+            "wrapped-images.spotifycdn.com",
+            "mosaic.scdn.co",
+            "lineup-images.scdn.co",
+            "newjams-images.scdn.co"
         ]
     }
 }
