@@ -4,11 +4,9 @@ import qs from "query-string";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import { Artist } from "@/types";
 import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
 import useLoadImage from "@/hooks/useLoadImage";
-import { fetchLikeStatus } from "@/util/spotify/fetchLikeStatus";
 import LikeButton from "@/components/LikeButton";
 import PlayingAnim from "./PlayngAnim";
 import dayjs, { Dayjs } from "dayjs";
@@ -25,7 +23,6 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
   const player = usePlayer();
   const imageUrl = useLoadImage(data);
   const duration = require("dayjs/plugin/duration");
-  const likedStatus = fetchLikeStatus(data.id)
   
   dayjs.extend(duration);
 
@@ -110,8 +107,7 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
           </div>
         </div>
       </div>
-
-      <div className="hidden sm:flex items-center justify-between mr-2">
+      <div className="hidden sm:flex items-center justify-between mr-2 min-w-[70px]">
         <LikeButton songId={data.id} spotifyUrl={data.spotify_url} />
         <p className="text-neutral-400">{minutes}:{seconds}</p>
       </div>
