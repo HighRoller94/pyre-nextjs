@@ -5,8 +5,16 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useSessionContext } from "@supabase/auth-helpers-react";
-import { fetchfollowArtistStatus, followSpotifyArtist, unfollowSpotifyArtist } from "@/util/spotify/fetchFollowArtistStatus";
-import { fetchfollowUserStatus, followSpotifyUser, unfollowSpotifyUser } from "@/util/spotify/fetchFollowUserStatus";
+import {
+  fetchfollowArtistStatus,
+  followSpotifyArtist,
+  unfollowSpotifyArtist,
+} from "@/util/spotify/fetchFollowArtistStatus";
+import {
+  fetchfollowUserStatus,
+  followSpotifyUser,
+  unfollowSpotifyUser,
+} from "@/util/spotify/fetchFollowUserStatus";
 
 import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/useAuthModal";
@@ -17,7 +25,11 @@ interface FollowButtonProps {
   type?: string;
 }
 
-const FollowButton: React.FC<FollowButtonProps> = ({ artistId, spotifyUrl, type }) => {
+const FollowButton: React.FC<FollowButtonProps> = ({
+  artistId,
+  spotifyUrl,
+  type,
+}) => {
   const router = useRouter();
   const { supabaseClient } = useSessionContext();
   const authModal = useAuthModal();
@@ -30,7 +42,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({ artistId, spotifyUrl, type 
       return;
     }
     const checkSpotifyFollowStatus = async () => {
-      const res = await fetchfollowArtistStatus(artistId)
+      const res = await fetchfollowArtistStatus(artistId);
       setIsLiked(res.getLikedStatus[0]);
       return res;
     };
@@ -55,8 +67,6 @@ const FollowButton: React.FC<FollowButtonProps> = ({ artistId, spotifyUrl, type 
     // }
   }, [artistId, supabaseClient, user?.id]);
 
-  const Icon = isLiked ? AiFillHeart : AiOutlineHeart;
-
   const handleLike = async () => {
     if (!user) {
       return authModal.onOpen();
@@ -65,8 +75,9 @@ const FollowButton: React.FC<FollowButtonProps> = ({ artistId, spotifyUrl, type 
     if (isLiked) {
       unfollowSpotifyUser(artistId);
       setIsLiked(false);
+      toast.success("Unfollowed Artist on Spotify");
       // if (spotifyUrl) {
-        
+
       // } else {
       //   const { error } = await supabaseClient
       //     .from("liked_songs")
@@ -83,6 +94,7 @@ const FollowButton: React.FC<FollowButtonProps> = ({ artistId, spotifyUrl, type 
     } else {
       followSpotifyUser(artistId);
       setIsLiked(true);
+      toast.success("Following Artist on Spotify");
       // if (spotifyUrl) {
       //   likeSpotifySong(songId);
       //   setIsLiked(true);
@@ -105,18 +117,55 @@ const FollowButton: React.FC<FollowButtonProps> = ({ artistId, spotifyUrl, type 
   };
 
   return (
-    <button
-      className="
-        cursor-pointer 
-        hover:opacity-75 
-        transition
-        mr-4
-      "
-      onClick={handleLike}
-    >
-      <Icon color={isLiked ? "#22c55e" : "white"} size={25} />
-    </button>
+    <div>
+      {isLiked ? (
+        <button
+          className="
+          flex justify-center items-center
+            hover:opacity-75 
+            transition
+            mr-4
+            px-4
+            bg-orange-400 py-2
+            uppercase
+            font-bold
+            text-xs
+            tracking-widest
+            rounded-sm
+            border-2
+            border-orange-400
+            w-28
+          "
+          onClick={handleLike}
+        >
+          Unfollow
+        </button>
+      ) : (
+        <button
+          className="
+          flex justify-center items-center
+          hover:opacity-75 
+          text-center
+          w-28
+          transition
+          mr-4
+          px-4
+           bg-transparent py-2
+          uppercase
+          font-bold
+          text-xs
+          tracking-widest
+          rounded-sm
+          border-2
+          text-orange-300
+          border-orange-400
+          "
+          onClick={handleLike}
+        >
+          Follow
+        </button>
+      )}
+    </div>
   );
 };
-
 export default FollowButton;
