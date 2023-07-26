@@ -23,7 +23,7 @@ const TopTracks: React.FC<TopTracksProps> = ({ songs }) => {
   return (
     <div
       className="flex flex-col lg:grid lg:grid-cols-2 gap-y-2 gap-x-6 w-full px-6 mt-4">
-      {songs.map((song, i) => (
+      {songs.slice(0,8).map((song, i) => (
         <div className="flex items-center gap-x-4 w-full" key={song.id}>
           <div className="w-full">
             <Track onClick={() => onPlay(song)} data={song} index={i} />

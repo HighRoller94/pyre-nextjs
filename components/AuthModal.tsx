@@ -36,12 +36,13 @@ const AuthModal = () => {
   return (
     <Modal 
       title="Welcome back" 
-      description="Login to your account." 
+      description="" 
       isOpen={isOpen} 
       onChange={onChange} 
     >
       <Auth
         supabaseClient={supabaseClient}
+
         providers={['spotify']}
         queryParams={{
           scope: 'streaming user-read-recently-played user-top-read user-read-email user-read-private user-library-read user-library-modify user-follow-modify user-follow-read user-read-currently-playing user-read-playback-state user-modify-playback-state playlist-modify-private playlist-read-private playlist-modify-public playlist-read-collaborative streaming',

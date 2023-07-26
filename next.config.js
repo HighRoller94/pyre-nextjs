@@ -7,7 +7,8 @@ const nextConfig = {
             "wrapped-images.spotifycdn.com",
             "mosaic.scdn.co",
             "lineup-images.scdn.co",
-            "newjams-images.scdn.co"
+            "newjams-images.scdn.co",
+            "images-ak.spotifycdn.com"
         ]
     }
 }

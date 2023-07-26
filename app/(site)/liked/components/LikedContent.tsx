@@ -37,7 +37,7 @@ const LikedContent: React.FC<LikedContentProps> = ({
           flex 
           flex-col 
           gap-y-2 
-          w-full px-6 
+          w-full
           text-neutral-400
         "
       >
@@ -46,14 +46,15 @@ const LikedContent: React.FC<LikedContentProps> = ({
     )
   }
   return ( 
-    <div className="flex flex-col gap-y-2 w-full p-6">
+    <div className="flex flex-col gap-y-2 w-full
+    py-12">
       {mergedSongs.map((song: any, i) => (
         <div 
           key={song.id} 
           className="flex items-center gap-x-4 w-full"
           onClick={() => onPlay(song)}
         >
-          <div className="flex-1">
+          <div className="w-full">
             <Track onClick={() => onPlay(song)} data={song} index={i} />
           </div>
         </div>

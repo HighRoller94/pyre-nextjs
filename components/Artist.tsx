@@ -39,7 +39,7 @@ const ArtistItem: React.FC<ArtistItemProps> = ({ data }) => {
       <div  className="flex flex-col items-start w-full pt-4 gap-y-1">
         <p className="font-semibold truncate w-full">{data.name}</p>
         <div className="flex items-center w-full">
-          <p className="text-neutral-400 text-sm pb-4 w-full truncate">Arist</p>
+          <p className="text-neutral-400 text-sm pb-4 w-full truncate">Artist</p>
         </div>
       </div>
     </div>

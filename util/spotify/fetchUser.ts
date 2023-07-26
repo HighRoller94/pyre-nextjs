@@ -65,8 +65,47 @@ export const userTopArtists = async () => {
         href: `/spotifyArtists/${artist.id}`,
       })
     );
-    console.log(topArtists)
+
     return artistRes;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const userTopTracks = async () => {
+  const supabase = createServerComponentClient({
+    cookies: cookies,
+  });
+  var spotifyApi = new SpotifyWebApi();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  let token = session?.provider_token;
+
+  if (!token) {
+    return;
+  }
+
+  try {
+    spotifyApi.setAccessToken(token);
+    const data = await spotifyApi.getMyTopTracks();
+    const topTracks = data.body.items;
+    const tracksRes: Song[] = topTracks.map((song: any) => ({
+      id: song.id,
+      user_id: song.album.artists[0].id,
+      title: song.name,
+      song_path: song.uri,
+      author: song.album.artists[0].name,
+      image_path: song.album.images[0].url,
+      album_name: song.album.name,
+      album_id: song.album.id,
+      spotify_url: true,
+      duration: song.duration_ms
+    }));
+
+
+    return tracksRes;
   } catch (err) {
     console.log(err);
   }

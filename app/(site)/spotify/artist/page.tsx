@@ -9,7 +9,7 @@ import {
 } from "@/util/spotify/fetchSpotifyArtists";
 import { fetchSpotifyArtistAlbums } from "@/util/spotify/fetchSpotifyAlbums";
 
-export const revalidate = 120;
+export const revalidate = 3600;
 
 interface SearchProps {
   searchParams: {
@@ -25,23 +25,18 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
   if (!artist || !topTracks || !artistAlbums) {
     return (
       <div className="flex flex-col bg-neutral-900 rounded-lg h-full w-full overflow overlow-y-auto">
-        <Header />
         <div className="mt-4 text-neutral-400 pl-6">Somethings gone wrong.</div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto pb-20 min-h-full">
-      <Header />
+    <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto min-h-full">
       <ArtistHeader artist={artist} />
       <div className="p-4 pl-6 md:p-2 md:pl-6 mt-2 md:mt-2 flex flex-col gap-y-6">
         <h1 className="text-white text-2xl font-semibold">Top Hits</h1>
       </div>
       <TopTracks songs={topTracks} />
-      <div className="p-4 pl-6 md:p-2 md:pl-6 mt-2 md:mt-4 flex flex-col gap-y-6">
-        <h1 className="text-white text-2xl font-semibold">Albums</h1>
-      </div>
       <ArtistAlbums albums={artistAlbums} />
     </div>
   );

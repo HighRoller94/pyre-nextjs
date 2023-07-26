@@ -2,21 +2,20 @@
 
 import usePlayer from "@/hooks/usePlayer";
 import useLoadSongUrl from "@/hooks/useLoadSongUrl";
-import useGetSongById from "@/hooks/useGetSongById";
+import useGetSong from "@/hooks/useGetSong";
 import useGetSpotifyDeviceId from "@/hooks/useGetSpotifyDeviceId";
 import PlayerContent from "./PlayerContent";
-import useSpotify from "@/hooks/useSpotify";
 
 interface PlayerProps {
-  status: string;
-  devices: [];
+  status?: string;
+  devices?: [];
 }
 
 const Player: React.FC<PlayerProps> = ({ status, devices }) => {
   const player = usePlayer();
-  const deviceId = useGetSpotifyDeviceId(devices)
-  console.log(deviceId);
-  const { song } = useGetSongById(player.playing, status);
+
+
+  const { song } = useGetSong(player.playing, status);
 
   const songUrl = useLoadSongUrl(song!);
 

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import useDebounce from "@/hooks/useDebounce";
 import Input from "./Input";
+import { FaSpotify } from "react-icons/fa";
 
 const SearchInput = () => {
   const router = useRouter();
@@ -12,24 +13,38 @@ const SearchInput = () => {
   const debouncedValue = useDebounce<string>(value, 500);
 
   useEffect(() => {
-    const query = {
-      title: debouncedValue,
-    };
+    if (value) {
+      const query = {
+        title: debouncedValue,
+      };
 
-    const url = qs.stringifyUrl({
-      url: "/search",
-      query: query,
-    });
+      const url = qs.stringifyUrl({
+        url: "/search",
+        query: query,
+      });
 
-    router.push(url);
+      router.push(url);
+    }
   }, [debouncedValue, router]);
 
   return (
-    <Input 
+    <div className="flex items-center min-w-[400px]">
+      <Input
         placeholder="What do you want to listen to?"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-    />
+      />
+      {/* <div
+        className={`${
+          spotifySearch ? "bg-neutral-700" : "bg-neutral-800"
+        } rounded-md transition py-3 px-4 ml-6 cursor-pointer max-h-[46px]`}
+        onClick={() => {
+          setSpotifySearch(!spotifySearch);
+        }}
+      >
+        <FaSpotify size={22} className=" text-green-600" />
+      </div> */}
+    </div>
   );
 };
 

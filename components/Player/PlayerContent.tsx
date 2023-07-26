@@ -6,15 +6,10 @@ import { Song } from "@/types";
 import MediaItem from "../MediaItem";
 import LikeButton from "../LikeButton";
 import usePlayer from "@/hooks/usePlayer";
-import PlayingAnim from "../PlayngAnim";
-
-import {
-  playSpotify,
-  pauseSpotify
-} from "@/util/spotify/fetchSpotifyPlayerControls";
 import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerXMark, HiSpeakerWave } from "react-icons/hi2";
+import useOnPlay from "@/hooks/useOnPlay";
 
 import Slider from "../Slider";
 
@@ -28,7 +23,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const [volume, setVolume] = useState(1);
   const player = usePlayer();
 
-  const Icon = isPlaying ? BsPauseFill : BsPlayFill;
+  const Icon = isPlaying && player.isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
   const onPlayNext = () => {
@@ -37,13 +32,14 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     const currentIndex = player.ids.findIndex((id) => id === player.activeId);
-    const nextSong = player.ids[currentIndex + 1];
+    const nextSongId = player.ids[currentIndex + 1];
 
-    if (!nextSong) {
+    if (!nextSongId) {
       return player.setId(player.ids[0]);
     }
 
-    player.setId(nextSong);
+    player.setId(nextSongId);
+
   };
 
   const onPlayPrevious = () => {
@@ -80,21 +76,26 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     };
   }, [sound]);
 
+
   const handlePlay = () => {
     if (!isPlaying) {
-      if (song.spotify_url) {
-        playSpotify();
-        setIsPlaying(true);
-      } else {
-        play();
-      }
+      // if (song.spotify_url) {
+      //   playSpotify();
+      //   setIsPlaying(true);
+      // } else {
+      //   play();
+      // }
+      // player.setPlay();
+      play();
     } else {
-      if (song.spotify_url) {
-        pauseSpotify();
-        setIsPlaying(false);
-      } else {
-        pause();
-      }
+      // if (song.spotify_url) {
+      //   pauseSpotify();
+      //   setIsPlaying(false);
+      // } else {
+      //   pause();
+      // }
+      // player.setPause();
+      pause();
     }
   };
 
@@ -158,5 +159,25 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     </div>
   );
 };
-
+export const playpause = () => {
+  if (!player.isPlaying) {
+    // if (song.spotify_url) {
+    //   playSpotify();
+    //   setIsPlaying(true);
+    // } else {
+    //   play();
+    // }
+    player.setPlay();
+    play();
+  } else {
+    // if (song.spotify_url) {
+    //   pauseSpotify();
+    //   setIsPlaying(false);
+    // } else {
+    //   pause();
+    // }
+    player.setPause();
+    pause();
+  }
+}
 export default PlayerContent;

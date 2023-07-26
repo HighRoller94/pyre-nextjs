@@ -13,10 +13,11 @@ import { Song } from "@/types";
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
+import { MdExplore } from "react-icons/md";
 
 interface SidebarProps {
   children: React.ReactNode;
-  songs: Song[];
+  songs?: Song[];
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
@@ -27,15 +28,15 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
       {
         icon: HiHome,
         label: "Home",
-        active: pathname !== "/search",
-        href: "/",
+        active: pathname === "/dashboard",
+        href: "/dashboard",
       },
-      {
-        icon: BiSearch,
-        label: "Search",
-        active: pathname === "/search",
-        href: "/search",
-      },
+      // {
+      //   icon: MdExplore,
+      //   label: "Explore",
+      //   active: pathname === "/explore",
+      //   href: "/explore",
+      // },
       {
         icon: AiFillHeart,
         label: "Favourites",

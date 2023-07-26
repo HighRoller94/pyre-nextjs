@@ -4,11 +4,13 @@ import qs from "query-string";
 import { useRouter } from "next/navigation";
 import useLoadImage from "@/hooks/useLoadImage";
 import Image from "next/image";
-import PlayButton from "./PlayButton";
 import { Song } from "@/types";
 import useGetArtist from "@/hooks/useGetArtistType";
+import usePlayer from "@/hooks/usePlayer";
 
 import { FaSpotify } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
+import { IoMdPause } from "react-icons/io";
 
 interface SongItemProps {
   data: Song;
@@ -16,12 +18,13 @@ interface SongItemProps {
 }
 
 const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
+  const player = usePlayer();
   const router = useRouter();
   const imagePath = useLoadImage(data);
   const link = useGetArtist(data);
   const query = {
     id: data.user_id,
-  }; 
+  };
   const url = qs.stringifyUrl({
     url: `${link}`,
     query: query,
@@ -39,10 +42,19 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
           alt="Image"
         />
         <div
-          onClick={() => onClick(data.id)}
+
+          onClick={() => {onClick(data.id)}}
           className="absolute bottom-3 right-3"
         >
-          <PlayButton />
+          {player.activeId === data.id && player.isPlaying ? (
+            <button onClick={() => console.log(player)} className="transition opacity-0 rounded-full flex items-center bg-green-500 p-4 drop-shadow-md translate translate-y-1/4 group-hover:opacity-100 group-hover:translate-y-0 hover:scale-110">
+              <IoMdPause size={16} className="text-black" />
+            </button>
+          ) : (
+            <button className="transition opacity-0 rounded-full flex items-center bg-green-500 p-4 drop-shadow-md translate translate-y-1/4 group-hover:opacity-100 group-hover:translate-y-0 hover:scale-110">
+              <FaPlay className="text-black" />
+            </button>
+          )}
         </div>
       </div>
       <div className="flex flex-col items-start w-full pt-4 gap-y-1">

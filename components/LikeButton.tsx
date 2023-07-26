@@ -65,6 +65,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId, spotifyUrl }) => {
       if (spotifyUrl) {
         unlikeSpotifySong(songId);
         setIsLiked(false);
+        toast.success("Song removed from Spotify Liked Songs");
       } else {
         const { error } = await supabaseClient
           .from("liked_songs")
@@ -82,6 +83,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId, spotifyUrl }) => {
       if (spotifyUrl) {
         likeSpotifySong(songId);
         setIsLiked(true);
+        toast.success("Song added to Spotify Liked Songs");
       } else {
         const { error } = await supabaseClient.from("liked_songs").insert({
           song_id: songId,
@@ -106,11 +108,12 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId, spotifyUrl }) => {
         cursor-pointer 
         hover:opacity-75 
         transition
-        mr-4
+        sm:mr-4
+        text-orange-500
       "
       onClick={handleLike}
     >
-      <Icon color={isLiked ? "#22c55e" : "white"} size={25} />
+      <Icon color={isLiked ? "#f97316" : "white"} size={25} />
     </button>
   );
 };
