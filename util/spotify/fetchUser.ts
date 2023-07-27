@@ -96,7 +96,7 @@ export const userTopTracks = async () => {
       user_id: song.album.artists[0].id,
       title: song.name,
       song_path: song.uri,
-      author: song.album.artists[0].name,
+      artists: song.album.artists,
       image_path: song.album.images[0].url,
       album_name: song.album.name,
       album_id: song.album.id,

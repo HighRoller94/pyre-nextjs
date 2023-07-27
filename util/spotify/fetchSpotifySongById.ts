@@ -3,7 +3,7 @@ import { Song } from "@/types";
 const fetchSpotifySongById = async (id: string, status: string) => {
   const res = await fetch(`/api/spotify`);
   const token = await res.json();
-console.log(token)
+
   if (!token) {
     return
   }

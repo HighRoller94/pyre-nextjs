@@ -19,7 +19,6 @@ const Library: React.FC<LibraryProps> = ({ content }) => {
   const uploadModal = useUploadModal();
   const { user } = useUser();
 
-  console.log(content)
   const onClick = () => {
     if (!user) {
       return authModal.onOpen();
@@ -29,8 +28,9 @@ const Library: React.FC<LibraryProps> = ({ content }) => {
 
     return uploadModal.onOpen();
   };
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-x-hidden">
       <div className="flex items-center justify-between px-5 pt-4">
         <div className="inline-flex items-center gap-x-2">
           <TbPlaylist size={26} className="text-neutral-400" />

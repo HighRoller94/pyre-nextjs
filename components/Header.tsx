@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import qs from "query-string";
 import { Transition } from "@headlessui/react";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
@@ -34,25 +33,18 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   const supabaseClient = useSupabaseClient();
   const [openWindow, setOpenWindow] = useState(false);
   const [smallHeader, setSmallHeader] = useState(false);
-  const [logout, setLogOut] = useState(false)
+  const [logout, setLogOut] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY || window.pageYOffset;
-
-      if (scrollPosition >= 300 && !smallHeader) {
+    const scrollNav = () => {
+      if (window.scrollY > 400) {
         setSmallHeader(true);
-        console.log("User has scrolled 300px down the page.");
-        // You can perform any additional actions you need here.
+      } else {
+        setSmallHeader(false);
       }
     };
-    // Attach the 'handleScroll' function to the 'scroll' event when the component mounts
-    document.addEventListener("scroll", handleScroll, true);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      document.removeEventListener("scroll", handleScroll);
-    };
+    window.addEventListener("scroll", scrollNav);
+    return () => window.removeEventListener("scroll", scrollNav);
   }, [smallHeader]);
 
   const handleClick = () => {
@@ -74,7 +66,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
-    setLogOut(true)
+    setLogOut(true);
     if (!error) {
       router.push("/");
     }
@@ -82,7 +74,10 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
   if (logout) {
     return (
-      <div className="absolute top-0 left-0 w-screen bg-neutral-900 backdrop-blur-lg h-screen z-50 flex justify-center items-center" role="status">
+      <div
+        className="absolute top-0 left-0 w-screen bg-neutral-900 backdrop-blur-lg h-screen z-50 flex justify-center items-center"
+        role="status"
+      >
         <svg
           aria-hidden="true"
           className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-orange-500"
@@ -101,7 +96,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         </svg>
         <span className="sr-only">Loading...</span>
       </div>
-    )
+    );
   }
   return (
     <div
@@ -150,7 +145,9 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
               {user?.user_metadata?.avatar_url ? (
                 <div>
                   <div className="flex items-center gap-x-6 w-full">
-                    <h4 className="hidden sm:flex font-bold w-fit">{getGreeting()}</h4>
+                    <h4 className="hidden sm:flex font-bold w-fit">
+                      {getGreeting()}
+                    </h4>
                     <div className="relative w-12  h-12 cursor-pointer">
                       <Image
                         onClick={handleClick}

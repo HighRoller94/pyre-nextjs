@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { likeSpotifySong, unlikeSpotifySong } from "@/util/spotify/fetchLikeStatus";
@@ -16,7 +15,6 @@ interface LikeButtonProps {
 }
 
 const LikeButton: React.FC<LikeButtonProps> = ({ songId, spotifyUrl }) => {
-  const router = useRouter();
   const { supabaseClient } = useSessionContext();
   const authModal = useAuthModal();
   const { user } = useUser();
@@ -52,7 +50,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId, spotifyUrl }) => {
     } else {
       fetchData();
     }
-  }, [songId, supabaseClient, user?.id]);
+  }, [songId, supabaseClient, user?.id, spotifyUrl]);
 
   const Icon = isLiked ? AiFillHeart : AiOutlineHeart;
 

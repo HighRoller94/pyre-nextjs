@@ -2,21 +2,23 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import { Song } from "@/types";
 
-const useLoadImage = (song: Song) => {
+const useLoadImage = (data: Song) => {
   const supabaseClient = useSupabaseClient();
+  const imagePath = data.image_path
+  console.log(data)
   
-  if (!song) {
+  if (!data) {
     return null;
   }
 
-  if (song.spotify_url) {
+  if (data.spotify_url) {
     // The boolean value is true
-    return song.image_path;
+    return imagePath;
   } else {
     // The boolean value is false
     const { data: imageData } = supabaseClient.storage
       .from("images")
-      .getPublicUrl(song.image_path);
+      .getPublicUrl(imagePath);
 
     return imageData.publicUrl;
   }

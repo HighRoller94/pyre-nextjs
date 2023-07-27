@@ -9,7 +9,6 @@ import usePlayer from "@/hooks/usePlayer";
 import useLoadImage from "@/hooks/useLoadImage";
 import LikeButton from "@/components/LikeButton";
 import PlayingAnim from "./PlayngAnim";
-import dayjs, { Dayjs } from "dayjs";
 import { FaPlay } from "react-icons/fa";
 
 interface TrackProps {
@@ -22,18 +21,17 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
   const router = useRouter();
   const player = usePlayer();
   const imageUrl = useLoadImage(data);
-  const duration = require("dayjs/plugin/duration");
+  const dayjs = require("dayjs-with-plugins");
 
-  dayjs.extend(duration);
-
-  const minutes = dayjs.duration<Dayjs | null>(data.duration).minutes();
+  const artistId = data.author_id;
+  const minutes = dayjs.duration(data.duration).minutes();
   const seconds = dayjs
-    .duration<Dayjs | null>(data.duration)
+    .duration(data.duration)
     .seconds()
     .toString()
     .padStart(2, "0");
 
-  const generateUrlAndNavigate = (id: string, path: string) => {
+  const generateUrlAndNavigate = (id: string | undefined, path: string) => {
     const query = { id };
     const url = qs.stringifyUrl({
       url: `/spotify/${path}`,
@@ -77,9 +75,9 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
             onClick={
               data.album_id
                 ? () => generateUrlAndNavigate(data.album_id, "album")
-                : null
+                : () => {}
             }
-            className="relative rounded-md min-h-[44px] min-w-[44px] overflow-hidden ml-2"
+            className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden ml-2 opacity-80 hover:opacity-100"
           >
             <Image
               fill
@@ -91,18 +89,25 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
         ) : (
           ""
         )}
-        <div className="ml-4 gap-y-1 w-8/12 lg:w-12/12 flex items-center">
-          <p className="text-white max-w-8/12 truncate">{data.title}</p>
+        <div className="ml-4 gap-y-1 w-8/12 lg:w-12/12 flex flex-col ">
+          {player.activeId != data.id ? (
+            <>
+              <p className={`text-white font-medium max-w-8/12 truncate`}>{data.title}</p>
+            </>
+          ) : (
+            <>
+              <p className={`text-orange-400 font-medium max-w-8/12 truncate`}>{data.title}</p>
+            </>
+          )}
+
           <div>
-            <div className="flex ml-2 mt-0.5 items-center">
+            <div className="flex gap-2">
               {data.artists
                 ? data?.artists.map((artist, i) => (
                     <span
                       key={artist.id}
-                      onClick={() =>
-                        generateUrlAndNavigate(data.author_id, "artist")
-                      }
-                      className="text-neutral-400 text-sm hover:underline font-medium ml-4 hidden sm:flex"
+                      onClick={() => generateUrlAndNavigate(artistId, "artist")}
+                      className="text-neutral-400 text-sm hover:underline font-medium hidden sm:flex"
                     >
                       <>{artist.name}</>
                     </span>
@@ -113,7 +118,7 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
         </div>
       </div>
       <div className=" flex items-center justify-between mr-2 w-fit sm:min-w-[80px]">
-        <LikeButton songId={data.id} spotifyUrl={data.spotify_url} />
+        {/* <LikeButton songId={data.id} spotifyUrl={data.spotify_url} /> */}
         <p className="text-neutral-400 hidden sm:flex">
           {minutes}:{seconds}
         </p>

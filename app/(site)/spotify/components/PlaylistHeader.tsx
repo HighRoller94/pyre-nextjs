@@ -1,6 +1,5 @@
 import { Playlist } from "@/types";
 import Image from "next/image";
-import dayjs from "dayjs";
 import { BiTimeFive } from "react-icons/bi";
 import LikePlaylistButton from "@/components/FollowPlaylistButton";
 
@@ -9,8 +8,7 @@ interface PlaylistHeaderProps {
 }
 
 const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ playlist }) => {
-  const duration = require("dayjs/plugin/duration");
-  dayjs.extend(duration);
+  const dayjs = require('dayjs-with-plugins');
 
   const values = playlist.tracks?.map((item) => item.duration);
   const sum = values?.reduce(

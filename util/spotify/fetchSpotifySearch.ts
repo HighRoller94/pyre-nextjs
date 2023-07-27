@@ -36,7 +36,6 @@ export const fetchSpotifySearchTracks = async (query: any) => {
       spotify_url: true,
       duration: song.duration_ms,
     }));
-    console.log(searchRes);
 
     return searchRes;
   } catch (err) {

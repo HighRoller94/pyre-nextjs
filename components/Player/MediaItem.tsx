@@ -16,9 +16,10 @@ interface MediaItemProps {
 }
 
 const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
+
   const imageUrl = useLoadImage(data);
   const player = usePlayer();
-  const link = useGetArtist(data);
+  const link = useGetArtist(data.spotify_url);
   const router = useRouter();
 
   const query = {
@@ -54,7 +55,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
         <FaSpotify />
       </div>
       <div className="flex flex-col gap-y-1 overflow:hidden w-100 flex-1">
-        <p className="text-white truncate w-8/12">{data.title}</p>
+        <p className="text-white truncate w-8/12 md:w-full">{data.title}</p>
         <p onClick={Link} className="text-neutral-400 text-sm truncate">{data.author}</p>
       </div>
     </div>

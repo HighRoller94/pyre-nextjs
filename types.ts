@@ -21,7 +21,7 @@ export interface Song {
   album_name?: string;
   title: string;
   song_path: string;
-  image_path?: string;
+  image_path: string;
   spotify_url: boolean;
   spotify_uri?: string
   duration: number;

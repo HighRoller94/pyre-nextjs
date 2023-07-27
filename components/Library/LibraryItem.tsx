@@ -9,7 +9,7 @@ import Image from "next/image";
 import usePlayer from "@/hooks/usePlayer";
 import useGetArtist from "@/hooks/useGetArtistType";
 
-import { FaSpotify } from 'react-icons/fa'
+import { FaSpotify } from "react-icons/fa";
 
 interface LibraryItemProps {
   data: Playlist;
@@ -17,21 +17,21 @@ interface LibraryItemProps {
 }
 
 const LibraryItem: React.FC<LibraryItemProps> = ({ data, onClick }) => {
-    console.log(data)
+
   const player = usePlayer();
-  const link = useGetArtist(data);
   const router = useRouter();
 
   const query = {
-    id: data.user_id,
+    id: data.id,
   };
   const url = qs.stringifyUrl({
-    url: `${link}`,
+    url: `/spotify/playlist`,
     query: query,
   });
+
   const Link = () => {
-    router.push(url)
-  }
+    router.push(url);
+  };
 
   const handleClick = () => {
     if (onClick) {
@@ -41,11 +41,11 @@ const LibraryItem: React.FC<LibraryItemProps> = ({ data, onClick }) => {
   };
 
   return (
-    <div className="flex items-center gap-x-3 cursor-pointer hover:bg-neutral-800/50 w-full p-2 rounded-md flex-1">
-      <div
-        className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden"
-        onClick={handleClick}
-      >
+    <div
+      onClick={Link}
+      className="flex items-center gap-x-3 cursor-pointer hover:bg-neutral-800/50 w-full p-2 rounded-md flex-1"
+    >
+      <div className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden">
         <Image
           fill
           src={data?.image_path || `/images/liked.png`}
@@ -55,8 +55,12 @@ const LibraryItem: React.FC<LibraryItemProps> = ({ data, onClick }) => {
         <FaSpotify />
       </div>
       <div className="flex flex-col gap-y-1 overflow:hidden w-100 flex-1">
-        <p className="text-white truncate w-8/12 md:w-full">{data.title}</p>
-        <p onClick={Link} className="text-neutral-400 text-sm truncate">{data.author}</p>
+        <p className="text-white truncate w-8/12 md:w-full">{data.name}</p>
+        <div className="flex gap-2">
+          <p className="text-neutral-400 text-sm truncate">
+            {data.track_count} tracks
+          </p>
+        </div>
       </div>
     </div>
   );

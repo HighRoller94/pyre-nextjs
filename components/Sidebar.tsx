@@ -6,7 +6,7 @@ import { useMemo } from "react";
 
 import Box from "./Box";
 import SidebarItem from "./SidebarItem";
-import Library from "./Library";
+import Library from "./Library/Library";
 
 import { Song } from "@/types";
 
@@ -15,13 +15,19 @@ import { BiSearch } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
 import { MdExplore } from "react-icons/md";
 
+import { Playlist } from "@/types";
+
 interface SidebarProps {
   children: React.ReactNode;
-  songs?: Song[];
+  content?: Playlist[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
+const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
   const pathname = usePathname();
+
+  let data: Playlist[] | undefined = content;
+  const libContent: Playlist[] = data ?? [];
+
 
   const routes = useMemo(
     () => [
@@ -67,7 +73,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
           </div>
         </Box>
         <Box className="overflow-y-auto h-full">
-          <Library songs={songs} />
+          <Library content={libContent} />
         </Box>
       </div>
       <main className="h-full flex-1 overflow-y-auto py-2">{children}</main>

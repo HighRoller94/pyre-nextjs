@@ -1,6 +1,5 @@
 import { Album } from "@/types";
 import Image from "next/image";
-import dayjs from "dayjs";
 import { BiTimeFive } from "react-icons/bi";
 
 import { FaSpotify } from "react-icons/fa";
@@ -10,16 +9,15 @@ interface AlbumHeaderProps {
 }
 
 const AlbumHeader: React.FC<AlbumHeaderProps> = ({ album }) => {
-  const duration = require("dayjs/plugin/duration");
-  dayjs.extend(duration);
+  const dayjs = require('dayjs-with-plugins');
 
-  const values = album.songs?.map((item) => item.duration);
-  const sum = values?.reduce(
+  const trackTimes = album.songs?.map((item) => item.duration);
+  const totalOfTrackTimes = trackTimes?.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
     0
   );
 
-  const durationObj = dayjs.duration(sum);
+  const durationObj = dayjs.duration(totalOfTrackTimes);
 
   const hours = durationObj.hours();
   const minutes = durationObj.minutes();
@@ -43,7 +41,7 @@ const AlbumHeader: React.FC<AlbumHeaderProps> = ({ album }) => {
             Spotify Album
           </p>
         </div>
-        <h1 className="text-white text-6xl font-semibold mb-4">
+        <h1 className="text-white text-5xl font-semibold mb-4">
           {album?.name}
         </h1>
         <div className="flex items-center justify-start w-100">

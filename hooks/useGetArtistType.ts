@@ -2,12 +2,12 @@
 
 import { Song } from "@/types";
 
-const useGetArtist = (song: Song) => {
-  if (!song) {
+const useGetArtist = (spotifyUrl?: boolean) => {
+  if (!spotifyUrl) {
     return null;
   }
 
-  if (song.spotify_url) {
+  if (spotifyUrl) {
     return `/spotify/artist`;
   } else {
     return `/artist`;

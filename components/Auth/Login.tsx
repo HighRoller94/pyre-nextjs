@@ -23,7 +23,7 @@ const Login = () => {
     if (session) {
       router.push("/dashboard");
     }
-  }, [session]);
+  }, [session, router]);
 
   if (isLoading || session) {
     return (

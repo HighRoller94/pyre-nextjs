@@ -21,7 +21,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
   const player = usePlayer();
   const router = useRouter();
   const imagePath = useLoadImage(data);
-  const link = useGetArtist(data);
+  const link = useGetArtist(data.spotify_url);
   const query = {
     id: data.user_id,
   };

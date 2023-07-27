@@ -1,10 +1,13 @@
-import Header from "@/components/Header";
 import PlaylistTracks from "../components/PlaylistTracks";
 import PlaylistHeader from "../components/PlaylistHeader";
+
 import { fetchSpotifyPlaylist } from "@/util/spotify/fetchSpotifyPlaylists";
 
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+
+import { Playlist } from "@/types";
+import { Song } from "@/types";
 
 export const revalidate = 0;
 
@@ -15,7 +18,29 @@ interface SearchProps {
 }
 
 export default async function ArtistPage({ searchParams }: SearchProps) {
+  // Sorting Playlist
+
+  let playlist: Playlist[] = [];
+
   const playlistData = await fetchSpotifyPlaylist(searchParams.id);
+
+  if (playlistData) {
+    playlist = [playlistData];
+  }
+
+  // Sorting Playlist Songs
+
+  let songs: Song[] | undefined = playlistData?.tracks;
+  const validSongs: Song[] = songs ?? [];
+
+  // If no playlist data
+
+  if (!playlistData) {
+    return <div className="mt-4 text-neutral-400">No artist found.</div>;
+  }
+
+  // Sorting Auth for Playlist Editing
+
   const supabase = createServerComponentClient({
     cookies: cookies,
   });
@@ -23,10 +48,6 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-
-  if (!playlistData) {
-    return <div className="mt-4 text-neutral-400">No artist found.</div>;
-  }
 
   let loggedInId = session?.user.user_metadata.provider_id;
   let playlistOwner = playlistData.owner_id;
@@ -41,7 +62,7 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
       ) : (
         ""
       )}
-      <PlaylistTracks songs={playlistData?.tracks} />
+      <PlaylistTracks songs={validSongs} />
     </div>
   );
 }

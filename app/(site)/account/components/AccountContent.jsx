@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import SpotifySignIn from "@/components/SpotifySignIn";
 import { useUser } from "@/hooks/useUser";
-import { set } from "react-hook-form";
 
 const AccountContent = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -15,7 +14,7 @@ const AccountContent = () => {
     } else {
       setIsChecked(false);
     }
-  });
+  }, [user?.app_metadata.provider]);
 
   return (
     <div className="flex flex-col justify-between w-4/12">
