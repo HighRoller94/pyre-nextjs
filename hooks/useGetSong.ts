@@ -2,16 +2,18 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import fetchSpotifySongById from "@/util/spotify/fetchSpotifySongById";
+
 import { Song } from "@/types";
+
 import { playSpotify } from "@/util/spotify/fetchSpotifyPlayerControls";
 
-const useSongById = (playing?: object, status?: any) => {
+const useSongById = (trackPlaying?: Song, status?: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [song, setSong] = useState<Song | undefined>(undefined);
   const { supabaseClient } = useSessionContext();
 
   useEffect(() => {
-    if (!playing) {
+    if (!trackPlaying) {
       return;
     }
     setIsLoading(true);
@@ -20,7 +22,7 @@ const useSongById = (playing?: object, status?: any) => {
       const { data, error } = await supabaseClient
         .from('songs')
         .select('*')
-        .eq('id', playing.id)
+        .eq('id', trackPlaying.id)
         .single();
 
       if (error) {
@@ -33,12 +35,12 @@ const useSongById = (playing?: object, status?: any) => {
     }
 
     const fetchSpotifySong = async () => {
-      const toPlay = await fetchSpotifySongById(playing.id, status)
+      const toPlay = await fetchSpotifySongById(trackPlaying.id, status)
       const songToPlay = await toPlay;
       setSong(songToPlay as Song)
     }
 
-    if (playing.spotify_url) {
+    if (trackPlaying.spotify_url) {
       // The boolean value is true 
       // if (status == 'premium') {
       //   fetchSpotifySong();
@@ -50,7 +52,7 @@ const useSongById = (playing?: object, status?: any) => {
       fetchSong();
     }
 
-  }, [playing, supabaseClient]);
+  }, [trackPlaying, supabaseClient]);
 
   return useMemo(() => ({
     isLoading,

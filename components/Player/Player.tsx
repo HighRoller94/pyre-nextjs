@@ -3,8 +3,10 @@
 import usePlayer from "@/hooks/usePlayer";
 import useLoadSongUrl from "@/hooks/useLoadSongUrl";
 import useGetSong from "@/hooks/useGetSong";
-import useGetSpotifyDeviceId from "@/hooks/useGetSpotifyDeviceId";
+
 import PlayerContent from "./PlayerContent";
+
+import { Song } from "@/types";
 
 interface PlayerProps {
   status?: string;
@@ -14,9 +16,8 @@ interface PlayerProps {
 const Player: React.FC<PlayerProps> = ({ status, devices }) => {
   const player = usePlayer();
 
-
-  const { song } = useGetSong(player.playing, status);
-
+  const trackPlaying = player.playing;
+  const { song } = useGetSong(trackPlaying, status);
   const songUrl = useLoadSongUrl(song!);
 
   if (!song || !songUrl || !player.activeId) {

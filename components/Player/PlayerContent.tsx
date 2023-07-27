@@ -3,14 +3,12 @@
 import useSound from "use-sound";
 import { useState, useEffect } from "react";
 import { Song } from "@/types";
-import MediaItem from "../MediaItem";
+import MediaItem from "./MediaItem";
 import LikeButton from "../LikeButton";
 import usePlayer from "@/hooks/usePlayer";
 import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerXMark, HiSpeakerWave } from "react-icons/hi2";
-import useOnPlay from "@/hooks/useOnPlay";
-
 import Slider from "../Slider";
 
 interface PlayerContentProps {
@@ -27,34 +25,36 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
   const onPlayNext = () => {
-    if (player.ids.length === 0) {
+    if (player.tracks.length === 0) {
       return;
     }
+    
+    const currentIndex = player.tracks.findIndex((track) => track.id === player.activeId);
+    console.log(player.tracks)
+    const nextSong = player.tracks[currentIndex + 1];
 
-    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
-    const nextSongId = player.ids[currentIndex + 1];
-
-    if (!nextSongId) {
-      return player.setId(player.ids[0]);
+    if (!nextSong) {
+      return player.setId(player.tracks[0].id);
     }
-
-    player.setId(nextSongId);
-
+    
+    player.setPlaying(nextSong)
+    player.setId(nextSong.id);
   };
 
   const onPlayPrevious = () => {
-    if (player.ids.length === 0) {
+    if (player.tracks.length === 0) {
       return;
     }
 
-    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
-    const previousSong = player.ids[currentIndex - 1];
+    const currentIndex = player.tracks.findIndex((track) => track.id === player.activeId);
+    const previousSong = player.tracks[currentIndex - 1];
 
     if (!previousSong) {
-      return player.setId(player.ids[player.ids.length - 1]);
+      return player.setId(player.tracks[0].id);
     }
 
-    player.setId(previousSong);
+    player.setPlaying(previousSong)
+    player.setId(previousSong.id);
   };
 
   const [play, { pause, sound }] = useSound(songUrl, {
@@ -74,8 +74,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     return () => {
       sound?.unload();
     };
-  }, [sound]);
-
+  }, [sound, song]);
 
   const handlePlay = () => {
     if (!isPlaying) {
@@ -112,7 +111,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
       <div className="flex w-full justify-start">
         <div className="flex items-center gap-x-4">
           <MediaItem data={song} />
-          <LikeButton songId={song.id} />
+          <LikeButton songId={song.id} spotifyUrl={song.spotify_url} />
         </div>
       </div>
       <div className="flex md:hidden col-auto w-full justify-end items-center">
@@ -159,25 +158,5 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     </div>
   );
 };
-export const playpause = () => {
-  if (!player.isPlaying) {
-    // if (song.spotify_url) {
-    //   playSpotify();
-    //   setIsPlaying(true);
-    // } else {
-    //   play();
-    // }
-    player.setPlay();
-    play();
-  } else {
-    // if (song.spotify_url) {
-    //   pauseSpotify();
-    //   setIsPlaying(false);
-    // } else {
-    //   pause();
-    // }
-    player.setPause();
-    pause();
-  }
-}
+
 export default PlayerContent;
