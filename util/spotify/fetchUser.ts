@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import { Song } from "@/types";
 import { Artist } from "@/types";
 import { Playlist } from "@/types";
-import SpotifyWebApi from "spotify-web-api-node";
-var spotifyApi = new SpotifyWebApi();
+
+var SpotifyWebApi = require('spotify-web-api-node');
 
 export const fetchUserById = async (id: string) => {
   const supabase = createServerComponentClient({
@@ -53,18 +53,16 @@ export const userTopArtists = async () => {
     const data = await spotifyApi.getMyTopArtists();
     const topArtists = data.body.items;
 
-    const artistRes: Artist[] = topArtists.map(
-      (artist: any) => ({
-        id: artist.id,
-        name: artist.name,
-        type: artist.type,
-        image_path: artist.images[0].url,
-        follower_count: artist.followers.total,
-        genres: artist.genres,
-        spotify_url: true,
-        href: `/spotifyArtists/${artist.id}`,
-      })
-    );
+    const artistRes: Artist[] = topArtists.map((artist: any) => ({
+      id: artist.id,
+      name: artist.name,
+      type: artist.type,
+      image_path: artist.images[0].url,
+      follower_count: artist.followers.total,
+      genres: artist.genres,
+      spotify_url: true,
+      href: `/spotifyArtists/${artist.id}`,
+    }));
 
     return artistRes;
   } catch (err) {
@@ -91,19 +89,21 @@ export const userTopTracks = async () => {
     spotifyApi.setAccessToken(token);
     const data = await spotifyApi.getMyTopTracks();
     const topTracks = data.body.items;
-    const tracksRes: Song[] = topTracks.map((song: any) => ({
-      id: song.id,
-      user_id: song.album.artists[0].id,
-      title: song.name,
-      song_path: song.uri,
-      artists: song.album.artists,
-      image_path: song.album.images[0].url,
-      album_name: song.album.name,
-      album_id: song.album.id,
-      spotify_url: true,
-      duration: song.duration_ms
-    }));
 
+    const tracksRes: Song[] =
+      topTracks.map((song: any) => ({
+        id: song.id,
+        user_id: song.album.artists[0].id,
+        author: song.album.artists[0].name,
+        title: song.name,
+        song_path: song.preview_url,
+        artists: song.album.artists,
+        image_path: song.album.images[0].url,
+        album_name: song.album.name,
+        album_id: song.album.id,
+        spotify_url: true,
+        duration: song.duration_ms,
+      })) ?? [];
 
     return tracksRes;
   } catch (err) {
@@ -244,7 +244,7 @@ export const fetchUserLikedSongs = async () => {
       user_id: song.track.artists[0].id,
       image_path: song.track.album.images[0].url,
       title: song.track.name,
-      song_path: song.track.uri,
+      song_path: song.track.preview_url,
       author_id: song.track.artists[0].id,
       author: song.track.artists[0].name,
       spotify_url: true,

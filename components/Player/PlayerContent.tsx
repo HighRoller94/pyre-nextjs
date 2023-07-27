@@ -21,6 +21,9 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const [volume, setVolume] = useState(1);
   const player = usePlayer();
 
+  console.log(`current url is ${songUrl}`)
+  console.log(`current song is ${song?.title}`)
+
   const Icon = isPlaying && player.isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
@@ -30,7 +33,6 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
     
     const currentIndex = player.tracks.findIndex((track) => track.id === player.activeId);
-    console.log(player.tracks)
     const nextSong = player.tracks[currentIndex + 1];
 
     if (!nextSong) {

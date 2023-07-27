@@ -8,7 +8,7 @@ interface PlaylistHeaderProps {
 }
 
 const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ playlist }) => {
-  const dayjs = require('dayjs-with-plugins');
+  const dayjs = require("dayjs-with-plugins");
 
   const values = playlist.tracks?.map((item) => item.duration);
   const sum = values?.reduce(
@@ -33,30 +33,37 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ playlist }) => {
       </div>
       <div className="flex flex-col ml-6">
         {playlist.public ? (
-          <p className="text-neutral-400 text-sm truncat uppercase font-semibold tracking-widest mb-2">Public Playlist</p>
+          <p className="text-neutral-400 text-sm truncat uppercase font-semibold tracking-widest mb-2">
+            Public Playlist
+          </p>
         ) : (
-          <p className="text-neutral-400 text-sm truncat uppercase font-semibold tracking-widest mb-2">Playlist</p>
+          <p className="text-neutral-400 text-sm truncat uppercase font-semibold tracking-widest mb-2">
+            Playlist
+          </p>
         )}
         <h1 className="text-white text-6xl font-semibold mb-4">
           {playlist?.name}
         </h1>
         <div className="flex items-center justify-start w-100">
-          <LikePlaylistButton playlistId={playlist.id} spotifyUrl={playlist.spotify_url} />
+          <LikePlaylistButton
+            playlistId={playlist.id}
+            spotifyUrl={playlist.spotify_url}
+          />
           <p className="flex items-center text-white text-lg truncate">
             By {playlist?.owner_name}
           </p>
           <p className="flex items-center text-neutral-400 text-lg truncat ml-4">
             <BiTimeFive className="mr-2" />
             {hours ? (
-              <p>
+              <>
                 {hours} hours {minutes} min
-              </p>
+              </>
             ) : (
-              <p>{minutes} min </p>
+              <>{minutes} min</>
             )}
           </p>
           <span className="flex items-center text-neutral-400 text-lg truncate ml-2">
-             • {playlist?.track_count} tracks
+            • {playlist?.track_count} tracks
           </span>
         </div>
       </div>

@@ -55,7 +55,7 @@ export const fetchSpotifyAlbum = async (id: string) => {
       `https://api.spotify.com/v1/albums/${id}?access_token=${token}`
     );
     const album = await res.json();
-
+    
     const albumById: Album = {
       id: album.id,
       name: album.name,
@@ -67,7 +67,9 @@ export const fetchSpotifyAlbum = async (id: string) => {
           id: item.id,
           user_id: item.artists[0].id,
           title: item.name,
-          song_path: item.uri,
+          song_path: item.preview_url,
+          album_id: album.id,
+          image_path: album.images[0].url,
           author_id: item.artists[0].id,
           author: item.artists[0].name,
           spotify_url: true,

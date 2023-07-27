@@ -7,7 +7,7 @@ import { Song } from "@/types";
 
 import { playSpotify } from "@/util/spotify/fetchSpotifyPlayerControls";
 
-const useSongById = (trackPlaying?: Song, status?: any) => {
+const useSongById = (trackPlaying: Song, status: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [song, setSong] = useState<Song | undefined>(undefined);
   const { supabaseClient } = useSessionContext();

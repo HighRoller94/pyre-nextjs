@@ -10,7 +10,6 @@ export default async function AccountPage() {
     data: { session },
   } = await supabase.auth.getSession();
 
-  console.log(session)
   return (
     <div className="flex flex-col bg-neutral-900 rounded-lg h-auto w-full overflow overlow-y-hidden px-6">
       <div className="mt-4 mb-2 flex flex-col gap-y-6">

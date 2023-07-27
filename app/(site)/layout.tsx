@@ -11,7 +11,11 @@ import { userPlayLists } from "@/util/spotify/fetchUser";
 import Header from "@/components/Header";
 import ScrollToTop from "@/util/scrollToTop";
 
+export const dynamic = 'force-dynamic'
+
 const font = Figtree({ subsets: ["latin"], variable: "--font-figtree" });
+
+export const revalidate = 0;
 
 export const metadata = {
   title: "Pyre",

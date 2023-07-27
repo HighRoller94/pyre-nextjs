@@ -65,9 +65,10 @@ export const fetchSpotifyArtistTopTracks = async (id: string) => {
 
     const topTracks: Song[] = getTopTracks.tracks.map((song: any) => ({
       id: song.id,
+      author_id: song.album.artists[0].id,
       user_id: song.album.artists[0].id,
       title: song.name,
-      song_path: song.uri,
+      song_path: song.preview_url,
       author: song.album.artists[0].name,
       image_path: song.album.images[0].url,
       album_name: song.album.name,

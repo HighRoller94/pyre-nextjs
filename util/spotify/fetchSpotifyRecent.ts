@@ -14,9 +14,9 @@ const fetchRecentlyPlayed = async () => {
   let token = session?.provider_token;
 
   if (!token) {
-    return
+    return;
   }
-  
+
   try {
     const res = await fetch(
       `https://api.spotify.com/v1/me/player/recently-played?access_token=${token}`
@@ -27,11 +27,11 @@ const fetchRecentlyPlayed = async () => {
       id: song.track.id,
       user_id: song.track.album.artists[0].id,
       title: song.track.name,
-      song_path: song.track.uri,
+      song_path: song.track.preview_url,
       author: song.track.album.artists[0].name,
       image_path: song.track.album.images[0].url,
       spotify_url: true,
-      artists: song.track.artists
+      artists: song.track.artists,
     }));
 
     const uniqueIds = new Set<any>();

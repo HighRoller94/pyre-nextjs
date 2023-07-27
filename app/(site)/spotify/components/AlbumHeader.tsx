@@ -9,7 +9,7 @@ interface AlbumHeaderProps {
 }
 
 const AlbumHeader: React.FC<AlbumHeaderProps> = ({ album }) => {
-  const dayjs = require('dayjs-with-plugins');
+  const dayjs = require("dayjs-with-plugins");
 
   const trackTimes = album.songs?.map((item) => item.duration);
   const totalOfTrackTimes = trackTimes?.reduce(
@@ -51,11 +51,11 @@ const AlbumHeader: React.FC<AlbumHeaderProps> = ({ album }) => {
           <span className="flex items-center text-neutral-400 text-lg truncat ml-4">
             <BiTimeFive className="mr-2" />
             {hours ? (
-              <p>
+              <>
                 {hours} hours {minutes} min
-              </p>
+              </>
             ) : (
-              <p>{minutes} min </p>
+              <>{minutes} min</>
             )}
           </span>
           <span className="flex items-center text-neutral-400 text-lg truncate ml-2">

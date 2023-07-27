@@ -23,7 +23,7 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
   const imageUrl = useLoadImage(data);
   const dayjs = require("dayjs-with-plugins");
 
-  const artistId = data.author_id;
+  const artistId = data.user_id;
   const minutes = dayjs.duration(data.duration).minutes();
   const seconds = dayjs
     .duration(data.duration)
@@ -50,7 +50,7 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
   return (
     <div
       onDoubleClick={handleClick}
-      className={`group flex items-center justify-between gap-x-3 cursor-pointer bg-neutral-800/100 hover:bg-neutral-800/50 w-full p-1 sm:p-2 rounded-md flex-1 ${
+      className={`group flex items-center justify-between gap-x-3 bg-neutral-800/100 hover:bg-neutral-800/50 w-full p-1 sm:p-2 rounded-md flex-1 ${
         player.activeId != data.id
           ? "bg-neutral-800/100"
           : "bg-neutral-700/100 hover:bg-neutral-700/100"
@@ -92,22 +92,35 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
         <div className="ml-4 gap-y-1 w-8/12 lg:w-12/12 flex flex-col ">
           {player.activeId != data.id ? (
             <>
-              <p className={`text-white font-medium max-w-8/12 truncate`}>{data.title}</p>
+              <p className={`text-white font-medium max-w-8/12 truncate`}>
+                {data.title}
+              </p>
             </>
           ) : (
             <>
-              <p className={`text-orange-400 font-medium max-w-8/12 truncate`}>{data.title}</p>
+              <p className={`text-orange-400 font-medium max-w-8/12 truncate`}>
+                {data.title}
+              </p>
             </>
           )}
 
           <div>
             <div className="flex gap-2">
+              {/* {data.artists && (
+                <span
+                  key={data.id}
+                  onClick={() => generateUrlAndNavigate(artistId, "artist")}
+                  className="text-neutral-400 text-sm hover:underline font-medium hidden sm:flex"
+                >
+                  <>{data?.artists[0]?.name}</>
+                </span>
+              )} */}
               {data.artists
                 ? data?.artists.map((artist, i) => (
                     <span
                       key={artist.id}
                       onClick={() => generateUrlAndNavigate(artistId, "artist")}
-                      className="text-neutral-400 text-sm hover:underline font-medium hidden sm:flex"
+                      className="text-neutral-400 text-sm hover:underline font-medium hidden sm:flex cursor-pointer"
                     >
                       <>{artist.name}</>
                     </span>
