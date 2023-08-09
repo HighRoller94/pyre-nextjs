@@ -1,6 +1,6 @@
 "use client";
 
-import Track from "@/components/Track";
+import Track from "@/components/Tracks/Track";
 import { Song } from "@/types";
 import useOnPlay from "@/hooks/useOnPlay";
 
@@ -10,7 +10,7 @@ interface SearchContentProps {
 
 const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs);
-  
+
   if (!songs || songs.length === 0) {
     return (
       <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">

@@ -16,16 +16,16 @@ interface PlayerProps {
 
 const Player: React.FC<PlayerProps> = ({ status, devices }) => {
   const player = usePlayer();
-  const trackPlaying = player.playing || undefined
+  const trackPlaying = player.playing || undefined;
+  const [miniPlayer, setMiniPlayer] = useState(false);
 
-  const { song } = useGetSong(trackPlaying, status);
-  
+  const togglePlayer = () => {
+    setMiniPlayer(!miniPlayer);
+  };
+
+  // const { song } = useGetSong(trackPlaying, status);
+
   const songUrl = useLoadSongUrl(trackPlaying);
-
-  console.log(`player id is ${player.activeId}`)
-  console.log(`player url is ${songUrl}`)
-  console.log(`playing song is ${trackPlaying}`)
-  console.log(`player song is ${trackPlaying?.title}`)
 
   if (!trackPlaying || !songUrl || !player.activeId) {
     return null;
@@ -33,17 +33,24 @@ const Player: React.FC<PlayerProps> = ({ status, devices }) => {
 
   return (
     <div
-      className="
-        fixed 
-        bottom-0 
-        bg-black 
-        w-full 
-        py-2 
-        h-[80px] 
-        px-4
-      "
+      className={`
+      fixed 
+      bg-neutral-950 
+      py-2 
+      h-[90px] 
+      border-t-2
+      border-neutral-800
+      px-4
+      ${miniPlayer ? "w-4/12 right-2 bottom-2 rounded-lg" : "w-full bottom-0 "}
+      `}
     >
-      <PlayerContent key={songUrl} song={trackPlaying} songUrl={songUrl} />
+      <PlayerContent
+        miniPlayer={miniPlayer}
+        togglePlayer={togglePlayer}
+        key={songUrl}
+        song={trackPlaying}
+        songUrl={songUrl}
+      />
     </div>
   );
 };

@@ -37,6 +37,7 @@ export const fetchSpotifySearchTracks = async (query: any) => {
         album_id: song.album.id,
         spotify_url: true,
         duration: song.duration_ms,
+        artists: song.artists,
       })) ?? [];
 
     return searchRes;

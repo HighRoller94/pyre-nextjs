@@ -1,0 +1,41 @@
+import Link from "next/link";
+import { IconType } from "react-icons";
+import { twMerge } from "tailwind-merge";
+
+interface SidebarItemProps {
+  icon: IconType;
+  label: string;
+  active?: boolean;
+  href: string;
+  openSidebar: boolean;
+}
+
+const SidebarItem: React.FC<SidebarItemProps> = ({
+  icon: Icon,
+  label,
+  active,
+  href,
+  openSidebar,
+}) => {
+  return (
+    <Link
+      href={href}
+      className={twMerge(
+        `flex flex-row h-auto items-center w-full gap-x-4 text-md font-medium cursor-pointer
+    hover:text-white transition text-neutral-400 py-1`,
+        active && "text-orange-400"
+      )}
+    >
+      <Icon size={28} />
+      <p
+        className={`truncate w-full ${
+          openSidebar ? "flex" : "hidden"
+        }`}
+      >
+        {label}
+      </p>
+    </Link>
+  );
+};
+
+export default SidebarItem;

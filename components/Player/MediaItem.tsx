@@ -41,9 +41,9 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
   };
 
   return (
-    <div className="flex items-center gap-x-3 cursor-pointer hover:bg-neutral-800/50 w-full p-2 rounded-md flex-1">
+    <div className="flex items-center -mt-1 gap-x-3 cursor-pointer pr-2 w-full rounded-md flex-1">
       <div
-        className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden"
+        className="relative rounded-md min-h-[52px] min-w-[52px] overflow-hidden"
         onClick={handleClick}
       >
         <Image
@@ -54,9 +54,9 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
         />
         <FaSpotify />
       </div>
-      <div className="flex flex-col gap-y-1 overflow:hidden w-100 flex-1">
-        <p className="text-white truncate w-8/12 md:w-full">{data.title}</p>
-        <p onClick={Link} className="text-neutral-400 text-sm truncate">{data.author}</p>
+      <div className="flex flex-col overflow:hidden w-full max-w-[150px] xl:max-w-full flex-1">
+        <p className="text-white truncate max-w-[120px] md:max-w-full md:w-full">{data.title}</p>
+        <p onClick={Link} className="text-neutral-400 text-xs truncate max-w-[120px] md:max-w-full">{data.author}</p>
       </div>
     </div>
   );

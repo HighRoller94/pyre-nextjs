@@ -1,6 +1,6 @@
 "use client";
 
-import Track from "@/components/Track";
+import Track from "@/components/Tracks/Track";
 import { Song } from "@/types";
 import LikeButton from "@/components/LikeButton";
 import useOnPlay from "@/hooks/useOnPlay";

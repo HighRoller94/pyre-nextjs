@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import SpotifySignIn from "@/components/SpotifySignIn";
+import SpotifySignIn from "@/components/Auth/SpotifySignIn";
 import { useUser } from "@/hooks/useUser";
 
 const AccountContent = () => {

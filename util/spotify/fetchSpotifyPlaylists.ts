@@ -39,7 +39,7 @@ export const fetchSpotifyPlaylist = async (id: string) => {
           id: track.track.id,
           album_id: track.track.album.id,
           user_id: track.track.artists[0].id,
-          author: track.track.artists[0],
+          author: track.track.artists[0].name,
           image_path: track.track.album.images[0].url,
           title: track.track.name,
           song_path: track.track.preview_url,
@@ -60,3 +60,4 @@ export const fetchSpotifyPlaylist = async (id: string) => {
     console.log(err);
   }
 };
+

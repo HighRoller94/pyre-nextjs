@@ -1,6 +1,6 @@
 import "../globals.css";
 import { Figtree } from "next/font/google";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/Base/Nav/Sidebar";
 import Player from "@/components/Player/Player";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
@@ -8,7 +8,7 @@ import ModalProvider from "@/providers/ModalProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import { userPlayLists } from "@/util/spotify/fetchUser";
 
-import Header from "@/components/Header";
+import Header from "@/components/Base/Nav/Header";
 import ScrollToTop from "@/util/scrollToTop";
 
 export const dynamic = 'force-dynamic'
@@ -37,10 +37,9 @@ export default async function RootLayout({
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider />
-
             <Sidebar content={playLists}>
               <div
-                className={`flex flex-col bg-neutral-900 rounded-lg min-h-screen h-auto w-full pb-16 overflow-hidden`}
+                className={`flex flex-col bg-neutral-900 h-full w-full overflow-scroll`}
               >
                 <Header />
                 {children}

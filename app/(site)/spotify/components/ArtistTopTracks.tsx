@@ -1,6 +1,6 @@
 "use client";
 
-import Track from "@/components/Track";
+import Track from "@/components/Tracks/Track";
 import { Song } from "@/types";
 import LikeButton from "@/components/LikeButton";
 import useOnPlay from "@/hooks/useOnPlay";
@@ -12,6 +12,7 @@ interface TopTracksProps {
 const TopTracks: React.FC<TopTracksProps> = ({ songs }) => {
   const onPlay = useOnPlay(songs);
 
+  console.log(songs)
   if (songs.length === 0) {
     return (
       <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">

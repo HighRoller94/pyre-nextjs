@@ -1,6 +1,6 @@
 import getSongsByTitle from "@/util/getSongsByTitle";
-import Header from "@/components/Header";
-import SearchInput from "@/components/SearchInput";
+import Header from "@/components/Base/Nav/Header";
+import SearchInput from "@/components/Search/SearchInput";
 import SearchContent from "./components/SearchContent";
 import { Song } from "@/types";
 import {

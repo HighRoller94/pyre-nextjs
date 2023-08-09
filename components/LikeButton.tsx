@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { useSessionContext } from "@supabase/auth-helpers-react";
-import { likeSpotifySong, unlikeSpotifySong } from "@/util/spotify/fetchLikeStatus";
+import {
+  likeSpotifySong,
+  unlikeSpotifySong,
+} from "@/util/spotify/fetchLikeStatus";
 
 import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/useAuthModal";
@@ -104,14 +107,19 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId, spotifyUrl }) => {
     <button
       className="
         cursor-pointer 
-        hover:opacity-75 
+        hover:opacity-90
         transition
         sm:mr-4
+        group-hover
         text-orange-500
       "
       onClick={handleLike}
     >
-      <Icon color={isLiked ? "#f97316" : "white"} size={25} />
+      <Icon
+        color={isLiked ? "#f97316" : "white"}
+        size={24}
+        className={isLiked ? " opacity-100" : "opacity-50 hidden group-hover:flex"}
+      />
     </button>
   );
 };

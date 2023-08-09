@@ -1,5 +1,5 @@
 import PlaylistTracks from "../components/PlaylistTracks";
-import PlaylistHeader from "../components/PlaylistHeader";
+import DynamicHeader from "@/components/Base/Headers/DynamicHeader";
 
 import { fetchSpotifyPlaylist } from "@/util/spotify/fetchSpotifyPlaylists";
 
@@ -54,7 +54,7 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
 
   return (
     <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto pb-20 min-h-full">
-      <PlaylistHeader playlist={playlistData} />
+      <DynamicHeader data={playlistData} headerType="Playlist" />
       {loggedInId === playlistOwner ? (
         <p className="flex justify-end mb-2 text-neutral-400 font-medium hover:text-white transition text-sm cursor-pointer pr-6">
           Add to this playlist

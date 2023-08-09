@@ -1,37 +1,8 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { Song } from "@/types";
-import { Artist } from "@/types";
-import { Playlist } from "@/types";
+import { Song, Artist, Playlist } from "@/types";
 
-var SpotifyWebApi = require('spotify-web-api-node');
-
-export const fetchUserById = async (id: string) => {
-  const supabase = createServerComponentClient({
-    cookies: cookies,
-  });
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  let token = session?.provider_token;
-
-  if (!token) {
-    return;
-  }
-
-  try {
-    const res = await fetch(
-      `https://api.spotify.com/v1/me?access_token=${token}`
-    );
-    const data = await res.json();
-
-    return data.product;
-  } catch (err) {
-    console.log(err);
-  }
-};
+var SpotifyWebApi = require("spotify-web-api-node");
 
 export const userTopArtists = async () => {
   const supabase = createServerComponentClient({

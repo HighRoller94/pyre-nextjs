@@ -1,7 +1,8 @@
-import Header from "@/components/Header";
-import ArtistHeader from "../components/ArtistHeader";
+import ArtistHeader from "../../../../components/Base/Headers/ArtistHeader";
+import DynamicHeader from "@/components/Base/Headers/DynamicHeader";
 import TopTracks from "../components/ArtistTopTracks";
-import ArtistAlbums from "../components/ArtistAlbums";
+
+import ContentContainer from "@/components/Content/ContentContainer";
 
 import {
   fetchSpotifyArtist,
@@ -32,12 +33,16 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
 
   return (
     <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto min-h-full">
-      <ArtistHeader artist={artist} />
+      <DynamicHeader data={artist} headerType="Artist"/>
       <div className="p-4 pl-6 md:p-2 md:pl-6 mt-2 md:mt-2 flex flex-col gap-y-6">
         <h1 className="text-white text-2xl font-semibold">Top Hits</h1>
       </div>
       <TopTracks songs={topTracks} />
-      <ArtistAlbums albums={artistAlbums} />
+      <ContentContainer
+        header="Albums"
+        contentType="Album"
+        content={artistAlbums ? artistAlbums : []}
+      />
     </div>
   );
 }

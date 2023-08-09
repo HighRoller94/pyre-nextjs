@@ -1,6 +1,6 @@
 import { fetchSpotifyAlbum } from "@/util/spotify/fetchSpotifyAlbums";
 import AlbumTracks from "../components/AlbumTracks";
-import AlbumHeader from "../components/AlbumHeader";
+import DynamicHeader from "@/components/Base/Headers/DynamicHeader";
 import { Song } from "@/types";
 import { Album } from "@/types";
 
@@ -16,9 +16,9 @@ export default async function AlbumPage({ searchParams }: SearchProps) {
 
   const albumData = await fetchSpotifyAlbum(searchParams.id);
 
-  let songs: Song[] | undefined = albumData?.songs
+  let songs: Song[] | undefined = albumData?.songs;
   const validSongs: Song[] = songs ?? [];
-  
+
   if (albumData) {
     album = [albumData];
   }
@@ -33,7 +33,7 @@ export default async function AlbumPage({ searchParams }: SearchProps) {
 
   return (
     <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto pb-8 min-h-full">
-      <AlbumHeader album={albumData} />
+      <DynamicHeader data={albumData} headerType="Album" />
       <AlbumTracks songs={validSongs} />
     </div>
   );

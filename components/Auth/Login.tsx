@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { Figtree } from "next/font/google";
+import Image from "next/image";
+
 const font = Figtree({ subsets: ["latin"] });
 
 import {
@@ -50,9 +52,13 @@ const Login = () => {
   }
 
   return (
-    <div className="w-fit md:min-w-[450px] bg-black rounded-lg px-12 py-8 border-neutral-900 border-2">
-      <h1 className={`text-center font-bold text-3xl mb-6 ${font.className}`}>
-        Sign In to Pyre
+    <div className="w-fit md:min-w-[450px] bg-black rounded-lg px-12 py-8 border-neutral-900 border-2 flex flex-col items-center">
+      <div className="flex items-center text-center gap-1">
+        <Image src="/images/pyreLogo.png" width={40} height={40} alt="Pyre Logo" />
+        <h1 className={`uppercase tracking-wider font-bold text-3xl text-orange-400 ${font.className}`}>Pyre</h1>
+      </div>
+      <h1 className={`text-center font-bold text-3xl my-4 mb-2 ${font.className}`}>
+        Log in to Continue
       </h1>
       <Auth
         supabaseClient={supabaseClient}
@@ -72,6 +78,10 @@ const Login = () => {
                 brandAccent: "#EFAF1A",
               },
             },
+          },
+          className: {
+            button: "bg-orange-500",
+            //..
           },
         }}
         theme="dark"

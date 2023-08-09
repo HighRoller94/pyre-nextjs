@@ -2,7 +2,7 @@
 
 import { Song } from "@/types";
 
-import Track from "@/components/Track";
+import Track from "@/components/Tracks/Track";
 import useOnPlay from "@/hooks/useOnPlay";
 
 interface PlaylistTracksProps {

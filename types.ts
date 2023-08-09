@@ -1,5 +1,13 @@
 import Stripe from "stripe";
 
+export interface User {
+  id: string,
+  name: string,
+  image_path?: string,
+  follower_count?: number,
+  spotify_uri?: boolean
+}
+
 export interface Artist {
   id: string,
   name: string,
