@@ -73,8 +73,8 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
           border-r-2 border-neutral-800
           overflow-hidden
           transition-all duration-200
-          w-[225px]
-            ${openSidebar ? "max-w-[200px]" : "max-w-[70px]"}
+          w-full
+            ${openSidebar ? "max-w-[225px]" : "max-w-[70px]"}
         `}
       >
         <Box className="overflow-y-auto h-full flex flex-col">
