@@ -26,9 +26,9 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         active && "text-orange-400"
       )}
     >
-      <Icon size={28} />
+      <Icon size={32} />
       <p
-        className={`truncate w-full ${
+        className={`truncate w-full text-base${
           openSidebar ? "flex" : "hidden"
         }`}
       >

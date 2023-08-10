@@ -51,13 +51,13 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
   return (
     <div
       onDoubleClick={handleClick}
-      className={`group flex items-center justify-between gap-x-3 bg-neutral-800/100 hover:bg-neutral-800/50 w-full p-2 sm:p-2 rounded-md flex-1 ${
+      className={`group flex items-center justify-between gap-x-3 bg-neutral-800/100 hover:bg-neutral-800/50 w-full p-2 sm:p-2  relative flex-1 ${
         player.activeId != data.id
           ? "bg-neutral-800/100"
           : "bg-neutral-700/100 hover:bg-neutral-700/100"
       }`}
     >
-      <div className="flex items-center w-8/12">
+      <div className="flex items-center w-full ">
         <div className="w-[18px] h-[18px] min-w-[20px] sm:mr-2 sm:ml-2 mr-2 ml-2 flex items-center justify-center">
           {player.activeId != data.id ? (
             <>
@@ -99,13 +99,13 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
         <div className="ml-4 w-8/12 lg:w-12/12 flex flex-col ">
           {player.activeId != data.id ? (
             <>
-              <p className={`text-white font-medium max-w-8/12 truncate`}>
+              <p className={`text-white font-medium max-w-8/12 max-w-[160px] sm:max-w-none truncate`}>
                 {data.title}
               </p>
             </>
           ) : (
             <>
-              <p className={`text-orange-400 font-medium max-w-8/12 truncate`}>
+              <p className={`text-orange-400 font-medium max-w-8/12 max-w-[160px] truncate`}>
                 {data.title}
               </p>
             </>
@@ -144,7 +144,7 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
           </div>
         </div>
       </div>
-      <div className=" flex items-center justify-between mr-2 w-fit sm:min-w-[80px]">
+      <div className="flex items-center justify-between mr-2 w-fit sm:min-w-[75px] absolute right-2 top-[33%]">
         <LikeButton songId={data.id} spotifyUrl={data.spotify_url} />
         <p className="text-neutral-400 hidden sm:flex">
           {minutes}:{seconds}

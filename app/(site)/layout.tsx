@@ -11,7 +11,7 @@ import { userPlayLists } from "@/util/spotify/fetchUser";
 import Header from "@/components/Base/Nav/Header";
 import ScrollToTop from "@/util/scrollToTop";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 const font = Figtree({ subsets: ["latin"], variable: "--font-figtree" });
 
@@ -39,7 +39,7 @@ export default async function RootLayout({
             <ModalProvider />
             <Sidebar content={playLists}>
               <div
-                className={`flex flex-col bg-neutral-900 h-full w-full overflow-scroll`}
+                className={`flex flex-col bg-neutral-900 h-full w-full overflow-scroll pb-24`}
               >
                 <Header />
                 {children}

@@ -10,7 +10,7 @@ interface ArtistHeaderProps {
 const ArtistHeader: React.FC<ArtistHeaderProps> = ({ data }) => {
   return (
     <div className="flex flex-col sm:flex-row p-6 items-center justify-center sm:justify-start">
-      <div className="relative rounded-full h-44 w-44">
+      <div className="relative rounded-full h-44 w-44 lg:h-52 lg:w-52">
         <Image
           src={data.image_path || "/images/liked.png"}
           className="object-cover rounded-full"
@@ -18,7 +18,7 @@ const ArtistHeader: React.FC<ArtistHeaderProps> = ({ data }) => {
           alt="Image"
         />
       </div>
-      <div className="flex flex-col items-center justify-center text-center sm:ml-6 sm:justify-start sm:text-left sm:items-start mt-4">
+      <div className="flex flex-col items-center justify-center text-center sm:ml-7 sm:justify-start sm:text-left sm:items-start mt-2">
         <div className="flex items-center gap-2 mb-1">
           <FaSpotify size={24} className="text-green-500 -mt-2" />
           <p className="text-neutral-400 text-sm truncat uppercase font-bold tracking-widest mb-2">

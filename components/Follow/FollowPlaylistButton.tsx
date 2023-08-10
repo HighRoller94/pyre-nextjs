@@ -5,7 +5,11 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useSessionContext } from "@supabase/auth-helpers-react";
-import { fetchfollowPlaylistStatus, followSpotifyPlaylist, unfollowSpotifyPlaylist } from "@/util/spotify/fetchLikedPlaylistStatus";
+import {
+  fetchfollowPlaylistStatus,
+  followSpotifyPlaylist,
+  unfollowSpotifyPlaylist,
+} from "@/util/spotify/fetchLikedPlaylistStatus";
 
 import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/useAuthModal";
@@ -15,7 +19,10 @@ interface FollowButtonProps {
   spotifyUrl: boolean;
 }
 
-const FollowPlaylistButton: React.FC<FollowButtonProps> = ({ playlistId, spotifyUrl }) => {
+const FollowPlaylistButton: React.FC<FollowButtonProps> = ({
+  playlistId,
+  spotifyUrl,
+}) => {
   const router = useRouter();
   const { supabaseClient } = useSessionContext();
   const authModal = useAuthModal();
@@ -28,7 +35,7 @@ const FollowPlaylistButton: React.FC<FollowButtonProps> = ({ playlistId, spotify
       return;
     }
     const checkFollowPlaylistStatus = async () => {
-      const res = await fetchfollowPlaylistStatus(playlistId)
+      const res = await fetchfollowPlaylistStatus(playlistId);
       setIsLiked(res.getLikedStatus[0]);
       return res;
     };
@@ -47,7 +54,7 @@ const FollowPlaylistButton: React.FC<FollowButtonProps> = ({ playlistId, spotify
     };
     checkFollowPlaylistStatus();
     // if (spotifyUrl) {
-      
+
     // } else {
     //   fetchData();
     // }
@@ -62,17 +69,17 @@ const FollowPlaylistButton: React.FC<FollowButtonProps> = ({ playlistId, spotify
 
     if (isLiked) {
       if (spotifyUrl) {
-        unfollowSpotifyPlaylist(playlistId)
-        setIsLiked(false)
+        unfollowSpotifyPlaylist(playlistId);
+        setIsLiked(false);
+        toast.success("Unfollowed Playlist on Spotify");
       } else {
-        
       }
     } else {
       if (spotifyUrl) {
         followSpotifyPlaylist(playlistId);
-        setIsLiked(true)
+        setIsLiked(true);
+        toast.success("Playlist followed on Spotify");
       } else {
-
       }
     }
 
@@ -85,11 +92,11 @@ const FollowPlaylistButton: React.FC<FollowButtonProps> = ({ playlistId, spotify
         cursor-pointer 
         hover:opacity-75 
         transition
-        mr-4
+        sm:mr-4
       "
       onClick={handleLike}
     >
-      <Icon color={isLiked ? "#22c55e" : "white"} size={25} />
+      <Icon color={isLiked ? "#f97316" : "white"} className="w-12 h-12 sm:h-9 sm:w-9" />
     </button>
   );
 };

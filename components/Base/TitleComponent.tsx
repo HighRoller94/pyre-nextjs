@@ -1,19 +1,17 @@
-import { twMerge } from "tailwind-merge";
-
 interface TitleComponentProps {
   header: string;
-  subHeader: string;
-  className?: string;
+  subHeader?: string;
+  pageTitle?: boolean;
   displayedContent?: number;
   contentCount?: number;
-  showContent: () => void;
-  hideContent: () => void;
+  showContent?: () => void;
+  hideContent?: () => void;
 }
 
 const TitleComponent: React.FC<TitleComponentProps> = ({
   header,
   subHeader,
-  className,
+  pageTitle,
   displayedContent,
   contentCount,
   showContent,
@@ -22,10 +20,20 @@ const TitleComponent: React.FC<TitleComponentProps> = ({
   return (
     <div className="p-6 w-full flex justify-between">
       <div className="flex flex-col">
-        <h1 className={twMerge(`text-white text-4xl font-bold`, className)}>{header}</h1>
-        <p className="text-neutral-400 text-lg pt-4 truncate">{subHeader}</p>
+        {header && (
+          <h1
+            className={`text-white text-4xl font-bold ${
+              pageTitle && "text-4xl"
+            }`}
+          >
+            {header}
+          </h1>
+        )}
+        {subHeader && (
+          <p className="text-neutral-400 text-lg pt-2 truncate">{subHeader}</p>
+        )}
       </div>
-      <div>
+      <div className="flex justify-end">
         {contentCount > displayedContent ? (
           <button
             className="text-neutral-400 cursor-pointer hover:text-white transition flex justify-end items-end pr-6"

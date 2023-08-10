@@ -1,4 +1,4 @@
-import PlaylistTracks from "../components/PlaylistTracks";
+import TracksContainer from "@/components/Tracks/TracksContainer";
 import DynamicHeader from "@/components/Base/Headers/DynamicHeader";
 
 import { fetchSpotifyPlaylist } from "@/util/spotify/fetchSpotifyPlaylists";
@@ -62,7 +62,7 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
       ) : (
         ""
       )}
-      <PlaylistTracks songs={validSongs} />
+      <TracksContainer songs={validSongs} />
     </div>
   );
 }

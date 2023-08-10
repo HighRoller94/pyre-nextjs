@@ -45,9 +45,10 @@ const LikedContent: React.FC<LikedContentProps> = ({
       </div>
     )
   }
+
   return ( 
     <div className="flex flex-col gap-y-2 w-full
-    py-12">
+    py-4 pt-12">
       {mergedSongs.map((song: any, i) => (
         <div 
           key={song.id} 

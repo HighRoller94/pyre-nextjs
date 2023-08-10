@@ -17,8 +17,8 @@ const AccountContent = () => {
   }, [user?.app_metadata.provider]);
 
   return (
-    <div className="flex flex-col justify-between w-4/12">
-      <div className="flex gap-x-6 items-center my-8">
+    <div className="flex flex-col justify-between w-4/12 px-6">
+      <div className="flex gap-x-6 items-center my-4">
         {isChecked ? (
           <>Connected to Spotify</>
         ) : (

@@ -8,7 +8,7 @@ import Box from "../Box";
 import SidebarItem from "./SidebarItem";
 import Library from "../../Library/Library";
 
-import { MdOpenInNew } from "react-icons/md";
+import { MdOpenInNew, MdExplore } from "react-icons/md";
 import { HiHome } from "react-icons/hi";
 import { AiFillHeart } from "react-icons/ai";
 import usePlayer from "@/hooks/usePlayer";
@@ -22,7 +22,6 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
   const player = usePlayer();
-  console.log(player.miniPlayer);
 
   const pathname = usePathname();
   const [openSidebar, setOpenSidebar] = useState(true);
@@ -42,12 +41,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
         active: pathname === "/dashboard",
         href: "/dashboard",
       },
-      // {
-      //   icon: MdExplore,
-      //   label: "Explore",
-      //   active: pathname === "/explore",
-      //   href: "/explore",
-      // },
+      {
+        icon: MdExplore,
+        label: "Explore",
+        active: pathname === "/explore",
+        href: "/explore",
+      },
       {
         icon: AiFillHeart,
         label: "Favourites",
@@ -59,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
   );
 
   return (
-    <div className="flex overflow-hidden h-full       ">
+    <div className="flex overflow-hidden h-full min-w-screen w-screen">
       <div
         className={`
         sticky
@@ -93,7 +92,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
               Pyre
             </h1>
           </div>
-          <div className="flex flex-col gap-y-4 px-5 py-4 border-b-2 border-neutral-800">
+          <div className="flex flex-col gap-y-3 px-5 py-4 border-b-2 border-neutral-800">
             {routes.map((item) => (
               <SidebarItem
                 openSidebar={openSidebar}
@@ -103,7 +102,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
             ))}
           </div>
           <Library openSidebar={openSidebar} content={libContent} />
-          <div className={`flex w-full items-end justify-end px-[18px] pt-4 border-t-2 border-neutral-800 mt-auto pb-6 ${(player.tracks).length > 1 ? ( "mb-[76px]" ) : ("")}`}>
+          <div
+            className={`flex w-full items-end justify-end px-[18px] pt-4 border-t-2 border-neutral-800 mt-auto pb-6 ${
+              player.tracks.length > 1 ? "mb-[76px]" : ""
+            }`}
+          >
             <MdOpenInNew
               onClick={toggleSidebar}
               size={28}
@@ -112,7 +115,9 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
           </div>
         </Box>
       </div>
-      <main className="h-full flex-1 overflow-y-auto">{children}</main>
+      <main className="flex flex-col bg-neutral-900 h-full w-full">
+        {children}
+      </main>
     </div>
   );
 };

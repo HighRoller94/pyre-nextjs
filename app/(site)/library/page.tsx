@@ -11,7 +11,7 @@ const Liked = async () => {
   const spotifyLikedSongs = await fetchUserLikedSongs();
 
   return (
-    <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto min-h-full px-6">
+    <div className="flex flex-col px-6">
       <div className="md:mt-6">
         <div className="flex flex-col md:flex-row items-center gap-x-5">
           <div className="relative h-32 w-32 lg:h-44 lg:w-44">

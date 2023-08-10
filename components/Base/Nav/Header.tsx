@@ -36,23 +36,24 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   const [logout, setLogOut] = useState(false);
 
   useEffect(() => {
-    console.log(window.scrollY);
+    const header = document.getElementById("header");
+
     const scrollNav = () => {
-      if (window.scrollY > 400) {
-        setSmallHeader(true);
+      if (window.scrollY > 10) {
+        header.classList.add("active");
       } else {
-        setSmallHeader(false);
+        header.classList.remove("active");
       }
     };
+
     window.addEventListener("scroll", scrollNav);
     return () => window.removeEventListener("scroll", scrollNav);
-  }, [smallHeader]);
+  }, []);
 
   const handleClick = () => {
     setOpenWindow(!openWindow);
   };
 
-  console.log(user);
   const getGreeting = () => {
     const currentHour = dayjs().hour();
     const name = user?.user_metadata.provider_id;
@@ -100,8 +101,10 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       </div>
     );
   }
+
   return (
     <div
+      id="header"
       className={twMerge(
         `
         border-b-2
@@ -116,16 +119,12 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         sticky
         top-0
         z-50
-
     `,
         className
       )}
     >
-      {/* ${
-          smallHeader ? "bg-orange-500 h-24" : "bg-green-900 h-20"
-        } */}
       <div
-        className={`px-5 py-4 md:p-4 md:px-6 w-full md:mb-2 flex items-center justify-between z-10 md:backdrop-blur transition `}
+        className={`px-5 py-4 md:p-6 md:px-6 w-full flex items-center justify-between z-10 md:backdrop-blur transition `}
       >
         <div className="hidden md:flex gap-x-6 items-center">
           <div className="flex items-center gap-2">
