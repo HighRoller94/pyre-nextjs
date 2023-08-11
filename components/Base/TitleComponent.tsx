@@ -18,7 +18,7 @@ const TitleComponent: React.FC<TitleComponentProps> = ({
   hideContent,
 }) => {
   return (
-    <div className="p-6 w-full flex justify-between">
+    <div className="p-6 w-full flex flex-col sm:flex-row sm:justify-between">
       <div className="flex flex-col">
         {header && (
           <h1
@@ -36,7 +36,7 @@ const TitleComponent: React.FC<TitleComponentProps> = ({
       <div className="flex justify-end">
         {contentCount > displayedContent ? (
           <button
-            className="text-neutral-400 cursor-pointer hover:text-white transition flex justify-end items-end pr-6"
+            className="text-neutral-400  mt-2 sm:mt-0 cursor-pointer hover:text-white transition flex justify-end items-end pr-2 sm:pr-6"
             onClick={showContent}
           >
             Show More
@@ -45,7 +45,7 @@ const TitleComponent: React.FC<TitleComponentProps> = ({
           <>
             {contentCount > 8 && (
               <button
-                className="text-neutral-400 cursor-pointer hover:text-white transition flex justify-end items-end pr-6"
+                className="text-neutral-400  mt-2 sm:mt-0 cursor-pointer hover:text-white transition flex justify-end items-end pr-2 sm:pr-6"
                 onClick={hideContent}
               >
                 See Less

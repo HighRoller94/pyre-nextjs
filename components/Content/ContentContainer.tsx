@@ -49,7 +49,7 @@ const ContentContainer: React.FC<ContentContainerProps> = ({
         showContent={showContent}
         hideContent={hideContent}
       />
-      <div className="pl-6 pr-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-8 gap-4 my-4">
+      <div className="pl-6 pr-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-8 gap-4 sm:my-4">
         {visibleContent.map((content, index) => (
           <DynamicComponent
             componentType={getComponentType(contentType)}
