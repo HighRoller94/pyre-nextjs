@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import { Transition } from "@headlessui/react";
 import dayjs from "dayjs";
@@ -13,6 +13,9 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { FaUserAlt } from "react-icons/fa";
+import { usePathname } from "next/navigation";
+import { AiFillHeart } from "react-icons/ai";
+import { IconType } from "react-icons";
 
 import Button from "../Button";
 
@@ -32,22 +35,22 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   const { user } = useUser();
   const supabaseClient = useSupabaseClient();
   const [openWindow, setOpenWindow] = useState(false);
-  const [smallHeader, setSmallHeader] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [logout, setLogOut] = useState(false);
+  const pathname = usePathname();
+
+  const handleScroll = () => {
+    // Check if the page is scrolled by comparing scrollY to 0
+    setIsScrolled(window.scrollY > 0);
+  };
 
   useEffect(() => {
-    const header = document.getElementById("header");
+    window.addEventListener("scroll", handleScroll);
 
-    const scrollNav = () => {
-      if (window.scrollY > 10) {
-        header.classList.add("active");
-      } else {
-        header.classList.remove("active");
-      }
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
-
-    window.addEventListener("scroll", scrollNav);
-    return () => window.removeEventListener("scroll", scrollNav);
   }, []);
 
   const handleClick = () => {
@@ -119,6 +122,8 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         sticky
         top-0
         z-50
+        transition
+        ${isScrolled ? "py-4" : "py-0"}
     `,
         className
       )}
@@ -145,15 +150,47 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           </div>
           <SearchInput />
         </div>
-        <div className="flex md:hidden gap-x-2 items-center">
-          <Link href="/">
-            <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity:-75 transition">
-              <HiHome size={20} className="text-black" />
+        <div className="flex md:hidden gap-x-3 items-center">
+          <Link href="/dashboard">
+            <button
+              className={`${
+                pathname === "/dashboard" ? "bg-orange-400" : "bg-white"
+              } rounded-full p-2  flex items-center justify-center hover:opacity:-75 transition`}
+            >
+              <HiHome
+                size={20}
+                className={`${
+                  pathname === "/dashboard" ? "text-white" : " text-black"
+                } `}
+              />
             </button>
           </Link>
           <Link href="/search">
-            <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity:-75 transition">
-              <BiSearch size={20} className="text-black" />
+            <button
+              className={`${
+                pathname === "/search" ? "bg-orange-400" : "bg-white"
+              } rounded-full p-2  flex items-center justify-center hover:opacity:-75 transition`}
+            >
+              <BiSearch
+                size={20}
+                className={`${
+                  pathname === "/search" ? "text-white" : " text-black"
+                } `}
+              />
+            </button>
+          </Link>
+          <Link href="/favourites">
+            <button
+              className={`${
+                pathname === "/favourites" ? "bg-orange-400" : "bg-white"
+              } rounded-full p-2  flex items-center justify-center hover:opacity:-75 transition`}
+            >
+              <AiFillHeart
+                size={20}
+                className={`${
+                  pathname === "/favourites" ? "text-white" : " text-black"
+                } `}
+              />
             </button>
           </Link>
         </div>
