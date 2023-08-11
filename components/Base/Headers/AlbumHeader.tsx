@@ -25,8 +25,8 @@ const AlbumHeader: React.FC<AlbumHeaderProps> = ({ data }) => {
   const releaseYear = dayjs(`${data.release_date}`).format("YYYY");
 
   return (
-    <div className="flex p-6 items-center">
-      <div className="relative aspect-square rounded-md overflow-hidden border-full w-[175px] h-[175px]">
+    <div className="flex flex-col sm:flex-row p-10 sm:p-6 items-center justify-center sm:justify-start">
+      <div className="relative aspect-square rounded-md overflow-hidden border-full h-44 w-44 lg:h-52 lg:w-52">
         <Image
           src={data?.image_path || "/images/liked.png"}
           className="object-cover"
@@ -34,14 +34,14 @@ const AlbumHeader: React.FC<AlbumHeaderProps> = ({ data }) => {
           alt="Image"
         />
       </div>
-      <div className="flex flex-col ml-6">
-        <div className="flex items-center gap-2 mb-1">
-          <FaSpotify size={24} className="text-green-500 -mt-2" />
-          <p className="text-neutral-400 text-sm truncat uppercase font-semibold tracking-widest mb-2">
+      <div className="flex flex-col items-center justify-center text-center sm:ml-7 sm:justify-start sm:text-left sm:items-start mt-2 sm:mt-0">
+        <div className="flex items-center gap-2 my-2 sm:my-0 sm:mb-1">
+          <FaSpotify size={24} className="text-green-500 " />
+          <p className="text-neutral-400 text-sm truncate uppercase font-bold tracking-widest my-2">
             Spotify Album
           </p>
         </div>
-        <h1 className="text-white text-5xl font-semibold mb-4">
+        <h1 className="text-white text-5xl sm:text-6xl lg:text-6xl font-bold my-2 mb-4">
           {data?.name}
         </h1>
         <div className="flex items-center justify-start w-100">
