@@ -11,7 +11,7 @@ interface ProfileHeaderProps {
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ data }) => {
 
   return (
-    <div className="flex flex-col sm:flex-row p-6 items-center justify-center sm:justify-start">
+    <div className="flex flex-col sm:flex-row p-10 sm:p-6 items-center justify-center sm:justify-start">
       <div className="relative rounded-full h-44 w-44">
         <Image
           src={data?.image_path || "/images/liked.png"}

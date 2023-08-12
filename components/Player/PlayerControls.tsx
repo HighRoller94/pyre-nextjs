@@ -25,8 +25,6 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [sliderValue, setSliderValue] = useState(0);
 
-  console.log(isPlaying);
-
   // Get duration of song playing
   // If no premium set duration to default song extract (0:30)
 

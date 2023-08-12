@@ -6,6 +6,12 @@ const ToasterProvider = () => {
   return (
     <Toaster
       toastOptions={{
+        success: {
+          iconTheme: {
+            primary: '#FFA726',
+            secondary: 'white',
+          },
+        },
         style: {
           background: "#333",
           color: "#fff",

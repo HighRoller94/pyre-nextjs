@@ -15,25 +15,21 @@ import useAuthModal from "@/hooks/useAuthModal";
 interface LikeButtonProps {
   songId: string;
   spotifyUrl: boolean;
+  likeStatus?: boolean;
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ songId, spotifyUrl }) => {
+const LikeButton: React.FC<LikeButtonProps> = ({ songId, spotifyUrl, likeStatus }) => {
   const { supabaseClient } = useSessionContext();
   const authModal = useAuthModal();
   const { user } = useUser();
 
-  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState(likeStatus);
 
   useEffect(() => {
     if (!user?.id) {
       return;
     }
-    const checkSpotifyLikeStatus = async () => {
-      const res = await fetch(`/api/spotifyLikeStatus/${songId}`);
-      const data = await res.json();
-      setIsLiked(data.getLikedStatus[0]);
-      return data;
-    };
+    setIsLiked(likeStatus)
 
     const fetchData = async () => {
       const { data, error } = await supabaseClient
@@ -49,7 +45,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId, spotifyUrl }) => {
     };
 
     if (spotifyUrl) {
-      checkSpotifyLikeStatus();
+      setIsLiked(likeStatus)
     } else {
       fetchData();
     }

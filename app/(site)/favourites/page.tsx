@@ -22,7 +22,7 @@ export default async function Favourites() {
   }
 
   return (
-    <>
+    <div className="mt-2 md:mt-0">
       <TracksContainer
         songs={topTracks ? topTracks.slice(0, 8) : []}
         twoCol={true}
@@ -47,6 +47,6 @@ export default async function Favourites() {
         contentType="Artist"
         content={followedArtists ? followedArtists : []}
       />
-    </>
+    </div>
   );
 }

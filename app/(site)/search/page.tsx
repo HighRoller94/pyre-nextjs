@@ -1,6 +1,3 @@
-import getSongsByTitle from "@/util/getSongsByTitle";
-import Header from "@/components/Base/Nav/Header";
-import SearchInput from "@/components/Search/SearchInput";
 import SearchContent from "./components/SearchContent";
 import { Song } from "@/types";
 import {
@@ -24,10 +21,10 @@ const Search = async ({ searchParams }: SearchProps) => {
   }
 
   const artistsRes = await fetchSpotifySearchArtists(searchParams.title);
-  
+
   return (
-    <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto pb-20 min-h-full">
-      <SearchContent songs={songs} />
+    <div className="">
+      <SearchContent songs={songs} searchParams={searchParams.title}/>
     </div>
   );
 };

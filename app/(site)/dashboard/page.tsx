@@ -10,7 +10,7 @@ export default async function Home() {
   const recentlyPlayed = await fetchRecent();
 
   return (
-    <>
+    <div className="mt-2 md:mt-0">
       {/* <div className="mb-2">
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             <ListItem
@@ -38,6 +38,6 @@ export default async function Home() {
         />
         <PageContent songs={songs} />
       </div>
-    </>
+    </div>
   );
 }

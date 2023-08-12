@@ -22,6 +22,7 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
   const router = useRouter();
   const player = usePlayer();
   const imageUrl = useLoadImage(data);
+
   const dayjs = require("dayjs-with-plugins");
 
   const artistId = data.user_id;
@@ -51,7 +52,7 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
   return (
     <div
       onDoubleClick={handleClick}
-      className={`group flex items-center justify-between gap-x-3 bg-neutral-800/100 hover:bg-neutral-800/50 w-full p-2 sm:p-2  relative flex-1 ${
+      className={`group rounded flex items-center justify-between gap-x-3 bg-neutral-800/100 hover:bg-neutral-800/50 w-full p-2 sm:p-2  relative flex-1 ${
         player.activeId != data.id
           ? "bg-neutral-800/100"
           : "bg-neutral-700/100 hover:bg-neutral-700/100"
@@ -84,7 +85,7 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
                 ? () => generateUrlAndNavigate(data.album_id, "album")
                 : () => {}
             }
-            className="relative bg-neutral-500 rounded-md min-h-[40px] min-w-[40px] md:min-h-[48px] md:min-w-[48px] overflow-hidden ml-2 opacity-80 hover:opacity-100"
+            className="relative cursor-pointer bg-neutral-500 rounded-md min-h-[40px] min-w-[40px] md:min-h-[48px] md:min-w-[48px] overflow-hidden ml-2 opacity-80 hover:opacity-100"
           >
             <Image
               fill
@@ -99,13 +100,17 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
         <div className="ml-4 w-8/12 lg:w-12/12 flex flex-col ">
           {player.activeId != data.id ? (
             <>
-              <p className={`text-white font-medium max-w-8/12 max-w-[160px] sm:max-w-none truncate`}>
+              <p
+                className={`text-white font-medium max-w-8/12 max-w-[160px] sm:max-w-none truncate`}
+              >
                 {data.title}
               </p>
             </>
           ) : (
             <>
-              <p className={`text-orange-400 font-medium max-w-8/12 max-w-[160px] truncate`}>
+              <p
+                className={`text-orange-400 font-medium max-w-8/12 max-w-[160px] truncate`}
+              >
                 {data.title}
               </p>
             </>
@@ -145,7 +150,11 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
         </div>
       </div>
       <div className="flex items-center justify-between mr-2 w-fit sm:min-w-[75px] absolute right-2 top-[33%]">
-        <LikeButton songId={data.id} spotifyUrl={data.spotify_url} />
+        <LikeButton
+          likeStatus={data.likeStatus}
+          songId={data.id}
+          spotifyUrl={data.spotify_url}
+        />
         <p className="text-neutral-400 hidden sm:flex">
           {minutes}:{seconds}
         </p>

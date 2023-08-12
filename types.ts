@@ -34,6 +34,7 @@ export interface Song {
   spotify_uri?: string
   duration: number;
   artists?: Artist[]
+  likeStatus?: boolean;
 }
 
 export interface Album {
