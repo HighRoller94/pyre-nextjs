@@ -2,7 +2,7 @@ import * as Progress from "@radix-ui/react-progress";
 
 const Playbar = ({ playDuration, totalDuration }) => {
   const startTime = "0:00";
-  
+
   const timeStringToSeconds = (timeString) => {
     const [hours, minutes] = timeString.split(":");
     return parseInt(hours, 10) * 3600 + parseInt(minutes, 10) * 60;
@@ -16,12 +16,20 @@ const Playbar = ({ playDuration, totalDuration }) => {
     const totalDurationInSeconds = endTimeInSeconds - startTimeInSeconds;
     const currentDurationInSeconds = currentTimeInSeconds - startTimeInSeconds;
 
-    const progressPercentage =
+    let progressPercentage =
       (currentDurationInSeconds / totalDurationInSeconds) * 100;
+
+    // Ensure progressPercentage does not exceed 100%
+    progressPercentage = Math.min(progressPercentage, 100);
+
     return progressPercentage;
   };
 
-  const percentageProgress = getPercentageProgress(startTime, totalDuration, playDuration);
+  const percentageProgress = getPercentageProgress(
+    startTime,
+    totalDuration,
+    playDuration
+  );
 
   return (
     <Progress.Root
