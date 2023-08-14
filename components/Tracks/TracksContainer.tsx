@@ -44,7 +44,9 @@ const TracksContainer: React.FC<TracksContainerProps> = ({
   }, [songs]);
 
   function mergeArraysWithLikeStatus(array1, likesArray) {
-
+    if (array1.length !== likesArray.length) {
+      throw new Error("Arrays must have the same length");
+    }
 
     const mergedArray = [];
 
