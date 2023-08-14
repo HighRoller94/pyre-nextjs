@@ -39,6 +39,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   const [logout, setLogOut] = useState(false);
   const pathname = usePathname();
 
+  console.log(user)
   const handleScroll = () => {
     // Check if the page is scrolled by comparing scrollY to 0
     setIsScrolled(window.scrollY > 0);

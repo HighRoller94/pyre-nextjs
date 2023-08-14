@@ -14,7 +14,6 @@ const SearchContent: React.FC<SearchContentProps> = ({
   songs,
   searchParams,
 }) => {
-
   if (!songs || songs.length === 0) {
     return (
       <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
@@ -25,13 +24,13 @@ const SearchContent: React.FC<SearchContentProps> = ({
 
   return (
     <div className="flex flex-col gap-y-2 w-full ">
-      <TitleComponent header={"Search"} />
+      <TitleComponent header={`Search`} />
       <div className="flex items-center justify-center md:hidden max-w-[90%] mx-6 mb-3 -mt-2">
         <SearchInput />
       </div>
       {searchParams && (
         <>
-          <p className="px-6">Results for "{searchParams}"</p>
+          <p className="px-6">Results for {searchParams}</p>
           <TracksContainer songs={songs} />
         </>
       )}

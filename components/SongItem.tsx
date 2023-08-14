@@ -40,6 +40,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
           className="object-cover"
           fill
           alt="Image"
+          sizes='100vw'
         />
         <div
 

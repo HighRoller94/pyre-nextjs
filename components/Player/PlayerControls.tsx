@@ -20,7 +20,6 @@ interface SliderProps {
 const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
   const player = usePlayer();
   const dayjs = require("dayjs-with-plugins");
-  const [isPlaying, setIsPlaying] = useState(false);
   const spotifyPremium = false;
   const [currentTime, setCurrentTime] = useState(0);
   const [sliderValue, setSliderValue] = useState(0);
@@ -43,9 +42,6 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
       return songDuration;
     }
   };
-
-  // Set Icon for play pause
-  const Icon = isPlaying ? BsPauseFill : BsPlayFill;
 
   // Play next song logic
 
@@ -92,13 +88,14 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
   // Logic for useSound
 
   const [play, { pause, sound }] = useSound(songUrl, {
+
     volume: volume,
-    onplay: () => setIsPlaying(true),
+    onplay: () => player.setPlay(),
     onend: () => {
-      setIsPlaying(false);
+      player.setPause();
       onPlayNext();
     },
-    onpause: () => setIsPlaying(false),
+    onpause: () => player.setPause(),
     format: ["mp3"],
   });
 
@@ -127,7 +124,7 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
     }, 1000);
 
     return () => combinedReturns(interval);
-  }, [sound, song, player.isPlaying]);
+  }, [sound, song]);
 
   const combinedReturns = (interval) => {
     clearInterval(interval);
@@ -143,17 +140,16 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
   // Play pause func
 
   const handlePlay = () => {
-    if (!isPlaying) {
+    if (player.isPlaying) {
       // if (song.spotify_url) {
       //   playSpotify();
       //   setIsPlaying(true);
       // } else {
       //   play();
       // }
-      // player.setPlay();
-      // setIsPlaying(true);
-      play();
-      // player.setPlay();
+
+      pause();
+
     } else {
       // if (song.spotify_url) {
       //   pauseSpotify();
@@ -161,12 +157,16 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
       // } else {
       //   pause();
       // }
-      // player.setPause();
-      // setIsPlaying(false);
-      pause();
-      // player.setPause();
+
+      play();
+
     }
   };
+
+  console.log(player.isPlaying)
+  // Set Icon for play pause
+
+  const Icon = player.isPlaying ? BsPauseFill : BsPlayFill;
 
   return (
     <div className="flex flex-col justify-center">
