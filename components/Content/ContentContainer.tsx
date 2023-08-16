@@ -5,7 +5,7 @@ import DynamicComponent from "./DynamicComponent";
 import TitleComponent from "../Base/TitleComponent";
 
 interface ContentContainerProps {
-  header: string;
+  header?: string;
   subHeader?: string;
   content: any;
   contentType: string;

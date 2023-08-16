@@ -52,7 +52,7 @@ const Track: React.FC<TrackProps> = ({ data, onClick, index }) => {
   return (
     <div
       onDoubleClick={handleClick}
-      className={`group rounded flex items-center justify-between gap-x-3 bg-neutral-800/100 hover:bg-neutral-800/50 w-full p-2 sm:p-2  relative flex-1 ${
+      className={`group rounded flex items-center justify-between gap-x-3 bg-neutral-800/100 hover:bg-neutral-800/50 w-full p-2 sm:p-2 h-full relative flex-1 ${
         player.activeId != data.id
           ? "bg-neutral-800/100"
           : "bg-neutral-700/100 hover:bg-neutral-700/100"

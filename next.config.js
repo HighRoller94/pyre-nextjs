@@ -18,6 +18,7 @@ const nextConfig = {
       "lineup-images.scdn.co",
       "newjams-images.scdn.co",
       "images-ak.spotifycdn.com",
+      "scontent-ams2-1.xx.fbcdn.net"
     ],
   },
 };

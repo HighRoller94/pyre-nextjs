@@ -2,7 +2,7 @@ import { Playlist } from "@/types";
 import Image from "next/image";
 import { BiTimeFive } from "react-icons/bi";
 import FollowPlaylistButton from "@/components/Follow/FollowPlaylistButton";
-
+import Link from "next/link";
 interface PlaylistHeaderProps {
   data: Playlist;
 }
@@ -15,6 +15,8 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ data }) => {
     (accumulator, currentValue) => accumulator + currentValue,
     0
   );
+
+  console.log(data)
 
   const durationObj = dayjs.duration(sum);
 
@@ -48,7 +50,13 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ data }) => {
             spotifyUrl={data.spotify_url}
           />
           <p className="flex items-center text-white text-lg truncate">
-            By {data?.owner_name}
+            <Link
+              href={{
+                pathname: `/user/${data?.owner_id}`,
+              }}
+            >
+              <span>{data?.owner_name}</span>
+            </Link>
           </p>
           <div className="flex items-center">
             <p className="flex items-center text-neutral-400 text-lg truncat ml-4">

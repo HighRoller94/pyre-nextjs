@@ -34,6 +34,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ data }) => {
           className="object-cover"
           fill
           alt="Image"
+          sizes="100vw"
         />
       </div>
       <div  className="flex flex-col items-start w-full py-4 gap-y-1 px-3">

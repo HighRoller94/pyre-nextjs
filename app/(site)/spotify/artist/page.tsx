@@ -21,6 +21,7 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
   const artist = await fetchSpotifyArtist(searchParams.id);
   const topTracks = await fetchSpotifyArtistTopTracks(searchParams.id);
   const artistAlbums = await fetchSpotifyArtistAlbums(searchParams.id);
+  let split = true
 
   if (!artist || !topTracks || !artistAlbums) {
     return (
@@ -35,7 +36,8 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
       <DynamicHeader data={artist} headerType="Artist" />
       <TracksContainer
         songs={topTracks.slice(0, 6)}
-        twoCol={true}
+        twoCol={split}
+        split={split}
         header={"Top Hits"}
       />
       <ContentContainer

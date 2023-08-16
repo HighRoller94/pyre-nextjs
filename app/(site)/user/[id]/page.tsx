@@ -16,12 +16,11 @@ export default async function UserPage({ params }: SearchProps) {
   const profileData = await fetchProfileById(params.id);
   const profilePlaylists = await fetchProfilePlaylists(params.id)
 
-  console.log(profilePlaylists)
   return (
-    <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto min-h-full">
+    <div>
       <DynamicHeader data={profileData} headerType="Profile"/>
       <ContentContainer
-        header="Public Playlists"
+        header="Spotify Playlists"
         contentType="Playlist"
         content={profilePlaylists ? profilePlaylists : []}
       />

@@ -35,7 +35,7 @@ export default async function RootLayout({
             <ModalProvider />
             <Sidebar content={playLists}>
               <div
-                className={`flex flex-col bg-neutral-900 h-full w-full overflow-scroll pb-24 scrollbar scrollbar-thumb-orange-500 scrollbar-track-neutral-700`}
+                className={`flex flex-col bg-neutral-900 h-full w-full overflow-scroll pb-24 scrollbar-none`}
               >
                 <Header />
                 {children}

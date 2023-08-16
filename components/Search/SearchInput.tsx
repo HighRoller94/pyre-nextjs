@@ -27,7 +27,7 @@ const SearchInput = () => {
   }, [debouncedValue, router]);
 
   return (
-    <div className="flex items-center w-full md:min-w-[400px] gap-4">
+    <div className="flex items-center  w-full gap-4">
       <Input
         placeholder="What shall we listen to today?"
         value={value}

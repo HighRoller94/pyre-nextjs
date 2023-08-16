@@ -25,12 +25,12 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     <Link
       href={href}
       className={twMerge(
-        `flex flex-row h-auto items-center w-full gap-x-4 text-md font-medium cursor-pointer
+        `flex flex-row h-auto items-center justify-center w-full gap-x-4 text-md font-medium cursor-pointer
     hover:text-white transition text-neutral-400 py-1`,
         active && "text-orange-400"
       )}
     >
-      <Icon className="min-h-[28px] min-w-[28px]"/>
+      <Icon className={`${openSidebar ? "min-h-[28px] min-w-[28px]" : "min-h-[30px] min-w-[30px]"}`}/>
       <p
         className={`truncate w-full text-base ${
           openSidebar ? "flex" : "hidden"

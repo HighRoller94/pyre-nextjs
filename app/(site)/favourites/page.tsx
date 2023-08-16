@@ -8,7 +8,8 @@ export default async function Favourites() {
   const followedArtists = await userFollowedArtists();
   const topArtists = await userTopArtists();
   const topTracks = await userTopTracks();
-
+  let split = true
+  
   if (!followedArtists || !topTracks || !topTracks) {
     return (
       <div>
@@ -23,7 +24,8 @@ export default async function Favourites() {
     <div className="mt-2 md:mt-0">
       <TracksContainer
         songs={topTracks ? topTracks.slice(0, 8) : []}
-        twoCol={true}
+        twoCol={split}
+        split={split}
         header={"Your Favourites"}
         subHeader={"Revisiting the classics"}
       />

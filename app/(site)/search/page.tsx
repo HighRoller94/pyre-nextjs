@@ -24,7 +24,11 @@ const Search = async ({ searchParams }: SearchProps) => {
 
   return (
     <div className="">
-      <SearchContent songs={songs} searchParams={searchParams.title}/>
+      <SearchContent
+        artists={artistsRes}
+        songs={songs}
+        searchParams={searchParams.title}
+      />
     </div>
   );
 };

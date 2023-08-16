@@ -18,12 +18,12 @@ const TitleComponent: React.FC<TitleComponentProps> = ({
   hideContent,
 }) => {
   return (
-    <div className="p-6 w-full flex flex-col sm:flex-row sm:justify-between">
+    <div className="p-6 md:py-4 w-full flex flex-col sm:flex-row sm:justify-between">
       <div className="flex flex-col">
         {header && (
           <h1
-            className={`text-white text-4xl font-bold ${
-              pageTitle && "text-4xl"
+            className={`text-white text-xl md:text-3xl font-bold ${
+              pageTitle && "text-3xl md:text-5xl"
             }`}
           >
             {header}

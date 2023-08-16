@@ -19,6 +19,8 @@ import { BiSearch } from "react-icons/bi";
 import { FaUserAlt } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { AiFillHeart } from "react-icons/ai";
+import { FaUserCircle } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
 
 // Components etc
 
@@ -135,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       <div
         className={`px-5 py-4 md:p-6 md:px-6 w-full flex items-center justify-between z-10 md:backdrop-blur transition `}
       >
-        <div className="hidden md:flex gap-x-6 items-center">
+        <div className="hidden md:flex gap-x-6 items-center w-6/12 min-w-[380px] lg:max-w-[500px]">
           <div className="flex items-center gap-2">
             <button className=" bg-neutral-900 rounded-full flex items-center justify-center hover:opacity-75 h-full transition">
               <RxCaretLeft
@@ -155,6 +157,13 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           <SearchInput />
         </div>
         <div className="flex md:hidden gap-x-3 items-center">
+          <Image
+            src="/images/pyreLogo.png"
+            width={40}
+            height={40}
+            alt="Pyre Logo"
+            className="mr-2"
+          />
           <Link href="/dashboard">
             <button
               className={`${
@@ -204,9 +213,9 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
               {user?.user_metadata?.avatar_url ? (
                 <div>
                   <div className="flex items-center gap-x-4 w-full">
-                    {/* <h4 className="hidden sm:flex md:hidden xl:flex font-bold w-fit">
+                    <h4 className="hidden sm:flex md:hidden xl:flex font-bold w-fit">
                       {getGreeting()}
-                    </h4> */}
+                    </h4>
                     <div className="relative w-10  h-10 cursor-pointer">
                       <Image
                         onClick={handleClick}

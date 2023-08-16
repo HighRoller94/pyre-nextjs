@@ -46,12 +46,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
         active: pathname === "/dashboard",
         href: "/dashboard",
       },
-      {
-        icon: MdExplore,
-        label: "Explore",
-        active: pathname === "/explore",
-        href: "/explore",
-      },
+      // {
+      //   icon: MdExplore,
+      //   label: "Explore",
+      //   active: pathname === "/explore",
+      //   href: "/explore",
+      // },
       {
         icon: AiFillHeart,
         label: "Favourites",
@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
   );
 
   return (
-    <div className="flex overflow-hidden h-full min-w-screen w-screen">
+    <div className="flex overflow-hidden h-full z-50 min-w-screen w-screen">
       <div
         className={`
         sticky
@@ -73,6 +73,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
           flex-col
           gap-y-2
           bg-black
+          z-50
           h-screen
           border-r-2 border-neutral-800
           overflow-hidden
@@ -81,8 +82,8 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
             ${openSidebar ? "max-w-[225px]" : "max-w-[70px]"}
         `}
       >
-        <Box className="overflow-y-auto h-full flex flex-col">
-          <div className="flex items-center text-center gap-2 border-b-2 border-neutral-800 px-3 py-6">
+        <Box className="h-full flex flex-col">
+          <div className="flex items-center text-center gap-3 border-b-2 border-neutral-800 px-3 py-6">
             <Image
               src="/images/pyreLogo.png"
               width={40}
@@ -114,7 +115,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
           >
             <MdOpenInNew
               onClick={toggleSidebar}
-              size={28}
+              size={26}
               className={`text-orange-400 flex justify-end hover:text-orange-300 transition cursor-pointer ${openSidebar && "-rotate-[90deg]"}`}
             />
           </div>

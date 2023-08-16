@@ -37,6 +37,7 @@ const Player: React.FC<PlayerProps> = ({ status, devices }) => {
       fixed 
       bg-neutral-950 
       py-2 
+      z-50
       h-[90px] 
       border-t-2
       border-neutral-800
