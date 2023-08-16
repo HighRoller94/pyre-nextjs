@@ -13,6 +13,7 @@ interface TracksContainerProps {
   twoCol?: boolean;
   header?: string;
   subHeader?: string;
+  split?: boolean;
 }
 
 const TracksContainer: React.FC<TracksContainerProps> = ({
@@ -20,6 +21,7 @@ const TracksContainer: React.FC<TracksContainerProps> = ({
   twoCol,
   header,
   subHeader,
+  split
 }) => {
   const onPlay = useOnPlay(songs);
   const [tracks, setTracks] = useState<any>();
@@ -59,7 +61,7 @@ const TracksContainer: React.FC<TracksContainerProps> = ({
     return (
       <div>
         {header && <TitleComponent header={header} subHeader={subHeader} />}
-        <TracksContainerSkel count={songs.length} twoCol={true} />
+        <TracksContainerSkel count={songs.length} twoCol={split} />
       </div>
     );
   }
