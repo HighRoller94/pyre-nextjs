@@ -1,18 +1,23 @@
 "use client";
 
+// Packages/hooks etc
+
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import usePlayer from "@/hooks/usePlayer";
 
-import Box from "../Box";
-import SidebarItem from "./SidebarItem";
-import Library from "../../Library/Library";
+// Icons etc
 
 import { MdOpenInNew, MdExplore } from "react-icons/md";
 import { HiHome } from "react-icons/hi";
 import { AiFillHeart } from "react-icons/ai";
-import usePlayer from "@/hooks/usePlayer";
 
+// Components etc
+
+import Box from "../Box";
+import SidebarItem from "./SidebarItem";
+import Library from "../../Library/Library";
 import { Playlist } from "@/types";
 
 interface SidebarProps {
@@ -103,19 +108,22 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
           </div>
           <Library openSidebar={openSidebar} content={libContent} />
           <div
-            className={`flex w-full items-end justify-end px-[18px] pt-4 border-t-2 border-neutral-800 mt-auto pb-6 ${
-              player.tracks.length > 1 ? "mb-[76px]" : ""
-            }`}
+            className={`flex w-full items-center px-[18px] pt-4 mt-auto pb-6 transition ${
+              player.tracks.length > 1 ? "mb-[80px]" : ""
+            } ${openSidebar ?  "justify-end" : "justify-center"}`}
           >
             <MdOpenInNew
               onClick={toggleSidebar}
               size={28}
-              className="text-orange-400 flex justify-end hover:text-orange-300 transition cursor-pointer"
+              className={`text-orange-400 flex justify-end hover:text-orange-300 transition cursor-pointer ${openSidebar && "-rotate-[90deg]"}`}
             />
           </div>
         </Box>
       </div>
-      <main id="main" className="flex flex-col bg-neutral-900 h-full w-full overflow-y-scroll">
+      <main
+        id="main"
+        className="flex flex-col bg-neutral-900 h-full w-full overflow-y-scroll"
+      >
         {children}
       </main>
     </div>

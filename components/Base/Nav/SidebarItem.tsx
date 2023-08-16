@@ -1,6 +1,10 @@
+// Packages/hooks etc
+
 import Link from "next/link";
-import { IconType } from "react-icons";
 import { twMerge } from "tailwind-merge";
+
+// Icons etc
+import { IconType } from "react-icons";
 
 interface SidebarItemProps {
   icon: IconType;
@@ -26,9 +30,9 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         active && "text-orange-400"
       )}
     >
-      <Icon size={32} />
+      <Icon className="min-h-[28px] min-w-[28px]"/>
       <p
-        className={`truncate w-full text-base${
+        className={`truncate w-full text-base ${
           openSidebar ? "flex" : "hidden"
         }`}
       >
