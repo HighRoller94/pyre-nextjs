@@ -3,12 +3,10 @@
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import {
-  useSessionContext,
   useSupabaseClient,
 } from "@supabase/auth-helpers-react";
 
 function SpotifySignIn() {
-  const { session, isLoading, error } = useSessionContext();
   const supabaseClient = useSupabaseClient();
 
   return (
