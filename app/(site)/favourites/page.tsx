@@ -1,17 +1,15 @@
-import { userFollowedArtists, userPlayLists } from "@/util/spotify/fetchUser";
+import { userFollowedArtists } from "@/util/spotify/fetchUser";
 import { userTopArtists, userTopTracks } from "@/util/spotify/fetchUser";
 
 import ContentContainer from "@/components/Content/ContentContainer";
 import TracksContainer from "@/components/Tracks/TracksContainer";
-export const revalidate = 60;
 
 export default async function Favourites() {
   const followedArtists = await userFollowedArtists();
-  const playLists = await userPlayLists();
   const topArtists = await userTopArtists();
   const topTracks = await userTopTracks();
 
-  if (!followedArtists || !playLists || !topTracks || !topTracks) {
+  if (!followedArtists || !topTracks || !topTracks) {
     return (
       <div>
         <div className="mt-4 text-neutral-400 pl-6">
@@ -34,12 +32,6 @@ export default async function Favourites() {
         subHeader="Revisiting the favourites"
         contentType="Artist"
         content={topArtists ? topArtists : []}
-      />
-      <ContentContainer
-        header="Top Playlists"
-        subHeader="Jump back in"
-        contentType="Playlist"
-        content={playLists ? playLists : []}
       />
       <ContentContainer
         header="Followed Artists"

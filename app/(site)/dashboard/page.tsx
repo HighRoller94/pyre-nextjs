@@ -4,11 +4,14 @@ import getSongs from "@/util/getSongs";
 import fetchRecent from "@/util/spotify/fetchSpotifyRecent";
 import PageContent from "./components/PageContent";
 import TitleComponent from "@/components/Base/TitleComponent";
+import TitleSkel from "@/components/Skels/TitleSkel";
+import { userFollowedArtists, userPlayLists } from "@/util/spotify/fetchUser";
+import ContentContainer from "@/components/Content/ContentContainer";
 
 export default async function Home() {
-  const songs = await getSongs();
+  // const songs = await getSongs();
   const recentlyPlayed = await fetchRecent();
-
+  const playLists = await userPlayLists();
   return (
     <div className="mt-2 md:mt-0">
       {/* <div className="mb-2">
@@ -20,7 +23,6 @@ export default async function Home() {
             />
           </div>
         </div> */}
-
       {recentlyPlayed && (
         <div>
           <TitleComponent
@@ -28,16 +30,22 @@ export default async function Home() {
             subHeader={"Jump in where you left off"}
             pageTitle={true}
           />
-          <PageContent songs={recentlyPlayed.slice(0, 16)} />
+          <PageContent songs={recentlyPlayed.slice(0, 8)} />
         </div>
       )}
-      <div className="flex flex-col w-full">
+      <ContentContainer
+        header="Saved Playlists"
+        subHeader="Jump back in"
+        contentType="Playlist"
+        content={playLists ? playLists : []}
+      />
+      {/* <div className="flex flex-col w-full">
         <TitleComponent
           header={"Latest Releases"}
           subHeader={"Newest additions to Pyre"}
         />
         <PageContent songs={songs} />
-      </div>
+      </div> */}
     </div>
   );
 }

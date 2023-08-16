@@ -47,12 +47,10 @@ const LibraryItem: React.FC<LibraryItemProps> = ({
   return (
     <div
       onClick={Link}
-      className="flex items-center gap-x-3 w-full max-w-[170px] p-1 rounded-md flex-1 hover:bg-neutral-700"
+      className="flex items-center gap-x-3 w-full  p-1 rounded-md flex-1"
     >
       <div
-        className={`relative rounded-md min-h-[36px] min-w-[36px] overflow-hidden ${
-          openSidebar ? "hidden" : "flex"
-        }`}
+        className={`relative rounded-md min-h-[36px] min-w-[36px] flex`}
       >
         <Image
           fill
@@ -61,9 +59,13 @@ const LibraryItem: React.FC<LibraryItemProps> = ({
           className="object-cover cursor-pointer opacity-80 hover:opacity-100"
         />
       </div>
-      <div className="flex flex-col  overflow:hidden w-full flex-1">
+      <div
+        className={`flex flex-col  truncate w-full flex-1 ${
+          openSidebar ? "hidden" : "flex"
+        }"`}
+      >
         <p
-          className={`text-neutral-400 truncate w-full cursor-pointer hover:text-white transition ${
+          className={`text-neutral-400 truncate w-full overflow-hidden cursor-pointer hover:text-white transition ${
             openSidebar ? "flex" : "hidden"
           }`}
         >

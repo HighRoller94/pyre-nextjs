@@ -1,27 +1,31 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+// Packages/hooks etc
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Transition } from "@headlessui/react";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
-import SearchInput from "../../Search/SearchInput";
 import { twMerge } from "tailwind-merge";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Link from "next/link";
+
+// Icons etc
+
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { FaUserAlt } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { AiFillHeart } from "react-icons/ai";
-import { IconType } from "react-icons";
 
+// Components etc
+
+import SearchInput from "../../Search/SearchInput";
 import Button from "../Button";
-
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
-import { toast } from "react-hot-toast";
 
 interface HeaderProps {
   children?: React.ReactNode;
@@ -39,7 +43,6 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   const [logout, setLogOut] = useState(false);
   const pathname = usePathname();
 
-  console.log(user)
   const handleScroll = () => {
     // Check if the page is scrolled by comparing scrollY to 0
     setIsScrolled(window.scrollY > 0);
@@ -201,9 +204,9 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
               {user?.user_metadata?.avatar_url ? (
                 <div>
                   <div className="flex items-center gap-x-4 w-full">
-                    <h4 className="hidden sm:flex md:hidden xl:flex font-bold w-fit">
+                    {/* <h4 className="hidden sm:flex md:hidden xl:flex font-bold w-fit">
                       {getGreeting()}
-                    </h4>
+                    </h4> */}
                     <div className="relative w-10  h-10 cursor-pointer">
                       <Image
                         onClick={handleClick}

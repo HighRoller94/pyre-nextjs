@@ -2,11 +2,11 @@ import { fetchSpotifyAlbum } from "@/util/spotify/fetchSpotifyAlbums";
 
 import DynamicHeader from "@/components/Base/Headers/DynamicHeader";
 import TracksContainer from "@/components/Tracks/TracksContainer";
-
+import HeaderSkel from "@/components/Skels/HeaderSkel";
 import { Song } from "@/types";
 import { Album } from "@/types";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 interface SearchProps {
   searchParams: {

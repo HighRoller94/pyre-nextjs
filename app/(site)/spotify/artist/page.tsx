@@ -9,7 +9,7 @@ import {
 
 import { fetchSpotifyArtistAlbums } from "@/util/spotify/fetchSpotifyAlbums";
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic'
 
 interface SearchProps {
   searchParams: {

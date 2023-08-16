@@ -30,7 +30,6 @@ const SearchContent: React.FC<SearchContentProps> = ({
       </div>
       {searchParams && (
         <>
-          <p className="px-6">Results for {searchParams}</p>
           <TracksContainer songs={songs} />
         </>
       )}

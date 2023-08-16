@@ -40,15 +40,19 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
           className="object-cover"
           fill
           alt="Image"
-          sizes='100vw'
+          sizes="100vw"
         />
         <div
-
-          onClick={() => {onClick(data.id)}}
+          onClick={() => {
+            onClick(data.id);
+          }}
           className="absolute bottom-3 right-3"
         >
           {player.activeId === data.id && player.isPlaying ? (
-            <button onClick={() => console.log(player)} className="transition opacity-0 rounded-full flex items-center bg-green-500 p-4 drop-shadow-md translate translate-y-1/4 group-hover:opacity-100 group-hover:translate-y-0 hover:scale-110">
+            <button
+              onClick={() => console.log(player)}
+              className="transition opacity-0 rounded-full flex items-center bg-green-500 p-4 drop-shadow-md translate translate-y-1/4 group-hover:opacity-100 group-hover:translate-y-0 hover:scale-110"
+            >
               <IoMdPause size={16} className="text-black" />
             </button>
           ) : (

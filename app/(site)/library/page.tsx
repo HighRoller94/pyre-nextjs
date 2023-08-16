@@ -3,12 +3,12 @@ import Header from "@/components/Base/Nav/Header";
 import Image from "next/image";
 import LikedContent from "./components/LikedContent";
 import { fetchUserLikedSongs } from "@/util/spotify/fetchUser";
-
-export const revalidate = 60;
+import TracksContainer from "@/components/Tracks/TracksContainer";
 
 const Liked = async () => {
   const pyreLikedSongs = await getLikedSongs();
   const spotifyLikedSongs = await fetchUserLikedSongs();
+  const mergedSongs = [...pyreLikedSongs, ...spotifyLikedSongs];
 
   return (
     <div className="flex flex-col px-6">
@@ -34,6 +34,7 @@ const Liked = async () => {
         pyreLikedSongs={pyreLikedSongs}
         spotifyLikedSongs={spotifyLikedSongs ? spotifyLikedSongs : []}
       />
+      <TracksContainer songs={mergedSongs ? mergedSongs : []}/>
     </div>
   );
 };

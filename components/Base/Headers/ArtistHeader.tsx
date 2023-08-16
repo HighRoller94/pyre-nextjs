@@ -2,6 +2,7 @@ import { Artist } from "@/types";
 import Image from "next/image";
 import { FaSpotify } from "react-icons/fa";
 import FollowButton from "@/components/Follow/FollowArtistOrUserButton";
+import { BsHeadphones } from "react-icons/bs";
 
 interface ArtistHeaderProps {
   data: Artist;
@@ -28,15 +29,18 @@ const ArtistHeader: React.FC<ArtistHeaderProps> = ({ data }) => {
         <h1 className="text-white text-5xl sm:text-6xl lg:text-6xl font-bold my-2 mb-4">
           {data?.name}
         </h1>
-        <div className="mt-2 flex items-center justify-center">
+        <div className="mt-2 flex items-center justify-center gap-x-2">
           <FollowButton
             artistId={data.id}
             spotifyUrl={data.spotify_url}
             type={data.type}
           />
-          <p className="text-neutral-400 text-base truncate ml-1">
-            {data?.follower_count?.toLocaleString()} followers
-          </p>
+          <div className="flex items-center justify-between text-neutral-400 gap-x-3">
+            <BsHeadphones size={24}/>
+            <p className="text-sm truncate mt-[2px]">
+              {data?.follower_count?.toLocaleString()} followers
+            </p>
+          </div>
         </div>
       </div>
     </div>

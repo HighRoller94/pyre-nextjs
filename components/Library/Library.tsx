@@ -3,6 +3,7 @@
 import { TbPlaylist } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
 
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
@@ -20,6 +21,7 @@ const Library: React.FC<LibraryProps> = ({ content, openSidebar }) => {
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
   const { user } = useUser();
+  const pathname = usePathname();
 
   const onClick = () => {
     if (!user) {
@@ -33,10 +35,12 @@ const Library: React.FC<LibraryProps> = ({ content, openSidebar }) => {
     <div className="flex flex-col overflow-hidden">
       <div className="flex items-center justify-between px-5 py-6 border-b-2 border-neutral-800">
         <div className="inline-flex items-center gap-x-2 ">
-          <Link href="/library" className="flex items-center gap-x-2.5 group">
-            <TbPlaylist size={26} className="text-neutral-400 group-hover:text-white transition" />
+          <Link href="/library" className={`flex items-center gap-x-2.5 group ${
+                pathname === "/library" ? "text-orange-400" : "text-neutral-400"
+              }`}>
+            <TbPlaylist className="group-hover:text-white transition min-h-[28px] min-w-[28px]" />
             <p
-              className={`text-neutral-400 font-medium group-hover:text-white transition text-md ${
+              className={`font-medium group-hover:text-white transition text-md ${
                 openSidebar ? "flex" : "hidden"
               }`}
             >

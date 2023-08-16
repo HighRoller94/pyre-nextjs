@@ -1,12 +1,13 @@
-import "./globals.css";
+import "../globals.css";
+import { Figtree } from "next/font/google";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
-export const dynamic = 'force-dynamic'
 
-export const revalidate = 0;
+const font = Figtree({ subsets: ["latin"], variable: "--font-figtree" });
 
 export const metadata = {
   title: "Pyre",
+  description: "Your personal player",
 };
 
 export default async function RootLayout({
@@ -15,11 +16,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={font.className}>
       <body>
-        <SupabaseProvider>
-          <UserProvider>{children}</UserProvider>
-        </SupabaseProvider>
+        <SupabaseProvider>{children} </SupabaseProvider>
       </body>
     </html>
   );

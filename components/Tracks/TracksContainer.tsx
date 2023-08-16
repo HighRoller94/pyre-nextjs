@@ -6,6 +6,7 @@ import { Song } from "@/types";
 import useOnPlay from "@/hooks/useOnPlay";
 import { fetchSpotifySavedStatus } from "@/util/spotify/fetchSpotifySavedStatus";
 import { useEffect, useState } from "react";
+import TracksContainerSkel from "../Skels/TracksContainerSkel";
 
 interface TracksContainerProps {
   songs: Song[];
@@ -44,10 +45,6 @@ const TracksContainer: React.FC<TracksContainerProps> = ({
   }, [songs]);
 
   function mergeArraysWithLikeStatus(array1, likesArray) {
-    if (array1.length !== likesArray.length) {
-      throw new Error("Arrays must have the same length");
-    }
-
     const mergedArray = [];
 
     for (let i = 0; i < array1.length; i++) {
@@ -56,6 +53,15 @@ const TracksContainer: React.FC<TracksContainerProps> = ({
     }
 
     return mergedArray;
+  }
+
+  if (!tracks) {
+    return (
+      <div>
+        {header && <TitleComponent header={header} subHeader={subHeader} />}
+        <TracksContainerSkel count={songs.length} twoCol={true} />
+      </div>
+    );
   }
 
   return (
