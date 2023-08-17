@@ -18,11 +18,11 @@ const TitleComponent: React.FC<TitleComponentProps> = ({
   hideContent,
 }) => {
   return (
-    <div className="p-6 md:py-4 w-full flex flex-col sm:flex-row sm:justify-between">
+    <div className="p-6 py-5 md:py-4 w-full flex flex-col sm:flex-row sm:justify-between">
       <div className="flex flex-col">
         {header && (
           <h1
-            className={`text-white text-xl md:text-3xl font-bold ${
+            className={`text-white text-2xl md:text-3xl font-bold ${
               pageTitle && "text-3xl md:text-5xl"
             }`}
           >
@@ -33,7 +33,7 @@ const TitleComponent: React.FC<TitleComponentProps> = ({
           <p className="text-neutral-400 text-lg pt-2 truncate">{subHeader}</p>
         )}
       </div>
-      <div className="flex justify-end">
+      <div className="justify-end hidden sm:flex">
         {contentCount > displayedContent ? (
           <button
             className="text-neutral-400  mt-2 sm:mt-0 cursor-pointer hover:text-white transition flex justify-end items-end pr-2 sm:pr-6"

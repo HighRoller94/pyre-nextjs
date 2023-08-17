@@ -32,6 +32,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
   const Link = () => {
     router.push(url);
   };
+  
   return (
     <div className="relative flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/5 hover:bg-neutral/10 transition p-3">
       <div className="relative group aspect-square w-full h-full rounded-md overflow-hidden">
@@ -50,7 +51,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
         >
           {player.activeId === data.id && player.isPlaying ? (
             <button
-              onClick={() => console.log(player)}
+              onClick={() => player.setPause}
               className="transition opacity-0 rounded-full flex items-center bg-green-500 p-4 drop-shadow-md translate translate-y-1/4 group-hover:opacity-100 group-hover:translate-y-0 hover:scale-110"
             >
               <IoMdPause size={16} className="text-black" />

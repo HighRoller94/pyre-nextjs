@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
   );
 
   return (
-    <div className="flex overflow-hidden h-full z-50 min-w-screen w-screen">
+    <div className="flex overflow-hidden h-full z-40 min-w-screen w-screen">
       <div
         className={`
         sticky
@@ -73,7 +73,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
           flex-col
           gap-y-2
           bg-black
-          z-50
+          z-40
           h-screen
           border-r-2 border-neutral-800
           overflow-hidden
@@ -83,7 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
         `}
       >
         <Box className="h-full flex flex-col">
-          <div className="flex items-center text-center gap-3 border-b-2 border-neutral-800 px-3 py-6">
+          <div className="flex items-center text-center cursor-pointer gap-3 border-b-2 border-neutral-800 px-3 py-6">
             <Image
               src="/images/pyreLogo.png"
               width={40}

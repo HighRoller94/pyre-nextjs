@@ -71,7 +71,7 @@ const TracksContainer: React.FC<TracksContainerProps> = ({
       {header && <TitleComponent header={header} subHeader={subHeader} />}
 
       <div
-        className={`flex flex-col gap-y-2 gap-x-6 w-full px-6 my-4 ${
+        className={`flex flex-col gap-y-2 gap-x-6 w-full px-6 my-3 ${
           twoCol && "lg:grid lg:grid-cols-2"
         }`}
       >

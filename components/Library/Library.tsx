@@ -43,7 +43,7 @@ const Library: React.FC<LibraryProps> = ({ content, openSidebar }) => {
 
   return (
     <div className={`flex flex-col transition ${
-      player.tracks.length > 1 ? "h-[62%]" : "h-[72%]"
+      player.tracks.length > 1 ? "h-[61.5%]" : "h-[71%]"
     }`}>
       <div
         className={`flex items-center justify-between px-5 py-5 border-b-2 border-neutral-800 ${

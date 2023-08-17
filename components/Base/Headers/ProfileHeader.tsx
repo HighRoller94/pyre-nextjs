@@ -17,7 +17,6 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({ data }) => {
   const loggedInId = user?.user_metadata.provider_id;
   const userId = data?.id;
 
-  console.log(user);
   return (
     <div className="flex flex-col sm:flex-row p-10 sm:p-6 items-center justify-center sm:justify-start">
       <div className="relative rounded-full h-44 w-44">
@@ -35,7 +34,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = async ({ data }) => {
             Spotify Profile
           </p>
         </div>
-        <h1 className="text-white text-5xl sm:text-6xl lg:text-6xl font-bold my-2 mb-4">
+        <h1 className="text-white text-5xl sm:text-6xl lg:text-6xl font-semibold my-2 mb-4 ">
           {data?.name}
         </h1>
         <div className="mt-2 flex items-center justify-center gap-x-4">

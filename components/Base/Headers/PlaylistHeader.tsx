@@ -16,7 +16,6 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ data }) => {
     0
   );
 
-  console.log(data)
 
   const durationObj = dayjs.duration(sum);
 
@@ -43,7 +42,7 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ data }) => {
             Playlist
           </p>
         )}
-        <h1 className="text-white text-6xl font-semibold mb-4">{data?.name}</h1>
+        <h1 className="text-white text-6xl font-semibold mb-4 ">{data?.name}</h1>
         <div className="flex flex-col sm:flex-row items-center justify-start w-100">
           <FollowPlaylistButton
             playlistId={data.id}

@@ -25,8 +25,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
       </div>
     );
   }
-
-  console.log(artists);
+  
   return (
     <div className="flex flex-col gap-y-2 w-full ">
       <TitleComponent pageTitle={true} header={`Top Results`} />

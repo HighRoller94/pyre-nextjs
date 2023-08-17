@@ -8,6 +8,9 @@ import ModalProvider from "@/providers/ModalProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import { userPlayLists } from "@/util/spotify/fetchUser";
 
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+
 import Header from "@/components/Base/Nav/Header";
 import ScrollToTop from "@/util/scrollToTop";
 
@@ -23,6 +26,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createServerComponentClient({
+    cookies: cookies,
+  });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   const playLists = await userPlayLists();
 
   return (
@@ -37,7 +48,7 @@ export default async function RootLayout({
               <div
                 className={`flex flex-col bg-neutral-900 h-full w-full overflow-scroll pb-24 scrollbar-none`}
               >
-                <Header />
+                <Header session={session} />
                 {children}
               </div>
             </Sidebar>

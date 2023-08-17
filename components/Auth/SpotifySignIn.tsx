@@ -1,13 +1,29 @@
 "use client";
 
+import { useEffect } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import LoadingSpinner from "../LoadingSpinner";
 import {
+  useSessionContext,
   useSupabaseClient,
 } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/navigation";
 
 function SpotifySignIn() {
+  const { session, isLoading, error } = useSessionContext();
   const supabaseClient = useSupabaseClient();
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (session) {
+      router.push("/dashboard");
+    }
+  }, [session]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <Auth

@@ -163,7 +163,6 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
     }
   };
 
-  console.log(player.isPlaying)
   // Set Icon for play pause
 
   const Icon = player.isPlaying ? BsPauseFill : BsPlayFill;

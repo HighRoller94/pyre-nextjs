@@ -27,18 +27,16 @@ import { IoMdSettings } from "react-icons/io";
 import SearchInput from "../../Search/SearchInput";
 import Button from "../Button";
 import useAuthModal from "@/hooks/useAuthModal";
-import { useUser } from "@/hooks/useUser";
 
 interface HeaderProps {
   children?: React.ReactNode;
   className?: string;
+  session?: any;
 }
 
-const Header: React.FC<HeaderProps> = ({ className }) => {
-  const [hasAnimationPlayed, setHasAnimationPlayed] = useState(false);
+const Header: React.FC<HeaderProps> = ({ className, session }) => {
   const router = useRouter();
   const authModal = useAuthModal();
-  const { user } = useUser();
   const supabaseClient = useSupabaseClient();
   const [openWindow, setOpenWindow] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -65,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
   const getGreeting = () => {
     const currentHour = dayjs().hour();
-    const name = user?.user_metadata.provider_id;
+    const name = session?.user.user_metadata.provider_id;
 
     if (currentHour >= 5 && currentHour < 12) {
       return `Good morning, ${name.toString()}`;
@@ -156,14 +154,16 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           </div>
           <SearchInput />
         </div>
-        <div className="flex md:hidden gap-x-3 items-center">
-          <Image
-            src="/images/pyreLogo.png"
-            width={40}
-            height={40}
-            alt="Pyre Logo"
-            className="mr-2"
-          />
+        <div className="flex md:hidden gap-x-3.5 items-center">
+          <Link href="/dashboard">
+            <Image
+              src="/images/pyreLogo.png"
+              width={42}
+              height={42}
+              alt="Pyre Logo"
+              className="mr-1"
+            />
+          </Link>
           <Link href="/dashboard">
             <button
               className={`${
@@ -208,9 +208,9 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           </Link>
         </div>
         <div className="flex justify-between items-center relative ">
-          {user ? (
+          {session ? (
             <div className="flex items-center justify-between ">
-              {user?.user_metadata?.avatar_url ? (
+              {session.user.user_metadata.avatar_url ? (
                 <div>
                   <div className="flex items-center gap-x-4 w-full">
                     <h4 className="hidden sm:flex md:hidden xl:flex font-bold w-fit">
@@ -219,7 +219,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                     <div className="relative w-10  h-10 cursor-pointer">
                       <Image
                         onClick={handleClick}
-                        src={user?.user_metadata?.avatar_url}
+                        src={session.user.user_metadata.avatar_url}
                         fill
                         alt="LoggedIn User Avatar"
                         className=" rounded-full min-w-12"
@@ -259,7 +259,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                     <Link
                       className="text-neutral-50 font-semibold hover:bg-neutral-700 block px-4 py-2.5 mx-1 text-sm"
                       href={{
-                        pathname: `/user/${user?.user_metadata.provider_id}`,
+                        pathname: `/user/${session?.user.user_metadata.provider_id}`,
                       }}
                       onClick={handleClick}
                     >
