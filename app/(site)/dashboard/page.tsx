@@ -7,8 +7,10 @@ import TitleComponent from "@/components/Base/TitleComponent";
 import TitleSkel from "@/components/Skels/TitleSkel";
 import { userFollowedArtists, userPlayLists } from "@/util/spotify/fetchUser";
 import ContentContainer from "@/components/Content/ContentContainer";
+import TracksContainer from "@/components/Tracks/TracksContainer";
 
 export default async function Home() {
+  let split = true;
   // const songs = await getSongs();
   const recentlyPlayed = await fetchRecent();
   const playLists = await userPlayLists();
@@ -25,12 +27,13 @@ export default async function Home() {
         </div> */}
       {recentlyPlayed && (
         <div>
-          <TitleComponent
+          <TracksContainer
+            twoCol={split}
+            split={split}
+            songs={recentlyPlayed.slice(0, 8)}
             header={"Shall we jump back in?"}
             subHeader={"Jump in where you left off"}
-            pageTitle={true}
           />
-          <PageContent songs={recentlyPlayed.slice(0, 8)} />
         </div>
       )}
       <ContentContainer

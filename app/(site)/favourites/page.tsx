@@ -26,6 +26,7 @@ export default async function Favourites() {
         songs={topTracks ? topTracks.slice(0, 8) : []}
         twoCol={split}
         split={split}
+        
         header={"Your Favourites"}
         subHeader={"Revisiting the classics"}
       />
