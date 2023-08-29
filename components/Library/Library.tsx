@@ -1,20 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+// Packages/hooks etc
+
+import { useState } from "react";
+import { Transition } from "@headlessui/react";
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import qs from "query-string";
+
+import { useUser } from "@/hooks/useUser";
+import useAuthModal from "@/hooks/useAuthModal";
+import useUploadModal from "@/hooks/useUploadModal";
+import usePlayer from "@/hooks/usePlayer";
+
+import { createSpotifyPlaylist } from "@/util/spotify/createNewPlaylist";
+
+// Icons etc
 
 import { TbPlaylist } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
 
-import { Transition } from "@headlessui/react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import useAuthModal from "@/hooks/useAuthModal";
-import { useUser } from "@/hooks/useUser";
-import useUploadModal from "@/hooks/useUploadModal";
-import { Song } from "@/types";
+// Components etc
+
 import { Playlist } from "@/types";
 import LibraryItem from "./LibraryItem";
-import usePlayer from "@/hooks/usePlayer";
 
 interface LibraryProps {
   content: Playlist[];
@@ -28,6 +37,25 @@ const Library: React.FC<LibraryProps> = ({ content, openSidebar }) => {
   const { user } = useUser();
   const pathname = usePathname();
   const [openAddWindow, setOpenAddWindow] = useState(false);
+  const router = useRouter();
+
+  const pushUrl = (id) => {
+    const url = qs.stringifyUrl({
+      url: `/spotify/playlist`,
+      query: { id },
+    });
+    router.push(url);
+  };
+
+  const handleCreatePlaylist = async () => {
+    if (!user) {
+      return authModal.onOpen();
+    }
+    setOpenAddWindow(!openAddWindow);
+    const res = await createSpotifyPlaylist();
+    const data = res.data;
+    pushUrl(data.id);
+  };
 
   const toggleAddWindow = () => {
     setOpenAddWindow(!openAddWindow);
@@ -42,9 +70,11 @@ const Library: React.FC<LibraryProps> = ({ content, openSidebar }) => {
   };
 
   return (
-    <div className={`flex flex-col transition ${
-      player.tracks.length > 1 ? "h-[61.5%]" : "h-[71%]"
-    }`}>
+    <div
+      className={`flex flex-col transition ${
+        player.tracks.length > 1 ? "h-[61.5%]" : "h-[71%]"
+      }`}
+    >
       <div
         className={`flex items-center justify-between px-5 py-5 border-b-2 border-neutral-800 ${
           openSidebar ? "flex-row" : "flex-col gap-y-5"
@@ -57,7 +87,13 @@ const Library: React.FC<LibraryProps> = ({ content, openSidebar }) => {
               pathname === "/library" ? "text-orange-400" : "text-neutral-400"
             }`}
           >
-            <TbPlaylist className={`group-hover:text-white transition ${openSidebar ? "min-h-[28px] min-w-[28px]" : "min-h-[30px] min-w-[30px]"}`} />
+            <TbPlaylist
+              className={`group-hover:text-white transition ${
+                openSidebar
+                  ? "min-h-[28px] min-w-[28px]"
+                  : "min-h-[30px] min-w-[30px]"
+              }`}
+            />
             <p
               className={`font-medium group-hover:text-white transition text-md whitespace-nowrap ${
                 openSidebar ? "flex" : "hidden"
@@ -70,7 +106,11 @@ const Library: React.FC<LibraryProps> = ({ content, openSidebar }) => {
         <div className="relative">
           <AiOutlinePlus
             onClick={toggleAddWindow}
-            className={`${openSidebar ? "min-h-[22px] min-w-[22px]" : "min-h-[26px] min-w-[26px]"} text-neutral-400 cursor-pointer transition hover:text-white`}
+            className={`${
+              openSidebar
+                ? "min-h-[22px] min-w-[22px]"
+                : "min-h-[26px] min-w-[26px]"
+            } text-neutral-400 cursor-pointer transition hover:text-white`}
           />
           <Transition
             show={openAddWindow}
@@ -91,7 +131,10 @@ const Library: React.FC<LibraryProps> = ({ content, openSidebar }) => {
                 className="py-1 z-50 fixed w-48 bg-neutral-800 rounded-md"
                 role="none"
               >
-                <li className="cursor-pointer text-neutral-50 font-semibold hover:bg-neutral-700 block px-4 py-2.5 mx-1 text-sm">
+                <li
+                  onClick={handleCreatePlaylist}
+                  className="cursor-pointer text-neutral-50 font-semibold hover:bg-neutral-700 block px-4 py-2.5 mx-1 text-sm"
+                >
                   Add new playlist
                 </li>
                 <li
