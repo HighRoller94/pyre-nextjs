@@ -24,7 +24,7 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ data }) => {
 
   return (
     <div className="flex flex-col sm:flex-row p-10 sm:p-6 items-center justify-center sm:justify-start">
-      <div className="relative rounded-full h-44 w-44">
+      <div className="relative rounded-full min-h-[176px] min-w-[176px] h-44 w-44">
         <Image
           src={data?.image_path || "/images/liked.png"}
           className="object-cover"
@@ -42,7 +42,7 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({ data }) => {
             Playlist
           </p>
         )}
-        <h1 className="text-white text-6xl font-semibold mb-4 ">{data?.name}</h1>
+        <h1 className="text-white text-6xl font-semibold mb-4 md:whitespace-nowrap md:truncate md:w-8/12 lg:w-full h-full">{data?.name}</h1>
         <div className="flex flex-col sm:flex-row items-center justify-start w-100">
           <FollowPlaylistButton
             playlistId={data.id}

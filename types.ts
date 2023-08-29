@@ -29,7 +29,7 @@ export interface Song {
   album_name?: string;
   title: string;
   song_path: string;
-  image_path: string;
+  image_path?: string;
   spotify_url: boolean;
   spotify_uri?: string
   duration: number;
@@ -53,15 +53,15 @@ export interface Album {
 export interface Playlist {
   id: string,
   name: string,
-  desc: string,
+  desc?: string,
   owner_name: string,
   owner_id: string,
   image_path?: string,
   public: boolean,
   track_count?: number,
   tracks?: Song[],
-  spotify_url: boolean,
-  spotify_uri: string
+  spotify_url?: boolean,
+  spotify_uri?: string
 }
 
 export interface Product {

@@ -40,6 +40,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
     return player.setId(data.id);
   };
 
+
   return (
     <div className="flex items-center -mt-1 gap-x-3 cursor-pointer pr-2 w-full rounded-md flex-1">
       <div

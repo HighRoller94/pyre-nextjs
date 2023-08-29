@@ -7,6 +7,7 @@ import TracksContainer from "@/components/Tracks/TracksContainer";
 import { Artist } from "@/types";
 import ContentContainer from "@/components/Content/ContentContainer";
 import ArtistItem from "@/components/Content/Artist";
+
 interface SearchContentProps {
   songs: Song[];
   searchParams: string;

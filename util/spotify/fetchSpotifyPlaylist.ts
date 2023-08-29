@@ -31,16 +31,22 @@ export const fetchSpotifyPlaylist = async (id: string) => {
       desc: playlist.description,
       owner_name: playlist.owner.display_name,
       owner_id: playlist.owner.id,
-      image_path: playlist.images[0].url,
+      image_path: playlist.images[0]?.url || '',
       public: playlist.public,
       track_count: playlist.tracks.total,
-      tracks: playlist.tracks.items.map((track: any) => {
+      tracks: [],
+      spotify_url: true,
+      spotify_uri: playlist.uri,
+    };
+
+    if (playlist.tracks.total > 1) {
+      playlistById.tracks = playlist.tracks.items.map((track: any) => {
         const song: Song = {
           id: track.track.id,
           album_id: track.track.album.id,
           user_id: track.track.artists[0].id,
           author: track.track.artists[0].name,
-          image_path: track.track.album.images[0].url,
+          image_path: track.track.album.images[0]?.url,
           title: track.track.name,
           song_path: track.track.preview_url,
           artists: track.track.artists,
@@ -50,14 +56,11 @@ export const fetchSpotifyPlaylist = async (id: string) => {
           album_name: track.track.album.name,
         };
         return song;
-      }),
-      spotify_url: true,
-      spotify_uri: playlist.uri,
-    };
-    
+      });
+    }
+
     return playlistById;
   } catch (err) {
     console.log(err);
   }
 };
-

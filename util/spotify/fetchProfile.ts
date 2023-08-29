@@ -1,8 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { Song, Artist, User, Playlist } from "@/types";
-
-var SpotifyWebApi = require("spotify-web-api-node");
+import { User, Playlist } from "@/types";
 
 export const fetchProfileById = async (id: string) => {
   const supabase = createServerComponentClient({

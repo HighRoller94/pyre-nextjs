@@ -19,6 +19,7 @@ import Box from "../Box";
 import SidebarItem from "./SidebarItem";
 import Library from "../../Library/Library";
 import { Playlist } from "@/types";
+import Link from "next/link";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -83,21 +84,24 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
         `}
       >
         <Box className="h-full flex flex-col">
-          <div className="flex items-center text-center cursor-pointer gap-3 border-b-2 border-neutral-800 px-3 py-6">
-            <Image
-              src="/images/pyreLogo.png"
-              width={40}
-              height={40}
-              alt="Pyre Logo"
-            />
-            <h1
-              className={`uppercase tracking-wider font-bold text-4xl text-orange-400 ${
-                openSidebar ? "flex" : "hidden"
-              }`}
-            >
-              Pyre
-            </h1>
-          </div>
+          <Link href="/dashboard">
+            <div className="flex items-center text-center cursor-pointer gap-3 border-b-2 border-neutral-800 px-3 py-6">
+              <Image
+                src="/images/pyreLogo.png"
+                width={40}
+                height={40}
+                alt="Pyre Logo"
+              />
+              <h1
+                className={`uppercase tracking-wider font-bold text-4xl text-orange-400 ${
+                  openSidebar ? "flex" : "hidden"
+                }`}
+              >
+                Pyre
+              </h1>
+            </div>
+          </Link>
+
           <div className="flex flex-col gap-y-3 px-5 py-4 border-b-2 border-neutral-800">
             {routes.map((item) => (
               <SidebarItem
@@ -111,12 +115,14 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
           <div
             className={`flex w-full items-center px-[18px] pt-4 mt-auto pb-6 transition ${
               player.tracks.length > 1 ? "mb-[80px]" : ""
-            } ${openSidebar ?  "justify-end" : "justify-center"}`}
+            } ${openSidebar ? "justify-end" : "justify-center"}`}
           >
             <MdOpenInNew
               onClick={toggleSidebar}
               size={26}
-              className={`text-orange-400 flex justify-end hover:text-orange-300 transition cursor-pointer ${openSidebar && "-rotate-[90deg]"}`}
+              className={`text-orange-400 flex justify-end hover:text-orange-300 transition cursor-pointer ${
+                openSidebar && "-rotate-[90deg]"
+              }`}
             />
           </div>
         </Box>

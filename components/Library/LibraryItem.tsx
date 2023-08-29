@@ -49,9 +49,7 @@ const LibraryItem: React.FC<LibraryItemProps> = ({
       onClick={Link}
       className="flex items-center gap-x-3 w-full  p-1 rounded-md flex-1"
     >
-      <div
-        className={`relative rounded-md min-h-[36px] min-w-[36px] flex`}
-      >
+      <div className={`relative rounded-md min-h-[36px] min-w-[36px] flex`}>
         <Image
           fill
           src={data?.image_path || `/images/liked.png`}
@@ -65,17 +63,21 @@ const LibraryItem: React.FC<LibraryItemProps> = ({
         }"`}
       >
         <p
-          className={`text-neutral-400 truncate w-full overflow-hidden cursor-pointer hover:text-white transition ${
+          className={`text-neutral-400 truncate w-full font-medium overflow-hidden cursor-pointer hover:text-white transition ${
             openSidebar ? "flex" : "hidden"
           }`}
         >
           {data.name}
         </p>
-        {/* <div className="flex gap-2">
-          <p className="text-neutral-400 text-sm truncate">
-            {data.track_count} tracks
+        <div className="flex gap-2">
+          <p
+            className={`text-neutral-400 text-xs truncate w-full overflow-hidden cursor-pointer hover:text-white transition ${
+              openSidebar ? "flex" : "hidden"
+            }`}
+          >
+            {data.owner_name}
           </p>
-        </div> */}
+        </div>
       </div>
     </div>
   );

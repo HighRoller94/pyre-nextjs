@@ -1,10 +1,4 @@
-import Header from "@/components/Base/Nav/Header";
-import ListItem from "@/components/ListItem";
-import getSongs from "@/util/getSongs";
 import fetchRecent from "@/util/spotify/fetchSpotifyRecent";
-import PageContent from "./components/PageContent";
-import TitleComponent from "@/components/Base/TitleComponent";
-import TitleSkel from "@/components/Skels/TitleSkel";
 import { userFollowedArtists, userPlayLists } from "@/util/spotify/fetchUser";
 import ContentContainer from "@/components/Content/ContentContainer";
 import TracksContainer from "@/components/Tracks/TracksContainer";

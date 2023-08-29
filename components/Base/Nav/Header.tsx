@@ -19,8 +19,6 @@ import { BiSearch } from "react-icons/bi";
 import { FaUserAlt } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { AiFillHeart } from "react-icons/ai";
-import { FaUserCircle } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
 
 // Components etc
 

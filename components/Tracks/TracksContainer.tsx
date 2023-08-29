@@ -31,18 +31,24 @@ const TracksContainer: React.FC<TracksContainerProps> = ({
       const limitedArray = songs.slice(0, 50);
       const idsArray = limitedArray.map((obj) => obj.id);
       const idsString = idsArray.join(",");
-
+      
       return idsString;
     }
+    
     const idsString = extractIdsAndCreateString(songs);
-
+    
+    // Check if idsString is empty before proceeding
+    if (!idsString) {
+      return;
+    }
+  
     const getTrackStatus = async () => {
       const res = await fetchSpotifySavedStatus(idsString);
       // Call the merging function here, once the likesArray is populated
       const mergedArray = mergeArraysWithLikeStatus(songs, res.data);
       setTracks(mergedArray); // Set tracks state here
     };
-
+  
     getTrackStatus();
   }, [songs]);
 

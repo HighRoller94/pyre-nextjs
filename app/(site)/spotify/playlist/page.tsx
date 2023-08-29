@@ -1,7 +1,8 @@
 import TracksContainer from "@/components/Tracks/TracksContainer";
 import DynamicHeader from "@/components/Base/Headers/DynamicHeader";
 
-import { fetchSpotifyPlaylist } from "@/util/spotify/fetchSpotifyPlaylists";
+import { fetchSpotifyPlaylist } from "@/util/spotify/fetchSpotifyPlaylist";
+import SearchForPlaylist from "@/components/Search/SearchPlaylist";
 
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
@@ -10,6 +11,7 @@ import { Playlist } from "@/types";
 import { Song } from "@/types";
 
 import ScrollToBottom from "@/util/scrollToBottom";
+
 export const revalidate = 0;
 
 interface SearchProps {
@@ -18,7 +20,7 @@ interface SearchProps {
   };
 }
 
-export default async function ArtistPage({ searchParams }: SearchProps) {
+export default async function PlaylistPage({ searchParams }: SearchProps) {
   // Sorting Playlist
 
   let playlist: Playlist[] = [];
@@ -57,15 +59,14 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
     <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto pb-20 min-h-full">
       <DynamicHeader data={playlistData} headerType="Playlist" />
       {loggedInId === playlistOwner ? (
-        <p
-          className="flex justify-end mb-2 text-neutral-400 font-medium hover:text-white transition text-sm cursor-pointer pr-6"
-        >
+        <p className="flex justify-end mb-2 text-neutral-400 font-medium hover:text-white transition text-sm cursor-pointer pr-6">
           Add to this playlist
         </p>
       ) : (
         ""
       )}
       <TracksContainer songs={validSongs} />
+      {loggedInId === playlistOwner ? <SearchForPlaylist /> : ""}
     </div>
   );
 }
