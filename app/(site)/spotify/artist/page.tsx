@@ -2,6 +2,7 @@ import DynamicHeader from "@/components/Base/Headers/DynamicHeader";
 import TracksContainer from "@/components/Tracks/TracksContainer";
 import ContentContainer from "@/components/Content/ContentContainer";
 
+import { fetchRelatedArtists } from "@/util/spotify/fetchRelatedArtists";
 import {
   fetchSpotifyArtist,
   fetchSpotifyArtistTopTracks,
@@ -9,7 +10,7 @@ import {
 
 import { fetchSpotifyArtistAlbums } from "@/util/spotify/fetchSpotifyAlbums";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 interface SearchProps {
   searchParams: {
@@ -21,7 +22,9 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
   const artist = await fetchSpotifyArtist(searchParams.id);
   const topTracks = await fetchSpotifyArtistTopTracks(searchParams.id);
   const artistAlbums = await fetchSpotifyArtistAlbums(searchParams.id);
-  let split = true
+  const relatedArtists = await fetchRelatedArtists(searchParams.id);
+  
+  let split = true;
 
   if (!artist || !topTracks || !artistAlbums) {
     return (
@@ -44,6 +47,11 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
         header="Albums"
         contentType="Album"
         content={artistAlbums ? artistAlbums : []}
+      />
+      <ContentContainer
+        header="You might also like"
+        contentType="Artist"
+        content={relatedArtists ? relatedArtists : []}
       />
     </>
   );
