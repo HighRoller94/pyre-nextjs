@@ -27,19 +27,14 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
   // Get duration of song playing
   // If no premium set duration to default song extract (0:30)
 
-  const getSongDuration = (spotifyPremium): string => {
+  const getSongDuration = (spotifyPremium) => {
     if (!spotifyPremium) {
-      const songDuration = `0:30`;
-      return songDuration;
+      return 30; // Return song duration in seconds
     } else {
-      const minutes = dayjs.duration(player.playing.duration).minutes();
-      const seconds = dayjs
+      const durationInSeconds = dayjs
         .duration(player.playing.duration)
-        .seconds()
-        .toString()
-        .padStart(2, "0");
-      const songDuration = `${minutes}:${seconds}`;
-      return songDuration;
+        .asSeconds();
+      return durationInSeconds;
     }
   };
 
@@ -88,7 +83,6 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
   // Logic for useSound
 
   const [play, { pause, sound }] = useSound(songUrl, {
-
     volume: volume,
     onplay: () => player.setPlay(),
     onend: () => {
@@ -102,41 +96,36 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
   useEffect(() => {
     sound?.play();
 
-    const startTime = "0:00";
-    const endTime = getSongDuration(spotifyPremium);
-
-    const timeStringToSeconds = (timeString) => {
-      const [hours, minutes] = timeString.split(":");
-      return parseInt(hours, 10) * 3600 + parseInt(minutes, 10) * 60;
-    };
-
-    const startTimeInSeconds = timeStringToSeconds(startTime);
-    const endTimeInSeconds = timeStringToSeconds(endTime);
-    const timeDifferenceInSeconds = endTimeInSeconds - startTimeInSeconds;
-
-    // Interval function to update the slider value every second
+    const startTimeInSeconds = 0;
+    const songDurationInSeconds = getSongDuration(spotifyPremium);
+    const endTimeInSeconds = Math.min(
+      songDurationInSeconds,
+      startTimeInSeconds + songDurationInSeconds
+    );
 
     const interval = setInterval(() => {
-      if (player.isPlaying) {
-        setCurrentTime((prevTime) => prevTime + 1);
-        setSliderValue((prevSliderValue) => prevSliderValue + 1);
+      if (player.isPlaying && currentTime < endTimeInSeconds) {
+        setCurrentTime((prevTime) => Math.min(prevTime + 1, endTimeInSeconds));
+        setSliderValue((prevSliderValue) =>
+          Math.min(prevSliderValue + 1, endTimeInSeconds)
+        );
       }
     }, 1000);
 
-    return () => combinedReturns(interval);
+    return () => {
+      combinedReturns(interval);
+    };
   }, [sound, song]);
 
   const combinedReturns = (interval) => {
     clearInterval(interval);
     sound?.unload();
   };
-
   const secondsToTimeString = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
-
   // Play pause func
 
   const handlePlay = () => {
@@ -149,7 +138,6 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
       // }
 
       pause();
-
     } else {
       // if (song.spotify_url) {
       //   pauseSpotify();
@@ -159,27 +147,27 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
       // }
 
       play();
-
     }
   };
 
   // Set Icon for play pause
 
   const Icon = player.isPlaying ? BsPauseFill : BsPlayFill;
-
+  const songDurationInSeconds = getSongDuration(spotifyPremium);
+  const currentTimeInSeconds = Math.min(currentTime, songDurationInSeconds);
   return (
     <div className="flex flex-col justify-center">
       <div className="flex flex-col justify-center ml-auto w-fit sm:w-full sm:ml-0 ">
         <div className="absolute -top-[18px] -left-[16px] md:static w-full md:flex items-center justify-center gap-x-4 mt-1">
           <span className="hidden md:flex text-xs text-neutral-400">
-            {secondsToTimeString(currentTime)}
+            {secondsToTimeString(currentTimeInSeconds)}
           </span>
           <Playbar
-            playDuration={secondsToTimeString(currentTime)}
-            totalDuration={getSongDuration(spotifyPremium)}
+            playDuration={secondsToTimeString(currentTimeInSeconds)}
+            totalDuration={secondsToTimeString(songDurationInSeconds)}
           />
           <span className="hidden md:flex text-xs text-neutral-400">
-            {getSongDuration(spotifyPremium)}
+            {secondsToTimeString(songDurationInSeconds)}
           </span>
         </div>
         <div className="flex justify-center items-center w-full max-w-[722px] gap-x-3 md:gap-x-4 h-14">
