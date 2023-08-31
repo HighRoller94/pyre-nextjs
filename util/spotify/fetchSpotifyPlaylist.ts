@@ -52,6 +52,7 @@ export const fetchSpotifyPlaylist = async (id: string) => {
           artists: track.track.artists,
           author_id: track.track.artists[0].id,
           spotify_url: true,
+          spotify_uri: track.track.uri,
           duration: track.track.duration_ms,
           album_name: track.track.album.name,
         };
