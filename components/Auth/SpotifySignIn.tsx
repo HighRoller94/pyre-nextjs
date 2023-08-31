@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import LoadingSpinner from "../LoadingSpinner";
@@ -14,6 +14,7 @@ function SpotifySignIn() {
   const { session, isLoading, error } = useSessionContext();
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
+  const [loading, setLoading] = useState()
   
   useEffect(() => {
     if (session) {
@@ -21,7 +22,7 @@ function SpotifySignIn() {
     }
   }, [session]);
 
-  if (isLoading) {
+  if (isLoading || session) {
     return <LoadingSpinner />;
   }
 
