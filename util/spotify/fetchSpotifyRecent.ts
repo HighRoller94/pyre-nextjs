@@ -32,7 +32,9 @@ const fetchRecentlyPlayed = async () => {
       image_path: song.track.album.images[0].url,
       spotify_url: true,
       artists: song.track.artists,
+      duration: song.track.duration_ms,
     }));
+
 
     const uniqueIds = new Set<any>();
 
