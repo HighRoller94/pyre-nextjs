@@ -35,16 +35,16 @@ const SearchContent: React.FC<SearchContentProps> = ({
       </div>
       {searchParams && (
         <div className="flex w-full flex-col lg:flex-row">
-          <div className="flex flex-col w-full lg:w-5/12 h-full">
-            <TracksContainer songs={songs?.slice(0, 4)} />
+          <div className="flex flex-col w-full lg:w-full h-full">
+            <TracksContainer songs={songs} />
           </div>
-          <div className="flex flex-col w-full lg:w-7/12">
+          {/* <div className="flex flex-col w-full lg:w-7/12">
             <div className="pl-6 pr-6 grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:my-4">
               {artists?.slice(0, 4).map((content, index) => (
                 <ArtistItem key={content.id} data={content} />
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

@@ -26,7 +26,7 @@ const ArtistHeader: React.FC<ArtistHeaderProps> = ({ data }) => {
             Spotify Artist
           </p>
         </div>
-        <h1 className="h-full text-white text-4xl sm:text-4xl lg:text-6xl font-semibold my-2 mb-4  w-12/12">
+        <h1 className="h-full text-white text-4xl sm:text-4xl lg:text-6xl font-bold my-2 mb-4  w-12/12">
           {data?.name}
         </h1>
         <div className="mt-2 flex items-center justify-center gap-x-2">

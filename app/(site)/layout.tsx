@@ -12,7 +12,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 import Header from "@/components/Base/Nav/Header";
-import ScrollToTop from "@/util/scrollToTop";
+
 
 const font = Figtree({ subsets: ["latin"], variable: "--font-figtree" });
 
@@ -38,7 +38,6 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={font.className}>
-      <ScrollToTop />
       <body>
         <ToasterProvider />
         <SupabaseProvider>

@@ -41,7 +41,7 @@ const AlbumHeader: React.FC<AlbumHeaderProps> = ({ data }) => {
             Spotify Album
           </p>
         </div>
-        <h1 className="text-white text-5xl sm:text-6xl lg:text-6xl font-semibold my-2 mb-4">
+        <h1 className="text-white text-5xl sm:text-6xl lg:text-6xl font-bold my-2 mb-4">
           {data?.name}
         </h1>
         <div className="flex items-center justify-start w-100">

@@ -2,11 +2,12 @@
 
 // Packages/hooks etc
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import usePlayer from "@/hooks/usePlayer";
-
+import { ScrollToTop } from "@/util/base/scrollToTop";
+import { useRouter } from "next/navigation";
 // Icons etc
 
 import { MdOpenInNew, MdExplore } from "react-icons/md";
@@ -28,6 +29,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
   const player = usePlayer();
+  const mainContentRef = useRef(null);
 
   const pathname = usePathname();
   const [openSidebar, setOpenSidebar] = useState(true);
@@ -38,6 +40,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
 
   let data: Playlist[] | undefined = content;
   const libContent: Playlist[] = data ?? [];
+
+  useEffect(() => {
+    if (mainContentRef.current) {
+      mainContentRef.current.scrollTop = -90;
+    }
+  }, [pathname]);
 
   const routes = useMemo(
     () => [
@@ -85,7 +93,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
       >
         <Box className="h-full flex flex-col">
           <Link href="/dashboard">
-            <div className="flex items-center text-center cursor-pointer gap-3 border-b-2 border-neutral-800 px-3 py-6">
+            <div className="flex items-center text-center ml-[2px] cursor-pointer gap-3 border-b-2 border-neutral-800 px-3 py-6">
               <Image
                 src="/images/pyreLogo.png"
                 width={40}
@@ -93,7 +101,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
                 alt="Pyre Logo"
               />
               <h1
-                className={`uppercase tracking-wider font-bold text-4xl text-orange-400 ${
+                className={`uppercase tracking-wider font-extrabold text-4xl text-orange-400 ${
                   openSidebar ? "flex" : "hidden"
                 }`}
               >
@@ -128,7 +136,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
         </Box>
       </div>
       <main
-        id="main"
+        ref={mainContentRef}
         className="flex flex-col bg-neutral-900 h-full w-full overflow-y-scroll"
       >
         {children}

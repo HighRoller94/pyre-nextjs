@@ -3,7 +3,7 @@ import { cookies, headers } from "next/headers";
 
 import { Song } from "@/types";
 
-import getSongs from "./getSongs";
+import getSongs from "./pyre/getSongs";
 
 const getSongsByTitle = async (title: string): Promise<Song[]> => {
   const supabase = createServerComponentClient({

@@ -16,11 +16,9 @@ export const likeSpotifySong = async (id: string) => {
 };
 
 export const unlikeSpotifySong = async (id: string) => {
-    try {
-      await fetch(`/api/spotifyUnlike/${id}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  
-  
+  try {
+    await fetch(`/api/spotifyUnlike/${id}`);
+  } catch (err) {
+    console.log(err);
+  }
+};

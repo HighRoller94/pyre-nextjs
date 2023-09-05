@@ -8,6 +8,7 @@ export default async function Home() {
   // const songs = await getSongs();
   const recentlyPlayed = await fetchRecent();
   const playLists = await userPlayLists();
+
   return (
     <div className="mt-2 md:mt-0">
       {/* <div className="mb-2">

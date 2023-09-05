@@ -33,6 +33,7 @@ const fetchRecentlyPlayed = async () => {
       spotify_url: true,
       artists: song.track.artists,
       duration: song.track.duration_ms,
+      album_name: song.track.album.name
     }));
 
 
@@ -45,7 +46,7 @@ const fetchRecentlyPlayed = async () => {
       }
       return false;
     });
-
+    
     return uniqueObjects;
   } catch (err) {
     console.log(err);

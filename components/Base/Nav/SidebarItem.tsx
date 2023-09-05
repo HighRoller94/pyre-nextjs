@@ -32,7 +32,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     >
       <Icon className={`${openSidebar ? "min-h-[28px] min-w-[28px]" : "min-h-[30px] min-w-[30px]"}`}/>
       <p
-        className={`truncate w-full text-base ${
+        className={`truncate w-full font-semibold text-base ${
           openSidebar ? "flex" : "hidden"
         }`}
       >

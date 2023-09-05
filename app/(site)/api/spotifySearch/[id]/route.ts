@@ -23,7 +23,6 @@ export async function GET(request: Request, context: any) {
   try {
     spotifyApi.setAccessToken(token);
     const data = await spotifyApi.searchTracks(queryString, { limit: 6 });
-    console.log(data);
     const searchTracks = data.body.tracks?.items;
 
     const searchRes: Song[] =
@@ -38,10 +37,10 @@ export async function GET(request: Request, context: any) {
         album_id: song.album.id,
         spotify_url: true,
         duration: song.duration_ms,
+        spotify_uri: song.uri,
         artists: song.artists,
       })) ?? [];
 
-    console.log(searchRes);
     return new Response(JSON.stringify({ searchRes }));
   } catch (err) {
     return new Response("Something went wrong retrieving token");

@@ -83,7 +83,7 @@ const Library: React.FC<LibraryProps> = ({ content, openSidebar }) => {
         <div className="inline-flex items-center gap-x-2 ">
           <Link
             href="/library"
-            className={`flex items-center gap-x-2.5 group ${
+            className={`flex items-center gap-x-4 group ${
               pathname === "/library" ? "text-orange-400" : "text-neutral-400"
             }`}
           >

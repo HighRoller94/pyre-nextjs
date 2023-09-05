@@ -24,10 +24,22 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [sliderValue, setSliderValue] = useState(0);
 
-  // Get duration of song playing
-  // If no premium set duration to default song extract (0:30)
+  // Logic for useSound
+
+  const [play, { pause, sound }] = useSound(songUrl, {
+    volume: volume,
+    onend: () => {
+      player.setPause();
+      onPlayNext();
+    },
+    onpause: () => player.setPause(),
+    onplay: () => player.setPlay(),
+    format: ["mp3"],
+  });
 
   const getSongDuration = (spotifyPremium) => {
+    // Get duration of song playing
+    // If no premium set duration to default song duration (0:30)
     if (!spotifyPremium) {
       return 30; // Return song duration in seconds
     } else {
@@ -38,9 +50,9 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
     }
   };
 
-  // Play next song logic
-
   const onPlayNext = () => {
+    // Play next song logic
+
     if (player.tracks.length === 0) {
       return;
     }
@@ -59,9 +71,8 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
     player.setId(nextSong.id);
   };
 
-  // Play prev song logic
-
   const onPlayPrevious = () => {
+    // Play prev song logic
     if (player.tracks.length === 0) {
       return;
     }
@@ -80,20 +91,8 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
     player.setId(previousSong.id);
   };
 
-  // Logic for useSound
-
-  const [play, { pause, sound }] = useSound(songUrl, {
-    volume: volume,
-    onplay: () => player.setPlay(),
-    onend: () => {
-      player.setPause();
-      onPlayNext();
-    },
-    onpause: () => player.setPause(),
-    format: ["mp3"],
-  });
-
   useEffect(() => {
+
     sound?.play();
 
     const startTimeInSeconds = 0;
@@ -115,38 +114,37 @@ const PlayerControls: React.FC<SliderProps> = ({ song, songUrl, volume }) => {
     return () => {
       combinedReturns(interval);
     };
-  }, [sound, song]);
+  }, [sound, song, player.isPlaying]);
 
   const combinedReturns = (interval) => {
     clearInterval(interval);
     sound?.unload();
   };
+
   const secondsToTimeString = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
+
   // Play pause func
 
+  const playFunc = () => {
+    sound.play();
+    player.setPlay()
+    console.log('Sound state:', sound);
+  };
+  const pauseFunc = () => {
+    sound.pause();
+    player.setPause()
+    console.log('Sound state:', sound);
+  };
+
   const handlePlay = () => {
-    if (player.isPlaying) {
-      // if (song.spotify_url) {
-      //   playSpotify();
-      //   setIsPlaying(true);
-      // } else {
-      //   play();
-      // }
-
-      pause();
+    if (!player.isPlaying) {
+      playFunc();
     } else {
-      // if (song.spotify_url) {
-      //   pauseSpotify();
-      //   setIsPlaying(false);
-      // } else {
-      //   pause();
-      // }
-
-      play();
+      pauseFunc();
     }
   };
 

@@ -23,36 +23,38 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
   const topTracks = await fetchSpotifyArtistTopTracks(searchParams.id);
   const artistAlbums = await fetchSpotifyArtistAlbums(searchParams.id);
   const relatedArtists = await fetchRelatedArtists(searchParams.id);
-  
-  let split = true;
 
-  if (!artist || !topTracks || !artistAlbums) {
-    return (
-      <div className="flex flex-col bg-neutral-900 rounded-lg h-full w-full overflow overlow-y-auto">
-        <div className="mt-4 text-neutral-400 pl-6">Somethings gone wrong.</div>
-      </div>
-    );
-  }
+  let split = true;
 
   return (
     <>
-      <DynamicHeader data={artist} headerType="Artist" />
-      <TracksContainer
-        songs={topTracks.slice(0, 6)}
-        twoCol={split}
-        split={split}
-        header={"Top Hits"}
-      />
-      <ContentContainer
-        header="Albums"
-        contentType="Album"
-        content={artistAlbums ? artistAlbums : []}
-      />
-      <ContentContainer
-        header="You might also like"
-        contentType="Artist"
-        content={relatedArtists ? relatedArtists : []}
-      />
+      {!artist || !topTracks || !artistAlbums ? (
+        <div className="flex flex-col bg-neutral-900 rounded-lg h-full w-full overflow overlow-y-auto">
+          <div className="mt-4 text-neutral-400 pl-6">
+            Somethings gone wrong.
+          </div>
+        </div>
+      ) : (
+        <>
+          <DynamicHeader data={artist} headerType="Artist" />
+          <TracksContainer
+            songs={topTracks.slice(0, 6)}
+            twoCol={split}
+            split={split}
+            header={"Top Hits"}
+          />
+          <ContentContainer
+            header="Albums"
+            contentType="Album"
+            content={artistAlbums ? artistAlbums : []}
+          />
+          <ContentContainer
+            header="You might also like"
+            contentType="Artist"
+            content={relatedArtists ? relatedArtists : []}
+          />
+        </>
+      )}
     </>
   );
 }

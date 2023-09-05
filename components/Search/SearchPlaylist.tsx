@@ -1,17 +1,28 @@
 "use client";
+
 import { FiSearch } from "react-icons/fi";
 
 import { useEffect, useState } from "react";
 import useDebounce from "@/hooks/useDebounce";
 import { fetchSpotifySearchResults } from "@/util/spotify/fetchSpotifySearchResults";
-import TracksContainer from "../Tracks/TracksContainer";
+import SearchTracksContainer from "../Tracks/SearchTracksContainer";
+import { addTrackToPlaylist } from "@/util/spotify/addTrackToPlaylist";
+import { Song } from "@/types";
 
-const SpotifySearchClient = () => {
+interface SearchPlaylistProps {
+  playlistTracks: Song[];
+  updatePlaylist: () => void;
+}
+
+const SpotifySearchClient: React.FC<SearchPlaylistProps> = ({
+  playlistTracks,
+  updatePlaylist,
+}) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [trackSearch, setTrackSearch] = useState([]);
   const [value, setValue] = useState<string>("");
   const debouncedValue = useDebounce<string>(value, 500);
-
+  let search = true;
   const handleSearch = async (searchQuery) => {
     const res = await fetchSpotifySearchResults(searchQuery);
     setTrackSearch(res.searchRes);
@@ -24,7 +35,6 @@ const SpotifySearchClient = () => {
     }
   }, [debouncedValue, searchQuery]);
 
-  console.log(trackSearch);
   return (
     <>
       <div className="relative w-full mx-6 max-w-[400px] ml-auto my-6">
@@ -42,9 +52,14 @@ const SpotifySearchClient = () => {
       </div>
 
       {searchQuery ? (
-        <div className="pb-[104px]">
-          <TracksContainer songs={trackSearch} />
-        </div>
+        <>
+          <SearchTracksContainer
+            updatePlaylist={updatePlaylist}
+            songs={trackSearch}
+            search={search}
+            playlistTracks={playlistTracks}
+          />
+        </>
       ) : null}
     </>
   );

@@ -1,4 +1,4 @@
-import getLikedSongs from "@/util/getLikedSong";
+import getLikedSongs from "@/util/pyre/getLikedSong";
 import Header from "@/components/Base/Nav/Header";
 import Image from "next/image";
 import LikedContent from "./components/LikedContent";
@@ -8,10 +8,9 @@ import TracksContainer from "@/components/Tracks/TracksContainer";
 const Liked = async () => {
   const pyreLikedSongs = await getLikedSongs();
   const spotifyLikedSongs = await fetchUserLikedSongs();
-  const mergedSongs = [...pyreLikedSongs, ...spotifyLikedSongs];
 
   return (
-    <div className="flex flex-col px-6">
+    <div className="flex flex-col px-6 ">
       <div className="md:mt-6">
         <div className="flex flex-col md:flex-row items-center gap-x-5">
           <div className="relative h-32 w-32 lg:h-44 lg:w-44">
@@ -34,7 +33,6 @@ const Liked = async () => {
         pyreLikedSongs={pyreLikedSongs}
         spotifyLikedSongs={spotifyLikedSongs ? spotifyLikedSongs : []}
       />
-      <TracksContainer songs={mergedSongs ? mergedSongs : []}/>
     </div>
   );
 };

@@ -11,35 +11,23 @@ import { Playlist } from "@/types";
 import { Song } from "@/types";
 
 import ScrollToBottom from "@/util/scrollToBottom";
+import PlaylistPageContent from "@/components/Content/PlaylistPageContent";
 
-export const revalidate = 0;
-
-interface SearchProps {
+interface PlaylistPageProps {
   searchParams: {
     id: string;
   };
 }
 
-export default async function PlaylistPage({ searchParams }: SearchProps) {
-  // Sorting Playlist
-
+export default async function PlaylistPage({
+  searchParams,
+}: PlaylistPageProps) {
   let playlist: Playlist[] = [];
 
   const playlistData = await fetchSpotifyPlaylist(searchParams.id);
 
   if (playlistData) {
     playlist = [playlistData];
-  }
-
-  // Sorting Playlist Songs
-
-  let songs: Song[] | undefined = playlistData?.tracks;
-  const validSongs: Song[] = songs ?? [];
-
-  // If no playlist data
-
-  if (!playlistData) {
-    return <div className="mt-4 text-neutral-400">No artist found.</div>;
   }
 
   // Sorting Auth for Playlist Editing
@@ -52,21 +40,18 @@ export default async function PlaylistPage({ searchParams }: SearchProps) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  let loggedInId = session?.user.user_metadata.provider_id;
-  let playlistOwner = playlistData.owner_id;
+  if (!playlistData) {
+    return <div className="mt-4 text-neutral-400">No artist found.</div>;
+  }
 
   return (
     <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto pb-20 min-h-full">
       <DynamicHeader data={playlistData} headerType="Playlist" />
-      {loggedInId === playlistOwner ? (
-        <p className="flex justify-end mb-2 text-neutral-400 font-medium hover:text-white transition text-sm cursor-pointer pr-6">
-          Add to this playlist
-        </p>
-      ) : (
-        ""
-      )}
-      <TracksContainer songs={validSongs} />
-      {loggedInId === playlistOwner ? <SearchForPlaylist /> : ""}
+      <PlaylistPageContent
+        session={session}
+        playlistData={playlistData}
+        paramsId={searchParams.id}
+      />
     </div>
   );
 }

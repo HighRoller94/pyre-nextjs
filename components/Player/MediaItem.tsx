@@ -44,7 +44,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
   return (
     <div className="flex items-center -mt-1 gap-x-3 cursor-pointer pr-2 w-full rounded-md flex-1">
       <div
-        className="relative rounded-md min-h-[52px] min-w-[52px] overflow-hidden"
+        className="relative rounded-md min-h-[60px] min-w-[60px] overflow-hidden"
         onClick={handleClick}
       >
         <Image

@@ -120,7 +120,7 @@ const Header: React.FC<HeaderProps> = ({ className, session }) => {
         md:bg-opacity-0
         md:bg-gradient-to-b
         from-amber-900
-        md:h-[100px]
+        md:h-[90px]
         sticky
         top-0
         z-50
@@ -152,7 +152,7 @@ const Header: React.FC<HeaderProps> = ({ className, session }) => {
           </div>
           <SearchInput />
         </div>
-        <div className="flex md:hidden gap-x-3.5 items-center">
+        <div className="flex md:hidden gap-x-3.5 ml-1 items-center">
           <Link href="/dashboard">
             <Image
               src="/images/pyreLogo.png"

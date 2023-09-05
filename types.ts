@@ -35,6 +35,7 @@ export interface Song {
   duration: number;
   artists?: Artist[]
   likeStatus?: boolean;
+  inPlaylist?: boolean;
 }
 
 export interface Album {
