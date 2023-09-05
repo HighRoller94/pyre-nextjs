@@ -137,7 +137,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, content }) => {
       </div>
       <main
         ref={mainContentRef}
-        className="flex flex-col bg-neutral-900 h-full w-full overflow-y-scroll"
+        className="flex flex-col bg-neutral-900 h-full w-full overflow-y-scroll z-30"
       >
         {children}
       </main>

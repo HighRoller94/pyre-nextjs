@@ -27,7 +27,7 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
   let split = true;
 
   return (
-    <>
+    <div className="z-20">
       {!artist || !topTracks || !artistAlbums ? (
         <div className="flex flex-col bg-neutral-900 rounded-lg h-full w-full overflow overlow-y-auto">
           <div className="mt-4 text-neutral-400 pl-6">
@@ -55,6 +55,6 @@ export default async function ArtistPage({ searchParams }: SearchProps) {
           />
         </>
       )}
-    </>
+    </div>
   );
 }

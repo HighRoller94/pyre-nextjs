@@ -21,7 +21,7 @@ export default async function Favourites() {
   }
 
   return (
-    <div className="mt-2 md:mt-0">
+    <div className="mt-2 md:mt-0 z-20">
       <TracksContainer
         songs={topTracks ? topTracks.slice(0, 8) : []}
         twoCol={split}

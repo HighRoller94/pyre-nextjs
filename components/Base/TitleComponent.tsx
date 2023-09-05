@@ -36,7 +36,7 @@ const TitleComponent: React.FC<TitleComponentProps> = ({
       <div className="justify-end hidden sm:flex">
         {contentCount > displayedContent ? (
           <button
-            className="text-neutral-400  mt-2 sm:mt-0 cursor-pointer hover:text-white transition flex justify-end items-end pr-2 sm:pr-6"
+            className="text-neutral-400  mt-2 sm:mt-0 cursor-pointer font-medium hover:text-white transition flex justify-end items-end pr-2"
             onClick={showContent}
           >
             Show More
@@ -45,7 +45,7 @@ const TitleComponent: React.FC<TitleComponentProps> = ({
           <>
             {contentCount > 8 && (
               <button
-                className="text-neutral-400  mt-2 sm:mt-0 cursor-pointer hover:text-white transition flex justify-end items-end pr-2 sm:pr-6"
+                className="text-neutral-400  mt-2 sm:mt-0 cursor-pointer font-medium hover:text-white transition flex justify-end items-end pr-2"
                 onClick={hideContent}
               >
                 See Less

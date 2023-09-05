@@ -28,7 +28,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
   }
   
   return (
-    <div className="flex flex-col gap-y-2 w-full ">
+    <div className="flex flex-col gap-y-2 w-full z-20 ">
       <TitleComponent pageTitle={true} header={`Top Results`} />
       <div className="flex items-center justify-center md:hidden mx-6 mb-3 -mt-2">
         <SearchInput />

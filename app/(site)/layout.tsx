@@ -7,12 +7,11 @@ import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import { userPlayLists } from "@/util/spotify/fetchUser";
-
+import Image from "next/image";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 import Header from "@/components/Base/Nav/Header";
-
 
 const font = Figtree({ subsets: ["latin"], variable: "--font-figtree" });
 
@@ -49,6 +48,14 @@ export default async function RootLayout({
               >
                 <Header session={session} />
                 {children}
+                <div className="absolute right-[12vw] bottom-[22vh] z-10 opacity-10 h-[470px] w-[470px]">
+                  <Image
+                    fill
+                    src="/images/pyreLogo.png"
+                    className="object-cover"
+                    alt="Pyre Logo"
+                  />
+                </div>
               </div>
             </Sidebar>
             <Player />

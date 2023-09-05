@@ -34,9 +34,9 @@ export default async function AlbumPage({ searchParams }: SearchProps) {
   }
 
   return (
-    <>
+    <div className="z-20">
       <DynamicHeader data={albumData} headerType="Album" />
       <TracksContainer songs={validSongs} />
-    </>
+    </div>
   );
 }

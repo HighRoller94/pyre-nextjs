@@ -45,7 +45,7 @@ export default async function PlaylistPage({
   }
 
   return (
-    <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto pb-20 min-h-full">
+    <div className="flex flex-col bg-neutral-900 rounded-lg h-100 w-full overflow overlow-y-auto pb-20 min-h-full z-20">
       <DynamicHeader data={playlistData} headerType="Playlist" />
       <PlaylistPageContent
         session={session}
